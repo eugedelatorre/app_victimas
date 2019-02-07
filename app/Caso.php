@@ -4,9 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cavaj extends Model
+class Caso extends Model
 {
-  public $table="cavajes";
+  public $table="casos";
+  public $primarykey="id_casos";
   public $timestamps=false;
   public $guarded=[];
 }

@@ -97,7 +97,7 @@ if($_SESSION["derivacion"]==$numero){
               </ul>
           </div>
         @endif
-         <form class="" action="/agregarInstitucion" method="post">
+         <form class="" action="/agregarCaso" method="post">
                 {{csrf_field()}}
             <div class="form-group ">
                <label for="datos_nombre_referencia">A 1. Nombre de referencia:</label>
@@ -273,74 +273,74 @@ if($_SESSION["derivacion"]==$numero){
                <label for="">A 6. CAVAJ interviniente:</label><br>
                <label for="">En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
                <div class="Auno">
-                  <input type="checkbox" value="1" class="form-check-inline" name="cavaj[]" id="la_plata">
+                  <input type="checkbox" value="1" class="form-check-inline" name="Sede_Central_La_Plata" id="la_plata">
                   <label for="la_plata" class="form-check-inline form-check-label">Sede Central (La Plata)</label></label><br>
 
-                  <input type="checkbox" value="2" class="form-check-inline" name="cavaj[]" id="moron">
+                  <input type="checkbox" value="2" class="form-check-inline" name="Moron" id="moron">
                   <label for="moron" class="form-check-inline form-check-label">Morón</label></label><br>
 
-                  <input type="checkbox" value="3" class=" form-check-inline" name="cavaj[]" id="azul">
+                  <input type="checkbox" value="3" class=" form-check-inline" name="Azul" id="azul">
                   <label for="azul" class="form-check-inline form-check-label">Azul</label></label><br>
 
-                  <input type="checkbox" value="4" class=" form-check-inline" name="cavaj[]" id="pergamino">
+                  <input type="checkbox" value="4" class=" form-check-inline" name="Pergamino" id="pergamino">
                   <label for="pergamino" class="form-check-inline form-check-label">Pergamino</label><br>
 
-                  <input type="checkbox" value="5" class=" form-check-inline" name="cavaj[]" id="bahia_blanca">
+                  <input type="checkbox" value="5" class=" form-check-inline" name="Bahia_Blanca" id="bahia_blanca">
                   <label for="bahia_blanca" class="form-check-inline form-check-label">Bahía Blanca</label><br>
 
-                  <input type="checkbox" value="6" class=" form-check-inline" name="cavaj[]" id="pilar">
+                  <input type="checkbox" value="6" class=" form-check-inline" name="Pilar" id="pilar">
                   <label for="pilar" class="form-check-inline form-check-label">Pilar</label><br>
 
-                  <input type="checkbox" value="7" class=" form-check-inline" name="cavaj[]" id="ezeiza">
+                  <input type="checkbox" value="7" class=" form-check-inline" name="Ezeiza" id="ezeiza">
                   <label for="ezeiza" class="form-check-inline form-check-label">Ezeiza</label><br>
 
-                  <input type="checkbox" value="8" class=" form-check-inline" name="cavaj[]" id="pinamar">
+                  <input type="checkbox" value="8" class=" form-check-inline" name="Pinamar" id="pinamar">
                   <label for="pinamar" class="form-check-inline form-check-label">Pinamar</label><br>
 
-                  <input type="checkbox" value="9" class=" form-check-inline" name="cavaj[]" id="lanus">
+                  <input type="checkbox" value="9" class=" form-check-inline" name="Lanus" id="lanus">
                   <label for="lanus" class="form-check-inline form-check-label">Lanús</label><br>
 
-                  <input type="checkbox" value="10" class=" form-check-inline" name="cavaj[]" id="quilmes">
+                  <input type="checkbox" value="10" class=" form-check-inline" name="Quilmes" id="quilmes">
                   <label for="quilmes" class="form-check-inline form-check-label">Quilmes</label><br>
 
-                  <input type="checkbox" value="11" class=" form-check-inline" name="cavaj[]" id="lomas_de_zamora">
+                  <input type="checkbox" value="11" class=" form-check-inline" name="Lomas_de_Zamora" id="lomas_de_zamora">
                   <label for="lomas_de_zamora" class="form-check-inline form-check-label">Lomas de Zamora</label><br>
                </div>
                <div class="Ados">
-                  <input type="checkbox" value="12" class=" form-check-inline" name="cavaj[]" id="san_fernando">
+                  <input type="checkbox" value="12" class=" form-check-inline" name="San_Fernando" id="san_fernando">
                   <label for="san_fernando" class="form-check-inline form-check-label">San Fernando</label><br>
 
-                  <input type="checkbox" value="13" class=" form-check-inline" name="cavaj[]" id="los_toldos">
+                  <input type="checkbox" value="13" class=" form-check-inline" name="Los_Toldos" id="los_toldos">
                   <label for="los_toldos" class="form-check-inline form-check-label">Los Toldos</label><br>
 
-                  <input type="checkbox" value="14" class=" form-check-inline" name="cavaj[]" id="san_martin">
+                  <input type="checkbox" value="14" class=" form-check-inline" name="San_Martin" id="san_martin">
                   <label for="san_martin" class="form-check-inline form-check-label">San Martín</label><br>
 
-                  <input type="checkbox" value="15" class=" form-check-inline" name="cavaj[]" id="mar_del_plata">
+                  <input type="checkbox" value="15" class=" form-check-inline" name="Mar_del_Plata" id="mar_del_plata">
                   <label for="mar_del_plata" class="form-check-inline form-check-label">Mar del Plata</label><br>
 
-                  <input type="checkbox" value="16" class=" form-check-inline" name="cavaj[]" id="tandil">
+                  <input type="checkbox" value="16" class=" form-check-inline" name="Tandil" id="tandil">
                   <label for="tandil" class="form-check-inline form-check-label">Tandil</label><br>
 
-                  <input type="checkbox" value="17" class=" form-check-inline" name="cavaj[]" id="mercedes">
+                  <input type="checkbox" value="17" class=" form-check-inline" name="Mercedes" id="mercedes">
                   <label for="mercedes" class="form-check-inline form-check-label">Mercedes</label><br>
 
-                  <input type="checkbox" value="18" class=" form-check-inline" name="cavaj[]" id="vicente_lopez">
+                  <input type="checkbox" value="18" class=" form-check-inline" name="Vicente_Lopez" id="vicente_lopez">
                   <label for="vicente_lopez" class="form-check-inline form-check-label">Vicente López</label><br>
 
-                  <input type="checkbox" value="19" class=" form-check-inline" name="cavaj[]" id="moreno">
+                  <input type="checkbox" value="19" class=" form-check-inline" name="Moreno" id="moreno">
                   <label for="moreno" class="form-check-inline form-check-label">Moreno</label><br>
 
-                  <input type="checkbox" value="20" class=" form-check-inline" name="cavaj[]" id="zarate">
+                  <input type="checkbox" value="20" class=" form-check-inline" name="Zarate" id="zarate">
                   <label for="zarate" class="form-check-inline form-check-label">Zárate</label><br>
 
-                  <input type="checkbox" value="21" class=" form-check-inline" name="cavaj[]" id="Jose_Paz">
+                  <input type="checkbox" value="21" class=" form-check-inline" name="Jjose_C_Paz" id="Jose_Paz">
                   <label for="Jose_Paz" class="form-check-inline form-check-label">José C. Paz</label><br>
 
-                  <input type="checkbox" value="22" class=" form-check-inline" name="cavaj[]" id="almirante_brown">
+                  <input type="checkbox" value="22" class=" form-check-inline" name="Almirante_Brown" id="almirante_brown">
                   <label for="almirante_brown" class="form-check-inline form-check-label">Almirante Brown</label><br>
 
-                  <input type="checkbox" value="23" class=" form-check-inline" name="cavaj[]" id="la_matanza">
+                  <input type="checkbox" value="23" class=" form-check-inline" name="La_Matanza" id="la_matanza">
                   <label for="la_matanza" class="form-check-inline form-check-label">La Matanza</label><br>
                </div>
             </div>

@@ -14,7 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get("/agregarInstitucion",function(){
-  return view("agregarInstitucion");
+
+
+Route::get("/agregarCaso",function(){
+  return view("agregarCaso");
 });
-Route::post("/agregarInstitucion","InstitucionController@agregar");
+Route::post("/agregarCaso","CasoController@agregar");
