@@ -1,7 +1,7 @@
 <?php
-session_start();
-//ARMO ARRAY ASOCIATIVO PARA RECORRERLO BUSCANDO EL VALOR DEL SELECT A-5, ESTE VALOR LO GUARDO EN UN SESSION PARA LUEGO MOSTRARLO EN F-1
-$derivaciones=[];
+/*session_start();
+ARMO ARRAY ASOCIATIVO PARA RECORRERLO BUSCANDO EL VALOR DEL SELECT A-5, ESTE VALOR LO GUARDO EN UN SESSION PARA LUEGO MOSTRARLO EN F-1
+$derivaciones=;
 $derivaciones=["1"=>"Unidad de Ministro (Ministerio de Justicia)",
                  "2"=>"Organismo Provincial de Niñez y Adolescencia",
                  "3"=>" Portal Mi Provincia",
@@ -52,7 +52,7 @@ if($_SESSION["derivacion"]==$numero){
    if($_SESSION["derivacion"]==" "){
    $_SESSION["derivacion"]=NULL; }
 
-}}else{$_SESSION["derivacionbis"]=NULL;}
+}}else{$_SESSION["derivacionbis"]=NULL;}*/
 
  ?>
 
@@ -109,114 +109,16 @@ if($_SESSION["derivacion"]==$numero){
                   <label for="">A 2. Tipo de delito:</label><br>
                   <label for="">En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
                   <div class="Auno">
-                     <input type="checkbox" value="1" class="form-check-inline" name="delitos[]" id="abandono_de_persona">
-                     <label for="abandono_de_persona" class="form-check-inline form-check-label">Abandono de persona</label><br>
 
-                     <input type="checkbox" value="2" class="form-check-inline" name="delitos[]" id="abuso_sexual">
-                     <label for="abuso_sexual" class="form-check-inline form-check-label">Abuso sexual</label> <br>
-
-                     <input type="checkbox" value="3" class="form-check-inline" name="delitos[]" id="abuso sexual_seguido_de_muerte">
-                     <label for="abuso sexual_seguido_de_muerte" class="form-check-inline form-check-label">Abuso sexual seguido de muerte</label><br>
-
-                     <input type="checkbox" value="4" class="form-check-inline" name="delitos[]" id="acoso_sexual">
-                     <label for="acoso_sexual" class="form-check-inline form-check-label">Acoso sexual</label><br>
-
-                     <input type="checkbox" value="5" class="form-check-inline" name="delitos[]" id="amenazas">
-                     <label for="amenazas" class="form-check-inline form-check-label">Amenazas</label><br>
-
-                     <input type="checkbox" value="6" class="form-check-inline" name="delitos[]" id="Averiguación_causales_muerte">
-                     <label for="Averiguación_causales_muerte" class="form-check-inline form-check-label">Averiguación de causales de muerte</label><br>
-
-                     <input type="checkbox" value="7" class="form-check-inline" name="delitos[]" id="bullying">
-                     <label for="bullying" class="form-check-inline form-check-label">Bullying</label><br>
-
-                     <input type="checkbox" value="8" class="form-check-inline" name="delitos[]" id="catastrofes_naturales">
-                     <label for="catastrofes_naturales" class="form-check-inline form-check-label">Catástrofes naturales</label><br>
-
-                     <input type="checkbox" value="9" class="form-check-inline" name="delitos[]" id="desaparicion_personas">
-                     <label for="desaparicion_personas" class="form-check-inline form-check-label">Desaparición de personas</label><br>
-
-                     <input type="checkbox" value="10" class="form-check-inline" name="delitos[]" id="femicidio">
-                     <label for="femicidio" class="form-check-inline form-check-label">Femicidio</label><br>
-
-                     <input type="checkbox" value="11" class="form-check-inline" name="delitos[]" id="femicidio_indirecto">
-                     <label for="femicidio_indirecto" class="form-check-inline form-check-label">Femicidio indirecto</label><br>
-
-                     <input type="checkbox" value="12" class="form-check-inline" name="delitos[]" id="grooming">
-                     <label for="grooming" class="form-check-inline form-check-label">Grooming</label><br>
-
-                     <input type="checkbox" value="13" class="form-check-inline" name="delitos[]" id="homicidio">
-                     <label for="homicidio" class="form-check-inline form-check-label">Homicidio</label><br>
-
-                     <input type="checkbox" value="14" class="form-check-inline" name="delitos[]" id="instigacion_ayuda_suicidio">
-                     <label for="instigacion_ayuda_suicidio" class="form-check-inline form-check-label">Instigación o ayuda al suicidio</label><br>
-
-                     <input type="checkbox" value="15" class="form-check-inline" name="delitos[]" id="lesiones">
-                     <label for="lesiones" class="form-check-inline form-check-label">Lesiones</label><br>
-
-                     <input type="checkbox" value="16" class="form-check-inline" name="delitos[]" id="pornografia_menores">
-                     <label for="pornografia_menores" class="form-check-inline form-check-label">Pornografía de menores</label><br>
-
-                     <input type="checkbox" value="17" class="form-check-inline" name="delitos[]" id="privacion_ilegal_libertad">
-                     <label for="privacion_ilegal_libertad" class="form-check-inline form-check-label">Privación ilegal de la libertad</label><br>
                   </div>
                   <div class="Ados">
-                     <input type="checkbox" value="18" class="form-check-inline" name="delitos[]" id="promocion_facilitacion_corrupcion_menores">
-                     <label for="promocion_facilitacion_corrupcion_menores" class="form-check-inline form-check-label">Promoción y facilitación de corrupción de menores</label><br>
+                      @foreach ($delitos as $delito)
+                        <label class="form-check-inline form-check-label">
+                          <input type="checkbox" value="{{ $delito->id }}" class="form-check-inline" name="delitos[]">
+                          {{ $delito->nombre }}
+                        </label><br>
+                      @endforeach
 
-                     <input type="checkbox" value="19" class="form-check-inline" name="delitos[]" id="promocion_facilitacion_prostitucion_ mayores">
-                     <label for="promocion_facilitacion_prostitucion_ mayores" class="form-check-inline form-check-label">Promoción y facilitación de prostitución de mayores</label><br>
-
-                     <input type="checkbox" value="20" class="form-check-inline" name="delitos[]" id="promoción_facilitacion_prostitucion_menores">
-                     <label for="promoción_facilitacion_prostitucion_menores " class="form-check-inline form-check-label">Promoción y facilitación de prostitución de menores</label><br>
-
-                     <input type="checkbox" value="21" class="form-check-inline" name="delitos[]" id="reducción_servidumbre">
-                     <label for="reducción_servidumbre" class="form-check-inline form-check-label">Reducción a la servidumbre</label><br>
-
-                     <input type="checkbox" value="22" class="form-check-inline" name="delitos[]" id="robo_agravado">
-                     <label for="robo_agravado" class="form-check-inline form-check-label">Robo agravado</label><br>
-
-                     <input type="checkbox" value="23" class="form-check-inline" name="delitos[]" id="robo_seguido_muerte">
-                     <label for="robo_seguido_muerte" class="form-check-inline form-check-label">Robo seguido de muerte (criminis causa, art. 80 inc. 7)</label><br>
-
-                     <input type="checkbox" value="24" class="form-check-inline" name="delitos[]" id="secuestro">
-                     <label for="secuestro" class="form-check-inline form-check-label">Secuestro</label><br>
-
-                     <input type="checkbox" value="25" class="form-check-inline" name="delitos[]" id="secuestro_seguido_muerte">
-                     <label for="secuestro_seguido_muerte" class="form-check-inline form-check-label">Secuestro seguido de muerte</label><br>
-
-                     <input type="checkbox" value="26" class="form-check-inline" name="delitos[]" id="siniestro_vial">
-                     <label for="siniestro_vial" class="form-check-inline form-check-label">Siniestro vial</label><br>
-
-                     <input type="checkbox" value="27" class="form-check-inline" name="delitos[]" id="suicidio">
-                     <label for="suicidio" class="form-check-inline form-check-label">Suicidio</label><br>
-
-                     <input type="checkbox" value="28" class="form-check-inline" name="delitos[]" id="tentativa_homicidio">
-                     <label for="tentativa_homicidio" class="form-check-inline form-check-label">Tentativa de homicidio</label><br>
-
-                     <input type="checkbox" value="29" class="form-check-inline" name="delitos[]" id="tentativa_suicidio">
-                     <label for="tentativa_suicidio" class="form-check-inline form-check-label">Tentativa de suicidio</label><br>
-
-                     <input type="checkbox" value="30" class="form-check-inline" name="delitos[]" id="tortura">
-                     <label for="tortura" class="form-check-inline form-check-label">Tortura</label><br>
-
-                     <input type="checkbox" value="31" class="form-check-inline" name="delitos[]" id="usurpacion">
-                     <label for="usurpacion" class="form-check-inline form-check-label">Usurpación</label><br>
-
-                     <input type="checkbox" value="32" class="form-check-inline" name="delitos[]" id="violencia_genero">
-                     <label for="violencia_genero" class="form-check-inline form-check-label">Violencia de género</label><br>
-
-                     <input type="checkbox" value="33" class="form-check-inline" name="delitos[]" id="violencia_espectaculos_deportivos ">
-                     <label for="violencia_espectaculos_deportivos " class="form-check-inline form-check-label">Violencia en espectáculos deportivos</label><br>
-
-                     <input type="checkbox" value="35" class="form-check-inline" name="delitos[]" id="violencia_institucional">
-                     <label for="violencia_institucional" class="form-check-inline form-check-label">Violencia institucional</label><br>
-
-                     <input type="checkbox" value="36" class="form-check-inline" name="delitos[]" id="violenciaf_familiar">
-                     <label for="violenciaf_familiar" class="form-check-inline form-check-label">Violencia familiar</label><br>
-
-                     <input type="checkbox" value="37" class="form-check-inline" name="delitos[]"  id="checkeado"  onclick="muestroCualA2()">
-                     <label for="otro" class="form-check-inline form-check-label" >otro</label><br>
                   </div>
                </div>
             </div>
@@ -680,5 +582,6 @@ if($_SESSION["derivacion"]==$numero){
                 divC.style.display = "none";}
          }
       </script>
+
    </body>
 </html>

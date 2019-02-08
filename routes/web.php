@@ -17,6 +17,11 @@ Route::get('/', function () {
 
 
 Route::get("/agregarCaso",function(){
-  return view("agregarCaso");
+  $delitos = App\Delito::all();
+  //dd($delitos);
+  //$cavajs = App\Cavaj::all();
+  //dd($cavajs);
+
+  return view("agregarCaso", compact("delitos"));
 });
 Route::post("/agregarCaso","CasoController@agregar");

@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cavaj extends Model
+class Caratula extends Model
 {
-  public $table="cavajs";
+  public $table="caratulas";
   public $timestamps=false;
   public $guarded=[];
 }
