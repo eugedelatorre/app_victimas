@@ -19,10 +19,11 @@ Route::get('/', function () {
 
 Route::get("/agregarCaso",function(){
   $delitos = App\Delito::all();
-  $cavajs = App\Cavaj::all();
-  $casos=App\Caso::all();
+  //dd($delitos);
+  //$cavajs = App\Cavaj::all();
+  //dd($cavajs);
 
-  return view("agregarCaso", compact("delitos","cavajs"));
+  return view("agregarCaso", compact("delitos"));
 });
 Route::post("/agregarCaso","CasoController@agregar");
 
