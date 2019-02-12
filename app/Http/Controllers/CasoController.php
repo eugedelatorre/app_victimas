@@ -7,9 +7,6 @@ use Illuminate\Http\Request;
 use App\Caso;
 use App\Delito;
 //use App\Cavaj;
-
-
-
 //use App\Cavaj;
 
 class CasoController extends Controller
@@ -17,7 +14,7 @@ class CasoController extends Controller
 
 
 
-public function agregar(Request $form){
+  public function agregar(Request $form){
 
 /*
 
@@ -56,7 +53,7 @@ $reglas = [
 $mensajes=["string"=>"El campo :attribute debe ser un texto","integer"=>"El campo :attribute debe ser un número entero",
 "date"=>"El campo :attribute debe ser una fecha","unique"=>"El campo :attribute está repetido","required"=>"Complete el campo :attribute "];
 
-$this->validate($form,$reglas,$mensajes);*/
+$this->validate($form,$reglas,$mensajes);
 
 $caso= new Caso();
 
@@ -76,51 +73,52 @@ $caso->nombre_y_apellido_de_la_victima=$form["nombre_y_apellido_de_la_victima"];
 $caso->motivospasivos= $form["motivospasivos"];
 $caso->cual_otro_motivospasivo= $form["cual_otro_motivospasivos"];
 
-$caso->save( );
+$caso->save();
 
-foreach ($form["delitos"] as $delito) {
-  $caso->delitos()->attach($delito);
-
-  // $caratula = new Caratula();
-  // $caratula->idDelito = $delito;
-  // $caratula->idCaso = $caso->id;
-
-  //$caratula->save();
-}
-
-foreach ($form["cavaj"] as $cavaj) {
-  $caso->cavajs()->attach($cavaj);
-
-  // $caratula = new Caratula();
-  // $caratula->idDelito = $delito;
-  // $caratula->idCaso = $caso->id;
-
-<<<<<<< HEAD
-  //$caratula->save();
-}
-
-
-$idCaso=$caso->id;
-session_start();
+$idCaso = $caso->id;
 $_SESSION["idCaso"] = $idCaso;
 
+if ($form["persona_asistida"] == 1) {
+  return view("agregarPersona");
+} else {
+  return view("agregarProfesional");
+}
 
-return redirect ("agregarPersona");
-=======
+// idCaso y su data
+// return view("agregarPersona")
 
 
-
-
-
-foreach ($form["delitos"] as $delito) {
-  $caso->delitos()->attach($delito);
+// foreach ($form["delitos"] as $delito) {
+//   $caso->delitos()->attach($delito);
 
   // $caratula = new Caratula();
   // $caratula->idDelito = $delito;
   // $caratula->idCaso = $caso->id;
 
   //$caratula->save();
-}
+// }
+
+// foreach ($form["cavaj"] as $cavaj) {
+//   $caso->cavajs()->attach($cavaj);
+
+  // $caratula = new Caratula();
+  // $caratula->idDelito = $delito;
+  // $caratula->idCaso = $caso->id;
+
+
+  //$caratula->save();
+// }
+
+
+// foreach ($form["delitos"] as $delito) {
+//   $caso->delitos()->attach($delito);
+//
+//   // $caratula = new Caratula();
+//   // $caratula->idDelito = $delito;
+//   // $caratula->idCaso = $caso->id;
+//
+//   //$caratula->save();
+// }
 
 /*foreach ($form["cavajs"] as $cavaj) {
   $caso->cavajs()->attach($cavaj);
@@ -133,8 +131,10 @@ foreach ($form["delitos"] as $delito) {
 }
 
 */
-return redirect ("agregarCaso");
->>>>>>> 7d1ed7c695470c431055bcae88ee9c2d1e5ee997
+
+// return redirect ("agregarPersona");
+// return redirect ("agregarCaso");
+
 
 
 }
