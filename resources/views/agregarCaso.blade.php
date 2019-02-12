@@ -383,7 +383,9 @@ textaling
          function selectOnChangeA14(sel) {
            if (sel.value=="1"){
              divC = document.getElementById("btn-1");
-             divC.style.display = "";}
+             divC.style.display = "";
+             divC = document.getElementById("btn-2");
+             divC.style.display = "none";}
              else{
                divC = document.getElementById("btn-1");
                divC.style.display = "none";
