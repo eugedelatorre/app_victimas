@@ -1,6 +1,10 @@
 <?php
+<<<<<<< HEAD
 session_start();
 /*
+=======
+/*session_start();
+>>>>>>> 7d1ed7c695470c431055bcae88ee9c2d1e5ee997
 ARMO ARRAY ASOCIATIVO PARA RECORRERLO BUSCANDO EL VALOR DEL SELECT A-5, ESTE VALOR LO GUARDO EN UN SESSION PARA LUEGO MOSTRARLO EN F-1
 $derivaciones=;
 $derivaciones=["1"=>"Unidad de Ministro (Ministerio de Justicia)",
@@ -120,11 +124,18 @@ textaling
                       @foreach ($delitos as $delito)
                         <label class="form-check-inline form-check-label">
                           <input type="checkbox" value="{{ $delito->id }}" class="form-check-inline" name="delitos[]">
+<<<<<<< HEAD
                           {{ $delito->nombre }}{{$_SESSION["idCaso"]}}
 
                         </label><br>
                       @endforeach
               {!! $errors->first('delitos', '<p class="help-block" style="color:red";>:message</p>') !!}
+=======
+                          {{ $delito->nombre }}
+                        </label><br>
+                      @endforeach
+
+>>>>>>> 7d1ed7c695470c431055bcae88ee9c2d1e5ee997
                   </div>
                </div>
             </div>
