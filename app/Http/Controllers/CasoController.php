@@ -16,44 +16,17 @@ class CasoController extends Controller
 
   public function agregar(Request $form){
 
-/*
-
-
-$reglas = [
-<<<<<<< HEAD
-  "nombre_referencia"=>"required|string|unique:Casos,nombre_referencia","delitos"=>"required", "descripcion_caso"=>"required|string",
-  "fecha_ingreso"=>"required","modalidad_ingreso"=>"required","cavaj"=>"required","fiscalia_juzgado"=>"required|string",  "causa_id_judicial"=>"required|integer" ,"comisaria"=>"string|required","denuncias_previas"=>"required",
-  "departamento_judicial"=>"required",  "estado"=>"required", "nombre_y_apellido_de_la_victima"=>"required|string","persona_asistida"=>"required"];/*
-  "cual_otro_organismo"=>"requi",
 
 
 
+//$reglas = [
+//];
 
-"nombre_y_apellido_de_la_victima"=>"required1string",
 
-=======
-  "nombre_referencia"=>"string|unique:Casos,nombre_referencia",
-    "descripcion_caso"=>"string",
-  "fecha_ingreso"=>"date",
-  "modalidad_ingreso"=>"integer",
-  "organismos"=>"",
-  "cual_otro_organismo"=>"requi",
-  "fiscalia_juzgado"=>"string",
-  "causa_id_judicial"=>"integer",
-  "comisaria"=>"string",
-  "denuncias_previas"=>"integer",
-  "departamento_judicial"=>"integer ",
-  "estado"=>"integer",
->>>>>>> 7d1ed7c695470c431055bcae88ee9c2d1e5ee997
-  "motivospasivos"=>"",
-  "cual_motivospasivos"=>"string",,
-  "organismos"=>"required"
-];*/
+/*$mensajes=["string"=>"El campo :attribute debe ser un texto","integer"=>"El campo :attribute debe ser un número entero",
+"date"=>"El campo :attribute debe ser una fecha","unique"=>"El campo :attribute está repetido","required"=>"Complete el campo :attribute "];*/
 
-$mensajes=["string"=>"El campo :attribute debe ser un texto","integer"=>"El campo :attribute debe ser un número entero",
-"date"=>"El campo :attribute debe ser una fecha","unique"=>"El campo :attribute está repetido","required"=>"Complete el campo :attribute "];
-
-$this->validate($form,$reglas,$mensajes);
+//$this->validate($form,$reglas,$mensajes);
 
 $caso= new Caso();
 
@@ -76,9 +49,10 @@ $caso->cual_otro_motivospasivo= $form["cual_otro_motivospasivos"];
 $caso->save();
 
 $idCaso = $caso->id;
+session_start();
 $_SESSION["idCaso"] = $idCaso;
 
-if ($form["persona_asistida"] == 1) {
+/*if ($form["persona_asistida"] == 1) {
   return view("agregarPersona");
 } else {
   return view("agregarProfesional");
@@ -88,52 +62,24 @@ if ($form["persona_asistida"] == 1) {
 // return view("agregarPersona")
 
 
-// foreach ($form["delitos"] as $delito) {
-//   $caso->delitos()->attach($delito);
-
-  // $caratula = new Caratula();
-  // $caratula->idDelito = $delito;
-  // $caratula->idCaso = $caso->id;
-
-  //$caratula->save();
-// }
-
-// foreach ($form["cavaj"] as $cavaj) {
-//   $caso->cavajs()->attach($cavaj);
-
-  // $caratula = new Caratula();
-  // $caratula->idDelito = $delito;
-  // $caratula->idCaso = $caso->id;
-
-
-  //$caratula->save();
-// }
-
-
-// foreach ($form["delitos"] as $delito) {
-//   $caso->delitos()->attach($delito);
-//
-//   // $caratula = new Caratula();
-//   // $caratula->idDelito = $delito;
-//   // $caratula->idCaso = $caso->id;
-//
-//   //$caratula->save();
-// }
-
-/*foreach ($form["cavajs"] as $cavaj) {
-  $caso->cavajs()->attach($cavaj);
-
-  // $caratula = new Caratula();
-  // $caratula->idDelito = $delito;
-  // $caratula->idCaso = $caso->id;
-
-  //$caratula->save();
-}
-
 */
+ foreach ($form["delitos"] as $delito) {
 
-// return redirect ("agregarPersona");
-// return redirect ("agregarCaso");
+  $caso->delitos()->attach($delito);}
+
+  // $caratula = new Caratula();
+  // $caratula->idDelito = $delito;
+  // $caratula->idCaso = $caso->id;
+
+  //$caratula->save();
+// }
+
+ foreach ($form["cavaj"] as $cavaj) {
+$caso->cavajs()->attach($cavaj);}
+
+
+
+return redirect ("agregarPersona");
 
 
 

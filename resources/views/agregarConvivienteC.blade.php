@@ -33,7 +33,7 @@
             <input type="hidden" name="_token" value="0gXwY5QPw95gtKwv0dB3e4JEOctn6msd6IQsG63n">
             <div class="form-group">
                <label for="otraspersonas_id">¿Convivía la víctima con una o mas personas? </label>
-               <select class="form-control noPersonas" name="otraspersonas_id" >
+               <select class="form-control noPersonas" name="otraspersonas" >
                   <option value="">¿Convivía la víctima con una o mas personas?</option>
                   <option value="1">Si</option>
                   <option value="2">No</option>
@@ -86,7 +86,7 @@
 
                   <div class="form-group" >
                      <label for="vinculo_id">C 3. Vinculación con la víctima:</label>
-                     <select  class="form-control vinculo" onChange="selectOnChangeC5(this)">
+                     <select name="vinculo_victima" class="form-control vinculo" onChange="selectOnChangeC5(this)">
                         <option value="">Vínculo?</option>
                         <option value="1" >Familiar</option>
                         <option value="2" >Pareja</option>

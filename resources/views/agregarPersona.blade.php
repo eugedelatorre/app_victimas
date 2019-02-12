@@ -90,20 +90,7 @@ if($_SESSION["derivacion"]==$numero){
       <h1 class="text-center" style="padding: 15px;">Eje A: Datos institucionales</h1>
       <h2 class="text-center" style="padding: -20px;">Persona Asistida</h2>
       <div class="form-group">
-      <ul >
-        @foreach ($personas as $persona)
-          <label class="form-check-inline form-check-label">
-            @if($persona->idCaso==$_SESSION["idCaso"])
-              <li>
-                <a href="detallePersona/{{$persona->id}}">
-                  {{$persona->nombre_persona_asistida}}
-                </a>
-              </li>
-             @endif
-
-          </label><br>
-        @endforeach
-      </ul>
+    
       </div>
       <section class="container" >
 

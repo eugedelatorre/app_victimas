@@ -135,7 +135,7 @@ textaling
                <input class="form-control" name="Cuál" type="text" id="tipos_delitos_otro_cual">
             </div>
             <div class="form-group {{ $errors->has('descripcion_caso') ? 'has-error' : ''}}">
-               <label for="breve_descripcion_caso">A 3. Breve descripciòn del caso:</label>
+               <label for="breve_descripcion_caso">A 3. Breve descripción del caso:</label>
                <input type="text" class="form-control" name="descripcion_caso" id="breve_descripcion_caso" value="{{old('descripcion_caso')}}" style="height:80px">
             {!! $errors->first('descripcion_caso', '<p class="help-block" style="color:red";>:message</p>') !!}
             </div>
