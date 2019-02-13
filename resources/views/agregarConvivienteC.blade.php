@@ -28,12 +28,12 @@
          <h5 style="text-align: center;">Estas trabajando sobre el número de carpeta 5</h5>
       </h1>
       <section class="container">
-         <form class="ejeC" action="/C-agregarConviviente" method="post">
-           {{csrf_field()}}
-            <input type="hidden" name="_token" value="0gXwY5QPw95gtKwv0dB3e4JEOctn6msd6IQsG63n">
+         <form class="ejeC" action="/agregarConvivienteC" method="post">
+           {{ csrf_field() }}
+
             <div class="form-group">
                <label for="otraspersonas_id">¿Convivía la víctima con una o mas personas? </label>
-               <select class="form-control noPersonas" name="otraspersonas" >
+               <select class="form-control noPersonas" name="otraspersonas">
                   <option value="">¿Convivía la víctima con una o mas personas?</option>
                   <option value="1">Si</option>
                   <option value="2">No</option>
@@ -41,13 +41,13 @@
                </select>
             </div>
             <div class="padre">
-               <div class="hijo"   >
+               <div class="hijo">
                   <h3>Datos del Conviviente:</h3>
-                  <div class="form-group ">
+                  <div class="form-group">
                      <label for="">C 1. Nombre y apellido:</label>
                      <input type="text" class="form-control" name="victima_nombre_y_apellido" id="victima_nombre_y_apellido" value="">
                      <label for="bloqueo1" class="form-check-label">Se desconoce</label>
-                     <input type="checkbox" id="bloqueo1" name="victima_nombre_y_apellido_desconoce" value="Se desconoce" onchange="checkC1(this)">
+                     <input type="checkbox" id="bloqueo1" name="victima_nombre_y_apellido" value="Se desconoce" onchange="checkC1(this)">
                   </div>
                   <script>
                      function checkC1(checkbox)
@@ -67,7 +67,7 @@
                      <label for="victima_edad">C 2. Edad:</label>
                      <input name="victima_edad" value="" id="victima_edad" class="form-control" type="text" onchange="mostrarValor(this.value);">
                      <label class="form-check-label" for="victima_edad_desconoce">Se desconoce</label>
-                     <input name="victima_edad_desconoce" value="Se desconoce" id="victima_edad_desconoce" placeholder="" type="checkbox" onchange="checkC2(this)">
+                     <input name="victima_edad_desconoce" value="Se desconoce" id="victima_edad" placeholder="" type="checkbox" onchange="checkC2(this)">
                   </div>
                   <script type="text/javascript">
                      function checkC2(checkbox) {
@@ -126,7 +126,7 @@
                         <option value="8" >Se desconoce</option>
                      </select>
                   </div>
-                  <div class="form-group ">
+                  <div class="form-group">
                      <label for="modalidad_id">C 5.Condiciones de trabajo:</label>
                      <select class="form-control" name="condiciones_de_trabajo" id="condiciones_de_trabajo" >
                         <option value="" >Selecciona las condición de trabajo</option>
@@ -139,10 +139,13 @@
                   </div>
                </div>
             </div>
-            <button type="submit" class="btn btn-primary col-xl" name="button">Enviar</button><br><br>
+            <div class="botones" style="overflow:hidden;width:100%;margin-left:40%">
+          <div class="btn-1" style="width:10%;float:left"> <button type="submit" class="btn btn-primary col-xs" name="button" >Agregar/Enviar</button><br><br></div>
+
+            </div>
          </form>
-         <button id="anadir" class="btn btn-outline-primary col-xl anadirProfesional" type="button"> Agregar conviviente </button><br><br>
-         <button id="borra" class="btn btn-outline-danger col-xl" type="button" onclick="borra()">Borrar conviviente</button><br><br>
+         <div class="btn-4" style="width:11%;float:left;margin-left:40%">   <button style="width:100%" class="btn btn-primary col-xs" name="button" onclick="window.open('agregarDelitoD', 'width=800,height=600')";>Siguiente</button><br><br></div>
+
       </section>
       <!-- este script lo que hace es agregar otro formulario de profesionales en el caso que intervenga mas de un profesional en el caso -->
       <script>
@@ -166,5 +169,7 @@
       </script>
       <script src="js/formulario.js" type="text/javascript" charset="utf-8" async defer></script>
       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
    </body>
 </html>

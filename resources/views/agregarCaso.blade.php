@@ -121,7 +121,7 @@ textaling
                         <label class="form-check-inline form-check-label">
                           <input type="checkbox" value="{{ $delito->id }}" class="form-check-inline" name="delitos[]">
 
-                          {{ $delito->nombre }}{{$_SESSION["idCaso"]}}
+                          {{ $delito->nombre }}
 
                         </label><br>
                       @endforeach
