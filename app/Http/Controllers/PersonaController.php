@@ -20,25 +20,52 @@ $mensajes=["string"=>"El campo :attribute debe ser un texto","integer"=>"El camp
 
 $this->validate($form,$reglas,$mensajes);
 
-$persona= new Persona( );
-$persona->nombre_persona_asistida= $form [ "nombre_persona_asistida"];
-$persona->vinculo_persona_asistida= $form [ "vinculo_persona_asistida"];
-$persona->otro_vinculo_persona_asistida_cual= $form [ "otro_vinculo_persona_asistida_cual"];
-$persona->telefono_persona_asistida= $form [ "telefono_persona_asistida"];
-$persona->domicilio_persona_asistida= $form [ "domicilio_persona_asistida"];
-$persona->localidad_persona_asistida= $form [ "localidad_persona_asistida"];
-$persona->idCaso= $form [ "idCaso"];
+$persona= new Persona();
+
+$persona->nombre_persona_asistida= $form ["nombre_persona_asistida"];
+$persona->vinculo_persona_asistida= $form ["vinculo_persona_asistida"];
+$persona->otro_vinculo_persona_asistida_cual= $form ["otro_vinculo_persona_asistida_cual"];
+$persona->telefono_persona_asistida= $form ["telefono_persona_asistida"];
+$persona->domicilio_persona_asistida= $form ["domicilio_persona_asistida"];
+$persona->localidad_persona_asistida= $form ["localidad_persona_asistida"];
+$persona->idCaso= $form ["idCaso"];
 
 
-$persona->save( );
+$persona->save();
 return redirect ("agregarPersona");
 }
+
+
 public function detalle($id) {
 
     $persona = Persona::find($id);
+
 
     $vac = compact("persona");
 
     return view("detallePersona", $vac);
   }
+
+  public function eliminar($id) {
+    $persona = Persona::find($id);
+    $persona->delete();
+      return redirect("agregarPersona");
+
+  }
+
+      public function actualizar (Request $form,$id){
+        $persona = Persona::find($id);
+        $persona->nombre_persona_asistida= $form ["nombre_persona_asistida"];
+        $persona->vinculo_persona_asistida= $form ["vinculo_persona_asistida"];
+        $persona->otro_vinculo_persona_asistida_cual= $form ["otro_vinculo_persona_asistida_cual"];
+        $persona->telefono_persona_asistida= $form ["telefono_persona_asistida"];
+        $persona->domicilio_persona_asistida= $form ["domicilio_persona_asistida"];
+        $persona->localidad_persona_asistida= $form ["localidad_persona_asistida"];
+        $persona->idCaso= $form ["idCaso"];
+
+
+        $persona->save();
+        return redirect ("agregarPersona");
+        }
+
 }

@@ -61,7 +61,7 @@ $delito->save( );
 
 //$guardarCavaj=$delitos->cavaj()->attach($form["cavaj"]);
 //$vac=compact($guardarCavaj);
-return redirect ("agregardelito");
+return redirect ("agregarDelito");
 
 
 }

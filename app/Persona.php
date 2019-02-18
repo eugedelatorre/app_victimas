@@ -10,3 +10,4 @@ class Persona extends Model
   public $timestamps=false;
   public $guarded=[];
 }
+?>

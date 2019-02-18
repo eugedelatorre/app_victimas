@@ -1,59 +1,60 @@
 <?php
+
 session_start();
-/*
-ARMO ARRAY ASOCIATIVO PARA RECORRERLO BUSCANDO EL VALOR DEL SELECT A-5, ESTE VALOR LO GUARDO EN UN SESSION PARA LUEGO MOSTRARLO EN F-1
-$derivaciones=;
-$derivaciones=["1"=>"Unidad de Ministro (Ministerio de Justicia)",
-                 "2"=>"Organismo Provincial de Niñez y Adolescencia",
-                 "3"=>" Portal Mi Provincia",
-                 "4"=>"Registro Provincial de Información de Personas Menores de Edad Extraviadas (REPIPME)",
-                 "5"=>"Fiscalía",
-                 "6"=>"Comisaría",
-                 "7"=>"Municipio",
-                 "8"=>"Centro de Acceso a Justicia (CAJ)",
-                 "9"=>"Defensoría del Pueblo",
-                 "10"=>"Estado en Tu Barrio",
-                 "11"=>"DDI",
-                 "12"=>"Cerca de Noche",
-                 "13"=>"Equipo territorial de barrios",
-                 "14"=>"Otro"];
 
-	if ( $_POST ) {
-    // VARIABLES SESSION UTILIZADAS EN F-1
-$_SESSION["derivacion"] = $_POST["derivacion_otro_organismo"];
-if($_SESSION["derivacion"]==2){
-$_SESSION["derivacion"]=NULL;
-$_SESSION["derivacionbis"]=2;}
 
-if($_SESSION["derivacion"]==4){
-$_SESSION["derivacion"]=NULL;
-$_SESSION["derivacionbis"]=4;}
+//ARMO ARRAY ASOCIATIVO PARA RECORRERLO BUSCANDO EL VALOR DEL SELECT A-5, ESTE VALOR LO GUARDO EN UN SESSION PARA LUEGO MOSTRARLO EN F-1
+ /*$derivaciones=["1"=>"Unidad de Ministro (Ministerio de Justicia)",
+                  "2"=>"Organismo Provincial de Niñez y Adolescencia",
+                  "3"=>" Portal Mi Provincia",
+                  "4"=>"Registro Provincial de Información de Personas Menores de Edad Extraviadas (REPIPME)",
+                  "5"=>"Fiscalía",
+                  "6"=>"Comisaría",
+                  "7"=>"Municipio",
+                  "8"=>"Centro de Acceso a Justicia (CAJ)",
+                  "9"=>"Defensoría del Pueblo",
+                  "10"=>"Estado en Tu Barrio",
+                  "11"=>"DDI",
+                  "12"=>"Cerca de Noche",
+                  "13"=>"Equipo territorial de barrios",
+                  "14"=>"Otro"];
 
-if($_SESSION["derivacion"]==5){
-$_SESSION["derivacion"]=NULL;
-$_SESSION["derivacionbis"]=5;}
+ 	if ( $_POST ) {
+      VARIABLES SESSION UTILIZADAS EN F-1
+ $_SESSION["derivacion"] = $_POST["derivacion_otro_organismo"];
+ if($_SESSION["derivacion"]==2){
+ $_SESSION["derivacion"]=NULL;
+ $_SESSION["derivacionbis"]=2;}
 
-if($_SESSION["derivacion"]==8){
-$_SESSION["derivacion"]=NULL;
-$_SESSION["derivacionbis"]=8;}
+ if($_SESSION["derivacion"]==4){
+ $_SESSION["derivacion"]=NULL;
+ $_SESSION["derivacionbis"]=4;}
 
-if($_SESSION["derivacion"]==10){
-$_SESSION["derivacion"]=NULL;
-$_SESSION["derivacionbis"]=10;}
+ if($_SESSION["derivacion"]==5){
+ $_SESSION["derivacion"]=NULL;
+ $_SESSION["derivacionbis"]=5;}
 
-if($_SESSION["derivacion"]==12){
-$_SESSION["derivacion"]=NULL;
-$_SESSION["derivacionbis"]=12;}
+ if($_SESSION["derivacion"]==8){
+ $_SESSION["derivacion"]=NULL;
+ $_SESSION["derivacionbis"]=8;}
 
-foreach ($derivaciones as $numero=>$nombre){
-if($_SESSION["derivacion"]==$numero){
-   $_SESSION["derivacion"]=$nombre;}
-   if($_SESSION["derivacion"]=="Otro"){
-   $_SESSION["derivacion"]=$_POST["derivacion_otro_organismo_cual"]; }
-   if($_SESSION["derivacion"]==" "){
-   $_SESSION["derivacion"]=NULL; }
+ if($_SESSION["derivacion"]==10){
+ $_SESSION["derivacion"]=NULL;
+ $_SESSION["derivacionbis"]=10;}
 
-}}else{$_SESSION["derivacionbis"]=NULL;}*/
+ if($_SESSION["derivacion"]==12){
+ $_SESSION["derivacion"]=NULL;
+ $_SESSION["derivacionbis"]=12;}
+
+ foreach ($derivaciones as $numero=>$nombre){
+ if($_SESSION["derivacion"]==$numero){
+    $_SESSION["derivacion"]=$nombre;}
+    if($_SESSION["derivacion"]=="Otro"){
+    $_SESSION["derivacion"]=$_POST["derivacion_otro_organismo_cual"]; }
+    if($_SESSION["derivacion"]==" "){
+    $_SESSION["derivacion"]=NULL; }
+
+ }}else{$_SESSION["derivacionbis"]=NULL;}*/
 
  ?>
 
@@ -63,10 +64,10 @@ if($_SESSION["derivacion"]==$numero){
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+      <link href="https:fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+      <link rel="stylesheet" href="https:stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
       <link rel="stylesheet" href="css/app.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https:ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <title>Eje A: Datos institucionales</title>
       <style>
          .Auno,.Ados{float: left;
@@ -88,17 +89,28 @@ if($_SESSION["derivacion"]==$numero){
    </header>
    <body>
       <h1 class="text-center" style="padding: 15px;">Eje A: Datos institucionales</h1>
+
       <section class="container">
         @if ($errors->any())
+
           <div class="alert alert-danger" style="background:#4CAF50;color:black;font-size: 1.5em;text-align:center">
               <p>Debes completar todo el <strong>formulario A</strong> para continuar</p>
           </div>
-textaling
-        @endif
 
+        @endif
 
          <form class="" action="/agregarCaso" method="post">
                 {{csrf_field()}}
+
+
+                      <label class="form-check-inline form-check-label">Usuario:</label><br><br>
+                        <select class="form-control" name="usuarios" >
+                          <option value="">Selecciona un usuario</option>
+                        @foreach ($usuarios as $usuario)
+                          <option value="{{ $usuario->id }}">{{ $usuario->nombre_y_apellido}}</option>
+                          @endforeach
+                      </select><br><br>
+
 
             <div class="form-group {{ $errors->has('nombre_referencia') ? 'has-error' : ''}}">
                <label for="datos_nombre_referencia">A 1. Nombre de referencia:</label>
@@ -119,12 +131,15 @@ textaling
                   <div class="Ados">
                       @foreach ($delitos as $delito)
                         <label class="form-check-inline form-check-label">
-                          <input type="checkbox" value="{{ $delito->id }}" class="form-check-inline" name="delitos[]">
-                          {{ $delito->nombre }}{{$_SESSION["idCaso"]}}
+                          <input type="checkbox" value="{{ $delito->id }}" class="form-check-inline" name="delito[]">
+
+                          {{ $delito->nombre }}
+
 
                         </label><br>
                       @endforeach
               {!! $errors->first('delitos', '<p class="help-block" style="color:red";>:message</p>') !!}
+
                   </div>
                </div>
             </div>
@@ -133,7 +148,7 @@ textaling
                <input class="form-control" name="Cuál" type="text" id="tipos_delitos_otro_cual">
             </div>
             <div class="form-group {{ $errors->has('descripcion_caso') ? 'has-error' : ''}}">
-               <label for="breve_descripcion_caso">A 3. Breve descripciòn del caso:</label>
+               <label for="breve_descripcion_caso">A 3. Breve descripción del caso:</label>
                <input type="text" class="form-control" name="descripcion_caso" id="breve_descripcion_caso" value="{{old('descripcion_caso')}}" style="height:80px">
             {!! $errors->first('descripcion_caso', '<p class="help-block" style="color:red";>:message</p>') !!}
             </div>
@@ -143,42 +158,40 @@ textaling
                <input type="date" class="form-control" name="fecha_ingreso" id="datos_fecha_ingreso" value="{{old('fecha_ingreso')}}">
           {!! $errors->first('fecha_ingreso', '<p class="help-block" style="color:red";>:message</p>') !!}
             </div>
-            <div class="form-group
-            {{ $errors->has('modalidad_ingreso') ? 'has-error' : ''}} ">
+            <div class="form-group">
+            {{ $errors->has('modalidad_ingreso') ? 'has-error' : ''}}
                <label for="modalidad_ingreso">A 5. Modalidad de Ingreso</label>
                <select class="form-control" name="modalidad_ingreso" id="modalidad_id" onChange="selectOnChangeA5(this)" >
                  <option value=" " >Modalidad de Ingreso</option>
                   <option value="1" >Presentación espontánea</option>
                   <option value="2" >Intervenciòn de oficio</option>
                   <option value="3" >Derivación de otro organismo</option>
-               </select>
+               </select><br>
                {!! $errors->first('modalidad_ingreso', '<p class="help-block" style="color:red";>:message</p>') !!}
-               <div id="derivacion_otro_organismo_id" style="display: none;">
-                  <br>
-                  <select class="form-control" onChange="selectOnChangeA5bis(this)" name="organismos" id="otro_organismo">
-                     <option value="">Que Organismo?</option>
-                     <option value="1" >Unidad de Ministro (Ministerio de Justicia)</option>
-                     <option value="2" >Organismo Provincial de Niñez y Adolescencia</option>
-                     <option value="3" > Portal Mi Provincia</option>
-                     <option value="4" >Registro Provincial de Información de Personas Menores de Edad Extraviadas (REPIPME)</option>
-                     <option value="5" >Fiscalía</option>
-                     <option value="6" >Comisaría</option>
-                     <option value="7" >Municipio</option>
-                     <option value="8" >Centro de Acceso a Justicia (CAJ)</option>
-                     <option value="9" >Defensoría del Pueblo</option>
-                     <option value="10" >Estado en Tu Barrio</option>
-                     <option value="11" >DDI</option>
-                     <option value="12" >Cerca de Noche</option>
-                     <option value="13" >Equipo territorial de barrios</option>
-                     <option value="14" >Otro</option>
-                  </select>
 
-               </div>
+
+                   <div class="form-group" id="derivacion_otro_organismo_id" style="display:none">
+
+                 @foreach ($organismos as $organismo)
+
+                   <label class="form-check-inline form-check-label">
+                     <input type="checkbox" value="{{ $organismo->id }}"  class="form-check-inline" name="organismos[]">
+                     {{ $organismo->nombre }}
+
+                   </label><br>
+                 @endforeach
+
+                 <input type="checkbox" class="form-check-inline" id="checkeadoA5"  onclick="muestroCualA5()" name="" value="">
+             <label for="" class="form-check-label" style="margin-left: -6px">Otro</label>
+
+             {!! $errors->first('cavaj', '<p class="help-block" style="color:red";>:message</p>') !!}
+             </div>
+
                <div id="cualA5" style="display: none;">
                   <br><label for="">Cuál?</label>
-                  <div class="">
-                     <input class="form-control" name="cual_otro_organismo" id="derivacion_otro_organismo_cual" type="text" value="">
-                  </div>
+
+                     <input class="form-control" name="cual_otro_organismo" id="cual_otro_organismo" type="text" value="">
+
                </div>
 
             </div>
@@ -227,28 +240,14 @@ textaling
             </div>
             <div class="form-group "{{ $errors->has('departamento_judicial') ? 'has-error' : ''}}>
             <label for="departamento_judicial">A 11.Departamento judicial:</label>
-            <select class="form-control"  name="departamento_judicial">
-               <option value="">Departamento Judicial</option>
-               <option value="1" >Azul</option>
-               <option value="2" >Bahía Blanca</option>
-               <option value="3" >Dolores</option>
-               <option value="4" >General San Martín</option>
-               <option value="5" >Junín</option>
-               <option value="6" >La Matanza</option>
-               <option value="7" >La Plata</option>
-               <option value="8" >Lomas de Zamora</option>
-               <option value="9" >Mar del Plata</option>
-               <option value="10" >Mercedes</option>
-               <option value="11" >Moreno - General Rodríguez</option>
-               <option value="12" >Morón</option>
-               <option value="13" >Necochea</option>
-               <option value="14" >Pergamino</option>
-               <option value="15" >Quilmes</option>
-               <option value="16" >San Isidro</option>
-               <option value="17" >San Nicolás</option>
-               <option value="18" >Trenque Lauquen</option>
-               <option value="19" >Zárate - Campana</option>
-            </select>
+
+            <select class="form-control" name="departamento_judicial">
+            <option value="">Departamento Judicial</option>
+          @foreach ($departamentos as $departamento)
+            <option value="{{ $departamento->id }}">{{ $departamento->nombre}}</option>
+            @endforeach
+        </select>
+
             {!! $errors->first('departamento_judicial', '<p class="help-block" style="color:red";>:message</p>') !!}
           </div>
             <div class="form-group "{{ $errors->has('estado') ? 'has-error' : ''}}>
@@ -326,8 +325,21 @@ textaling
          }
       </script>
       <script>
+      function muestroCualA5() {
+          var checkBox = document.getElementById("checkeadoA5");
+          var text = document.getElementById("cualA5");
+          if (checkBox.checked == true){
+              text.style.display = "block";
+          } else {
+                $('#cual_otro_organismo').val('');
+             text.style.display = "none";
+          }
+      }
+      </script>
+
+      <script>
          function selectOnChangeA5bis(sel) {
-         if (sel.value=="14"){
+         if (sel.value=="22"){
          divC = document.getElementById("cualA5");
          divC.style.display = "";}
          else{
@@ -341,7 +353,7 @@ textaling
          function selectOnChangeA5(sel) {
            if (sel.value=="1"||sel.value=="2"){
                 divC = document.getElementById("derivacion_otro_organismo_id");
-                $('#otro_organismo').val(' ');
+
                 divC.style.display = "none";}
 
 
@@ -383,7 +395,9 @@ textaling
          function selectOnChangeA14(sel) {
            if (sel.value=="1"){
              divC = document.getElementById("btn-1");
-             divC.style.display = "";}
+             divC.style.display = "";
+             divC = document.getElementById("btn-2");
+             divC.style.display = "none";}
              else{
                divC = document.getElementById("btn-1");
                divC.style.display = "none";

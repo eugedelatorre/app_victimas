@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 /*
 ARMO ARRAY ASOCIATIVO PARA RECORRERLO BUSCANDO EL VALOR DEL SELECT A-5, ESTE VALOR LO GUARDO EN UN SESSION PARA LUEGO MOSTRARLO EN F-1
 $derivaciones=;
@@ -76,15 +77,15 @@ if($_SESSION["derivacion"]==$numero){
       </style>
    </head>
    <header>
-      <ul class="nav nav-tabs">
-         <li class="nav-item"> <a class="nav-link " href="#">Eje A: Datos institucionales</a> </li>
-         <li class="nav-item"> <a class="nav-link " href="formularioB4victimas.php">Eje B: Caracterización de la victima y su contexto</a> </li>
-         <li class="nav-item"> <a class="nav-link " href="formularioC4victimas.php">Eje C: Grupo Conviviente</a> </li>
-         <li class="nav-item"> <a class="nav-link " href="formularioD4victimas.php">Eje D: Caracterización de delito</a> </li>
-         <li class="nav-item"> <a class="nav-link " href="formularioE4victimas.php">Eje E: Datos del imputado</a> </li>
-         <li class="nav-item"> <a class="nav-link " href="formularioF4victimas.php">Eje F: Atención del caso</a> </li>
-         <li class="nav-item"> <a class="nav-link " href="formularioG4victimas.php">Eje G: Documentación</a> </li>
-      </ul>
+     <ul class="nav nav-tabs">
+        <li class="nav-item"> <strong><a class="nav-link " style="color:black;font-size:1.1em" href="agregarCaso">Eje A: Datos institucionales</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link "  style="color:#4CAF50;font-size:1.1em" href="agregarVictimaB">Eje B: Caracterización de la victima y su contexto</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarConvivienteC">Eje C: Grupo Conviviente</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em"  href="agregarDelitoD">Eje D: Caracterización de delito</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarImputadoE">Eje E: Datos del imputado</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarOrganismoF">Eje F: Atención del caso</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link "style="color:#4CAF50;font-size:1.1em"  href="agregaDocumentacionG">Eje G: Documentación</a> </li></strong>
+     </ul>
    </header>
    <body>
       <h1 class="text-center" style="padding: 15px;">Eje A: Datos institucionales</h1>
@@ -103,14 +104,15 @@ if($_SESSION["derivacion"]==$numero){
           </div>
         @endif
 
-         <form class="" action="/agregarPersona" method="post">
+         <form class="" action="/detallePersona" method="post">
                 {{csrf_field()}}
 
 
 
 
                   <div class="form-group" {{ $errors->has('nombre_persona_asistida') ? 'has-error' : ''}}>
-                    <input type="hidden" name="idCaso" value="{{ $_SESSION["idCaso"]}}">
+
+                      <input type="hidden" name="idCaso" value="{{$persona->idCaso}}">
                      <label for="nombre_persona_asistida">A 14I. Nombre y apellido de la persona asistida: </label>
                      <input type="text" class="form-control" name="nombre_persona_asistida" id="Nombre_apellido_persona_asistida" value="{{$persona->nombre_persona_asistida}}">
 
@@ -121,10 +123,21 @@ if($_SESSION["derivacion"]==$numero){
                      <label for="vinculo_persona_asistida">A 14II. Tipo de vínculo con la víctima: </label>
                      <select class="form-control" name="vinculo_persona_asistida" id="vinculo_victima" onChange="selectOnChangeA14II(this)">
                         <option value=""></option>
-                        <option value="1" >Familiar</option>
-                        <option value="2" >Lazo afectivo</option>
-                        <option value="3" >Organismo o institución</option>
-                        <option value="4" >Otro</option>
+                        @if($persona->vinculo_persona_asistida==1)
+                          <option value="1" selected>Familiar</option>
+                        @else <option value="1">Familiar</option>@endif
+
+                          @if($persona->vinculo_persona_asistida==2)
+                        <option value="2" selected >Lazo afectivo</option>
+                          @else<option value="2" >Lazo afectivo</option>@endif
+
+                            @if($persona->vinculo_persona_asistida==3)
+                        <option value="3" selected >Organismo o institución</option>
+                          @else  <option value="3" >Organismo o institución</option>@endif
+
+                            @if($persona->vinculo_persona_asistida==4)
+                        <option value="4" selected >Otro</option>
+                        @else  <option value="4" >Otro</option>@endif
                      </select>
                      {!! $errors->first('vinculo_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
                   </div>
@@ -152,12 +165,16 @@ if($_SESSION["derivacion"]==$numero){
                   </div>
                </div>
             </div>
+
+
+
             <div class="botones" style="overflow:hidden;width:100%;margin-left:40%">
-          <div class="btn-1" style="width:10%;float:left"> <button type="submit" class="btn btn-primary col-xs" name="button" >Agregar/Enviar</button><br><br></div>
+          <div class="btn-4" style="width:11%;float:left;margin-left:0.1%"><input type ='submit' style="width:100%;background-color:green" class="btn btn col-xs" value = 'Editar' ></button><br><br></div>
 
             </div>
           </form>
-<div class="btn-4" style="width:11%;float:left;margin-left:40%">   <button style="width:100%" class="btn btn-primary col-xs" name="button" onclick="window.open('agregarProfesional', 'width=800,height=600')"; >Pregunta 15 </button><br><br></div>
+
+<div class="btn-4" style="width:11%;float:left;margin-left:40%"><input type ='button' style="width:100%" class="btn btn-danger col-xs" name="button" value = 'Eliminar' onclick="window.open('deletePersona/{{$persona->id}}', 'width=800,height=600');"/></button><br><br></div>
       </section>
 
       <script>

@@ -76,35 +76,21 @@ if($_SESSION["derivacion"]==$numero){
       </style>
    </head>
    <header>
-      <ul class="nav nav-tabs">
-         <li class="nav-item"> <a class="nav-link " href="#">Eje A: Datos institucionales</a> </li>
-         <li class="nav-item"> <a class="nav-link " href="formularioB4victimas.php">Eje B: Caracterización de la victima y su contexto</a> </li>
-         <li class="nav-item"> <a class="nav-link " href="formularioC4victimas.php">Eje C: Grupo Conviviente</a> </li>
-         <li class="nav-item"> <a class="nav-link " href="formularioD4victimas.php">Eje D: Caracterización de delito</a> </li>
-         <li class="nav-item"> <a class="nav-link " href="formularioE4victimas.php">Eje E: Datos del imputado</a> </li>
-         <li class="nav-item"> <a class="nav-link " href="formularioF4victimas.php">Eje F: Atención del caso</a> </li>
-         <li class="nav-item"> <a class="nav-link " href="formularioG4victimas.php">Eje G: Documentación</a> </li>
-      </ul>
+     <ul class="nav nav-tabs">
+        <li class="nav-item"> <strong><a class="nav-link " style="color:black;font-size:1.1em" href="agregarCaso">Eje A: Datos institucionales</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link "  style="color:#4CAF50;font-size:1.1em" href="agregarVictimaB">Eje B: Caracterización de la victima y su contexto</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarConvivienteC">Eje C: Grupo Conviviente</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em"  href="agregarDelitoD">Eje D: Caracterización de delito</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarImputadoE">Eje E: Datos del imputado</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarOrganismoF">Eje F: Atención del caso</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link "style="color:#4CAF50;font-size:1.1em"  href="agregaDocumentacionG">Eje G: Documentación</a> </li></strong>
+     </ul>
    </header>
    <body>
       <h1 class="text-center" style="padding: 15px;">Eje A: Datos institucionales</h1>
-      <h2 class="text-center" style="padding: -20px;">Persona Asistida</h2>
-      <div class="form-group">
-      <ul >
-        @foreach ($personas as $persona)
-          <label class="form-check-inline form-check-label">
-            @if($persona->idCaso==$_SESSION["idCaso"])
-              <li>
-                <a href="detallePersona/{{$persona->id}}">
-                  {{$persona->nombre_persona_asistida}}
-                </a>
-              </li>
-             @endif
+    <div class="divpersona" id="divpersona">  <h2 class="text-center" style="padding: -20px;" >Persona Asistida</h2></div>
 
-          </label><br>
-        @endforeach
-      </ul>
-      </div>
+
       <section class="container" >
 
         @if ($errors->any())
@@ -116,7 +102,24 @@ if($_SESSION["derivacion"]==$numero){
               </ul>
           </div>
         @endif
+        <ul>
 
+
+          @foreach($personas as $persona)
+
+               @if($persona->idCaso==$ultimoid)
+
+                 <li>
+              <a href="detallePersona/{{$persona->id}}">
+                {{$persona->nombre_persona_asistida}}
+
+              </a>
+              </li>
+            @endif
+
+          @endforeach
+
+        </ul>
          <form class="" action="/agregarPersona" method="post">
                 {{csrf_field()}}
 
@@ -124,7 +127,8 @@ if($_SESSION["derivacion"]==$numero){
 
 
                   <div class="form-group" {{ $errors->has('nombre_persona_asistida') ? 'has-error' : ''}}>
-                    <input type="hidden" name="idCaso" value="{{ $_SESSION["idCaso"]}}">
+                    <input type="hidden" name="idCaso" value="{{$ultimoid}}">
+
                      <label for="nombre_persona_asistida">A 14I. Nombre y apellido de la persona asistida: </label>
                      <input type="text" class="form-control" name="nombre_persona_asistida" id="Nombre_apellido_persona_asistida" value="{{old("nombre_persona_asistida")}}">
 
@@ -135,10 +139,20 @@ if($_SESSION["derivacion"]==$numero){
                      <label for="vinculo_persona_asistida">A 14II. Tipo de vínculo con la víctima: </label>
                      <select class="form-control" name="vinculo_persona_asistida" id="vinculo_victima" onChange="selectOnChangeA14II(this)">
                         <option value=""></option>
-                        <option value="1" >Familiar</option>
-                        <option value="2" >Lazo afectivo</option>
-                        <option value="3" >Organismo o institución</option>
-                        <option value="4" >Otro</option>
+                        @if(old("vinculo_persona_asistida")==1)
+                        <option value="1" selected >Familiar</option>
+                      @else <option value="1">Familiar</option>@endif
+
+                        @if(old("vinculo_persona_asistida")==2)
+                        <option value="2" selected >Lazo afectivo</option>
+                      @else  <option value="2" >Lazo afectivo</option>@endif
+
+                      @if(old("vinculo_persona_asistida")==3)
+                        <option value="3" selected >Organismo o institución</option>
+                      @else  <option value="3">Organismo o institución</option>@endif
+                      @if(old("vinculo_persona_asistida")==4)
+                        <option value="4" selected >Otro</option>
+                      @else<option value="4" >Otro</option>@endif
                      </select>
                      {!! $errors->first('vinculo_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
                   </div>
@@ -166,7 +180,7 @@ if($_SESSION["derivacion"]==$numero){
                </div>
             </div>
             <div class="botones" style="overflow:hidden;width:100%;margin-left:40%">
-          <div class="btn-1" style="width:10%;float:left"> <button type="submit" class="btn btn-primary col-xs" name="button" >Agregar/Enviar</button><br><br></div>
+          <div class="btn-1" style="width:10%;float:left"> <button type="submit" class="btn btn-primary col-xs" name="button"  >Agregar/Enviar</button><br><br></div>
 
             </div>
           </form>
@@ -186,6 +200,8 @@ if($_SESSION["derivacion"]==$numero){
              }
          }
       </script>
+
+
 
       <script>
          function muestroCualA2() {

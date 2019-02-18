@@ -76,28 +76,42 @@ if($_SESSION["derivacion"]==$numero){
       </style>
    </head>
    <header>
-      <ul class="nav nav-tabs">
-         <li class="nav-item"> <a class="nav-link " href="#">Eje A: Datos institucionales</a> </li>
-         <li class="nav-item"> <a class="nav-link " href="formularioB4victimas.php">Eje B: Caracterización de la victima y su contexto</a> </li>
-         <li class="nav-item"> <a class="nav-link " href="formularioC4victimas.php">Eje C: Grupo Conviviente</a> </li>
-         <li class="nav-item"> <a class="nav-link " href="formularioD4victimas.php">Eje D: Caracterización de delito</a> </li>
-         <li class="nav-item"> <a class="nav-link " href="formularioE4victimas.php">Eje E: Datos del imputado</a> </li>
-         <li class="nav-item"> <a class="nav-link " href="formularioF4victimas.php">Eje F: Atención del caso</a> </li>
-         <li class="nav-item"> <a class="nav-link " href="formularioG4victimas.php">Eje G: Documentación</a> </li>
-      </ul>
+     <ul class="nav nav-tabs">
+        <li class="nav-item"> <strong><a class="nav-link " style="color:black;font-size:1.1em" href="agregarCaso">Eje A: Datos institucionales</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link "  style="color:#4CAF50;font-size:1.1em" href="agregarVictimaB">Eje B: Caracterización de la victima y su contexto</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarConvivienteC">Eje C: Grupo Conviviente</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em"  href="agregarDelitoD">Eje D: Caracterización de delito</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarImputadoE">Eje E: Datos del imputado</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarOrganismoF">Eje F: Atención del caso</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link "style="color:#4CAF50;font-size:1.1em"  href="agregaDocumentacionG">Eje G: Documentación</a> </li></strong>
+     </ul>
    </header>
    <body>
       <h1 class="text-center" style="padding: 15px;">Eje A: Datos institucionales</h1>
-      <h2 class="text-center" style="padding: -30px;">Profesional interviniente</h2>
-      <div class="form-group" style="margin-top:-15%;margin-left:45%">
-        @foreach ($profesionales as $profesional)
-          <label class="form-check-inline form-check-label">
-            @if($profesional->idCaso==$_SESSION["idCaso"])
-        {{ $profesional->nombre_profesional_interviniente }}{{$profesional->id}}@endif
+      <h2 class="text-center" style="padding: -30px;">Profesional interviniente</h2><br>
+      <div class="form-group" style="margin-top:-1%;margin-left:38%">
+        <ul>
+          @foreach($profesionales as $profesional)
 
-          </label><br>
-        @endforeach
-      </div>
+            @if($profesional->idCaso==$ultimoid)
+                 <li>
+              <a href="detalleProfesional/{{$profesional->id}}">
+
+                @foreach($usuarios as $usuario)
+                  @if($usuario->id==$profesional->nombre_profesional_interviniente)
+                      {{$usuario->nombre_y_apellido}}
+                    @endif
+                  @endforeach
+
+              </a>
+              </li>
+            @endif
+
+          @endforeach
+
+        </ul>
+
+    </div>
       <section class="container">
 
         @if ($errors->any())
@@ -113,54 +127,19 @@ if($_SESSION["derivacion"]==$numero){
          <form class="" action="/agregarProfesional" method="post">
                 {{csrf_field()}}
 
-<input type="hidden" name="idCaso" value="{{ $_SESSION["idCaso"]}}">
+<input type="hidden" name="idCaso" value="{{$ultimoid}}">
 
 
                   <div class="form-group"{{ $errors->has('nombre_profesional_interviniente') ? 'has-error' : ''}}>
                     <h3>A 15. Profesional Interviniente:</h3>
-                    <div class="form-group ">
-                       <label for="profesional_id">Profesional que interviene</label>
-                       <select class="form-control" name="nombre_profesional_interviniente">
-                          <option value="">Seleccioná profesional</option>
-                          <option value="1">Jessica Nerina Seimandi - Dirección</option>
-                          <option value="2">Mercedes Ratti - Dirección</option>
-                          <option value="3">Elina Contreras - Dirección</option>
-                          <option value="4">Emiliano Lurbet - Equipo Barrios</option>
-                          <option value="5">Correa, Anabella - Equipo Barrios</option>
-                          <option value="6">Jose Maria Retamasso - Equipo Barrios</option>
-                          <option value="7">Carolina Cabral - Equipo Barrios</option>
-                          <option value="8">Horacio Renone - Equipo Barrios</option>
-                          <option value="9">Jorge samuel Chocobar - Equipo Barrios</option>
-                          <option value="10">Candela Chuliver - Equipo de rescate</option>
-                          <option value="11">Licia Cipollone - Equipo de rescate</option>
-                          <option value="12">Romina Camperchiolli - Equipo de rescate</option>
-                          <option value="13">Florencia Daireaux - Equipo de rescate</option>
-                          <option value="14">María Victoria García - Equipo de rescate</option>
-                          <option value="15">Pamela Gisela Ledesma - Equipo de rescate</option>
-                          <option value="16">Mauro Javier Salgueira - Equipo de rescate</option>
-                          <option value="17">María Eugenia Sánchez - Equipo de rescate</option>
-                          <option value="18">María Pilar Sanz - Equipo de rescate</option>
-                          <option value="19">Adrian Sein - Equipo de rescate</option>
-                          <option value="20">Martin Urtasun - Equipo de rescate</option>
-                          <option value="21">Paola Vazquez - Equipo de rescate</option>
-                          <option value="22">Angela Gonzalez Touzett - Equipo de rescate</option>
-                          <option value="23">Paola Vega De Nazar - Equipo de rescate</option>
-                          <option value="24">Belén Della Croce - Equipo de rescate</option>
-                          <option value="25">Diego Campero - Equipo de planificación</option>
-                          <option value="26">Maria Alejandro Cardoso - Equipo de planificación</option>
-                          <option value="27">Luciano Ramis - Equipo de planificación</option>
-                          <option value="28">Cecilia Svanossi - Equipo de planificación</option>
-                          <option value="29">Paula Labombarda - Equipo de planificación</option>
-                          <option value="30">Camila Ledesma - Equipo de planificación</option>
-                          <option value="31">Luciana Salgueira - Equipo de planificación</option>
-                          <option value="32">María Garro - Administrativo</option>
-                          <option value="33">Soledad Iglesias - Administrativo</option>
-                          <option value="34">Denisse Noguera - Administrativo</option>
-                          <option value="35">Florencia Sánchez Turi - Administrativo</option>
-                          <option value="36">Rosario Sánchez - Subsecretaría</option>
-                          <option value="37">Lorena Signore - Subsecretaría</option>
-                          <option value="38">Lucía Moreno - Subsecretaría</option>
-                       </select>
+
+                      <select class="form-control" name="nombre_profesional_interviniente" >
+                        <option value=""></option>
+                      @foreach ($usuarios as $usuario)
+                        <option value="{{ $usuario->id }}">{{ $usuario->nombre_y_apellido}}</option>
+                        @endforeach
+                    </select>
+                   </div>
                        {!! $errors->first('nombre_profesional_interviniente', '<p class="help-block" style="color:red";>:message</p>') !!}
                     </div>
                     <div class="form-group"{{ $errors->has('desde_profesional_interviniente') ? 'has-error' : ''}}>

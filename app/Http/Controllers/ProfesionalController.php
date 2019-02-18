@@ -33,5 +33,21 @@ $profesional->idCaso= $form [ "idCaso"];
 $profesional->save( );
 return redirect ("agregarProfesional");
 }
+public function detalle($id) {
+
+    $profesional = Profesional::find($id);
+
+
+    $vac = compact("profesional");
+
+    return view("detalleProfesional", $vac);
+  }
+
+  public function eliminar($id) {
+    $profesional = Profesional::find($id);
+    $profesional->delete();
+      return redirect("agregarProfesional");
+
+  }
 
 }

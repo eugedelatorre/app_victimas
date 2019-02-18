@@ -1,8 +1,0 @@
-GEO:
-PARTIDOS Y LOCALIDADES:
-
-https://mapa2.electoral.gov.ar/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&authkey=e90e56711f91d774d514889074e09c6e&typeName=descargas:circuito_02&maxFeatures=2000&outputFormat=application%2Fjson
-
-https://mapa2.electoral.gov.ar/descargas/
-
-https://www.citypopulation.de/php/argentina-buenosaires_s.php?adm2id=06014

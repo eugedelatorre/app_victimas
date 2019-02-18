@@ -11,6 +11,6 @@ class Cavaj extends Model
   public $guarded=[];
 
   public function casos() {
-    $this->belongsToMany(Caso::class,"caratulas","cavaj_id","caso_id");
+    $this->belongsToMany(Caso::class,"caso_cavaj","cavaj_id","caso_id");
   }
 }

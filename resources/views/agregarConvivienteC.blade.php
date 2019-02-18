@@ -1,3 +1,7 @@
+<?php
+
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -23,31 +27,47 @@
      </ul>
    </header>
    <body>
-      <h1 class="text-center" style="padding: 15px;">
-         Eje C: Grupo Conviviente
-         <h5 style="text-align: center;">Estas trabajando sobre el número de carpeta 5</h5>
-      </h1>
+      <h1 class="text-center" style="padding: 15px;">Eje C: Grupo Conviviente</h1>
+      @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+      @endif
+
+
+      <ul>
+        @foreach($convivientes as $conviviente)
+
+             @if($conviviente->idCaso==$_SESSION["idCaso"])
+               <li>
+            <a href="detalleConvivienteC/{{$conviviente->id}}">
+              {{$conviviente->nombre_y_apellido}}
+
+            </a>
+            </li>
+          @endif
+
+        @endforeach
+
+      </ul>
       <section class="container">
-         <form class="ejeC" action="/C-agregarConviviente" method="post">
-           {{csrf_field()}}
-            <input type="hidden" name="_token" value="0gXwY5QPw95gtKwv0dB3e4JEOctn6msd6IQsG63n">
+         <form class="ejeC" action="/agregarConvivienteC" method="post">
+           {{ csrf_field() }}
+
             <div class="form-group">
-               <label for="otraspersonas_id">¿Convivía la víctima con una o mas personas? </label>
-               <select class="form-control noPersonas" name="otraspersonas_id" >
-                  <option value="">¿Convivía la víctima con una o mas personas?</option>
-                  <option value="1">Si</option>
-                  <option value="2">No</option>
-                  <option value="3">Se desconoce</option>
-               </select>
-            </div>
-            <div class="padre">
-               <div class="hijo"   >
+              <input type="hidden" name="idCaso" value="{{ $_SESSION["idCaso"]}}">
+
+
                   <h3>Datos del Conviviente:</h3>
-                  <div class="form-group ">
+                  <div class="form-group">
                      <label for="">C 1. Nombre y apellido:</label>
                      <input type="text" class="form-control" name="victima_nombre_y_apellido" id="victima_nombre_y_apellido" value="">
                      <label for="bloqueo1" class="form-check-label">Se desconoce</label>
-                     <input type="checkbox" id="bloqueo1" name="victima_nombre_y_apellido_desconoce" value="Se desconoce" onchange="checkC1(this)">
+                     <input type="checkbox" id="bloqueo1" name="victima_nombre_y_apellido" value="Se desconoce" onchange="checkC1(this)">
                   </div>
                   <script>
                      function checkC1(checkbox)
@@ -67,7 +87,7 @@
                      <label for="victima_edad">C 2. Edad:</label>
                      <input name="victima_edad" value="" id="victima_edad" class="form-control" type="text" onchange="mostrarValor(this.value);">
                      <label class="form-check-label" for="victima_edad_desconoce">Se desconoce</label>
-                     <input name="victima_edad_desconoce" value="Se desconoce" id="victima_edad_desconoce" placeholder="" type="checkbox" onchange="checkC2(this)">
+                     <input name="victima_edad_desconoce" value="Se desconoce" id="victima_edad" placeholder="" type="checkbox" onchange="checkC2(this)">
                   </div>
                   <script type="text/javascript">
                      function checkC2(checkbox) {
@@ -86,7 +106,7 @@
 
                   <div class="form-group" >
                      <label for="vinculo_id">C 3. Vinculación con la víctima:</label>
-                     <select  class="form-control vinculo" onChange="selectOnChangeC5(this)">
+                     <select name="vinculo_victima" class="form-control vinculo" onChange="selectOnChangeC5(this)">
                         <option value="">Vínculo?</option>
                         <option value="1" >Familiar</option>
                         <option value="2" >Pareja</option>
@@ -126,7 +146,7 @@
                         <option value="8" >Se desconoce</option>
                      </select>
                   </div>
-                  <div class="form-group ">
+                  <div class="form-group">
                      <label for="modalidad_id">C 5.Condiciones de trabajo:</label>
                      <select class="form-control" name="condiciones_de_trabajo" id="condiciones_de_trabajo" >
                         <option value="" >Selecciona las condición de trabajo</option>
@@ -137,34 +157,15 @@
                         <option value="5" >Se desconoce</option>
                      </select>
                   </div>
-               </div>
-            </div>
-            <button type="submit" class="btn btn-primary col-xl" name="button">Enviar</button><br><br>
-         </form>
-         <button id="anadir" class="btn btn-outline-primary col-xl anadirProfesional" type="button"> Agregar conviviente </button><br><br>
-         <button id="borra" class="btn btn-outline-danger col-xl" type="button" onclick="borra()">Borrar conviviente</button><br><br>
+
+
+                <div class="btn-1" style="width:10%;float:left"> <button class="btn btn-primary col-xs" type="submit" style="width:108%" >Agregar</button><br><br></div>
+
+                  </div>
+                </form>
+            <div class="btn-2" style="width:11%;float:left;margin-left:40%"><button style="width:100%" class="btn btn-primary col-xs"  onclick="window.open('agregarDelitoD', 'width=800,height=600')"; >Siguiente</button><br><br></div>
       </section>
       <!-- este script lo que hace es agregar otro formulario de profesionales en el caso que intervenga mas de un profesional en el caso -->
-      <script>
-         var nueva_entrada = $('.padre').html();
 
-         $("#anadir").click(function(){
-             $(".padre").append(nueva_entrada);
-         });
-
-         $("#borra").click(function(){
-         $('.hijo').last().remove();
-         swal('Se borro un conviviente');
-         });
-      </script>
-      <script>
-         var msg = '';
-         var exist = '';
-         if(exist){
-           swal(msg);
-         }
-      </script>
-      <script src="js/formulario.js" type="text/javascript" charset="utf-8" async defer></script>
-      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    </body>
 </html>

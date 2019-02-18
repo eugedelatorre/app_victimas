@@ -1,3 +1,7 @@
+F<?php
+
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -25,16 +29,18 @@
    <body>
       <h1 class="text-center" style="padding: 15px;">Eje B: Caracterización de la victima y su contexto</h1>
       <section class="container">
-      <form class="" action="B/agregarVictima" method="post">
+      <form class="" action="/agregarVictimaB" method="post">
         {{csrf_field()}}
-      <input type="hidden" name="_token" value="WsSjwRfaowBqFaOeDaMHgdvXFBiRpgdOYXGPxlXj">
+
       <div class="form-group ">
+          <input type="hidden" name="idCaso" value="{{ $_SESSION["idCaso"]}}">
+
          <label for="">B 1. Nombre y apellido:</label>
          <input type="text" class="form-control" name="victima_nombre_y_apellido" id="victima_nombre_y_apellido" value="">
       </div>
       <div class="form-group ">
          <label for="">B 2. Género:</label>
-         <select class="form-control" name="genero_id" onChange="selectOnChangeB2(this)">
+         <select class="form-control" name="genero" onChange="selectOnChangeB2(this)">
             <option value="">Elegí género</option>
             <option value="1" >Mujer Cis</option>
             <option value="2" >Mujer Trans</option>
@@ -106,7 +112,7 @@
       <!-- DUODECIMA PREGUNTA -->
       <div class="form-group ">
          <label for="">B 5. Franja Etaria</label>
-         <select name="franjaetaria_id" id="franjaetaria_id" class="form-control" value="">
+         <select name="franjaetaria" id="franjaetaria_id" class="form-control" value="">
             <option value="">Franja Etaria</option>
             <option value="1" >0 a 11 años</option>
             <option value="2" >12 a 18 años</option>
@@ -147,7 +153,7 @@
       </script>
       <div class="form-group ">
          <label for="">B 6. ¿Cuenta con alguna documentación que permita acreditar su identidad?:</label>
-         <select class="form-control" name="tienedoc_id" onChange="selectOnChangeB6(this)">
+         <select class="form-control" name="tienedoc" onChange="selectOnChangeB6(this)">
             <option value="">Tiene documentación?</option>
             <option value="1" >Posee</option>
             <option value="3" >No posee</option>
@@ -183,7 +189,7 @@
       </script>
       <div class="form-group " id="tipodoc">
          <label for="">B 7. Tipo de documentación:</label>
-         <select class="form-control" id="tipodocumento_id" name="tipodocumento_id" onChange="selectOnChangeB7(this)">
+         <select class="form-control" id="tipodocumento_id" name="tipodocumento" onChange="selectOnChangeB7(this)">
             <option value="">Seleccioná el tipo de documento</option>
             <option value="1" >D.N.I.</option>
             <option value="2" >Documento Extranjero</option>
@@ -197,7 +203,7 @@
          </select>
          <div id="cual_b14" style="display: none">
             <label for="">B 7.I Estado de la residencia precaria</label>
-            <select class="form-control" id="residenciaprecaria_id" name="residenciaprecaria_id" class="form-control">
+            <select class="form-control" id="residenciaprecaria_id" name="residenciaprecaria" class="form-control">
                <option value="">Estado?</option>
                <option value="1">Vigente</option>
                <option value="2">Vencida</option>
@@ -205,9 +211,9 @@
             </select>
          </div>
          <div id="cual_b2" style="display: none">
-            <label for="">Cual?</label>
+            <label for="">Cuál?</label>
             <div class="">
-               <input name="victima_tipo_documento_otro"  id="victima_tipo_documento_otro" class="form-control" type="text" onclick="cual_b5()">
+               <input name="tipo_documento_otro"  id="victima_tipo_documento_otro" class="form-control" type="text" onclick="cual_b5()">
             </div>
          </div>
       </div>
@@ -235,7 +241,7 @@
       </script>
       <div class="form-group " id="nrodoc">
          <label for="">B 8. Nro Documento:</label>
-         <input type="text" class="form-control" name="victima_documento" placeholder="" id="victima_documento" value="">
+         <input type="text" class="form-control" name="victima_numero_documento" placeholder="" id="victima_documento" value="">
          <label for="bloqueo3" class="form-check-label">Se desconoce</label>
          <input type="checkbox" id="bloqueo3" name="victima_documento_se_desconoce" value="Se desconoce" onchange="check3(this)">
       </div>
@@ -255,7 +261,7 @@
       </script>
       <div class="form-group ">
          <label for="">B 9. Máximo nivel educativo alcanzado:</label>
-         <select class="form-control" name="niveleducativo_id">
+         <select class="form-control" name="niveleducativo">
             <option value="">Seleccioná el nivel de educación</option>
             <option value="1" >Sin instrucción formal</option>
             <option value="2" >Primario incompleto</option>
@@ -280,41 +286,42 @@
       </div>
       <div class="form-group ">
          <label for="modalidad_id">B 11.¿Tiene necesidades socioeconómicas insatisfechas?:</label>
-         <select class="form-control" name="necesidades_insatisfechas" id="necesidades_insatisfechas" onChange="selectOnChangeB11(this)">
+         <select class="form-control" name="necesidades_socioeconomicas_insatisfechas" id="necesidades_insatisfechas" onChange="selectOnChangeB11(this)">
             <option value="" >¿Tiene necesidades socioeconómicas insatisfechas?</option>
             <option value="1" >Sí</option>
             <option value="2" >No</option>
             <option value="3" >Se desconoce</option>
          </select>
+
       </div>
-      <div class="form-group " id="necesidades_insatisfechas_si" style="display:none">
+
+      <div class="form-group " id="necesidades_insatisfechas_si"  name="necesidades_socioeconomicas_insatisfechas_si" style="display:none">
          <label>B 11 I. Necesidades socioeconómicas insatisfechas: </label><br>
-         <label class="" >En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
-         <div>
-            <label for="" class="form-check-inline form-check-label" style="margin-left: 15px; margin-right: 0px;">Vivienda</label>
-            <input type="checkbox" class="form-check-inline" value="1" id="vivienda" name="necesidades_id[]">
+<label class="" >En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
 
-            <label for="" class="form-check-inline form-check-label" style="margin-left: 15px; margin-right: 0px;">Alimentos</label>
-            <input type="checkbox" class="form-check-inline" value="2" id="alimentos" name="necesidades_id[]">
 
-            <label for="" class="form-check-inline form-check-label" style="margin-left: 15px; margin-right: 0px;">Capacidad Económica</label>
-            <input type="checkbox" class="form-check-inline" value="3" id="economica" name="necesidades_id[]">
+             @foreach ($necesidades as $necesidad)
+               <label class="form-check-inline form-check-label">
+                 <input type="checkbox" value="{{ $necesidad->id }}" class="form-check-inline" name="necesidades[]">
 
-            <label for=""  class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Salud</label>
-            <input type="checkbox" class="form-check-inline" value="4"  id="salud" name="necesidades_id[]">
+                 {{ $necesidad->nombre }}
 
-            <label for=""  class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Vestimenta</label>
-            <input type="checkbox" class="form-check-inline" value="5"  id="vestimenta" name="necesidades_id[]">
 
-            <label for=""  class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Educación</label>
-            <input type="checkbox" class="form-check-inline" value="6"  id="educacion" name="necesidades_id[]">
+               </label><br>
+             @endforeach
 
-            <label for=""  class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Trabajo</label>
-            <input type="checkbox" class="form-check-inline" value="7"  id="trabajo" name="necesidades_id[]">
+
+<input type="checkbox" class="form-check-inline" id="checkeadoB11"  onclick="muestroCualB11()" name="" value="8">
 
             <label for="" class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Otro</label>
-            <input type="checkbox" class="form-check-inline" id="checkeadoB11"  onclick="muestroCualB11()" name="necesidades_id[]" value="8">
-         </div>
+
+            <div id="cualB11" style="display:none">
+               <label for="">Cual?</label>
+               <input type="text" class="form-control" name="necesidades_socioeconomicas_insatisfechas_otro" value="" id="necesidades_insatisfechas_otro">
+            </div>
+            </div>
+
+
          <script>
             function selectOnChangeB11(sel) {
                            if (sel.value=="1"){
@@ -345,11 +352,7 @@
             }
 
          </script>
-         <div id="cualB11" style="display:none">
-            <label for="">Cual?</label>
-            <input type="text" class="form-control" name="victima_limitacion_otra" value="" id="necesidades_insatisfechas_otro">
-         </div>
-      </div>
+
 
       <script>
          function muestroCualB11() {
@@ -367,6 +370,7 @@
 
       </script>
       <div class="form-group ">
+
          <label for="modalidad_id">B 12.¿Percibe algún tipo de programa o subsidio social?:</label>
          <select class="form-control" name="programa_subsidio" id="programa_subsidio" onChange="selectOnChangeB12(this)">
             <option value="" >¿Percibe algún tipo de programa o subsidio social?</option>
@@ -378,18 +382,22 @@
       <div class="form-group " id="programa_subsidio_si" style="display:none">
          <label>B 12 I. ¿Cuál?  </label><br>
          <label class="" >En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
-         <div>
-            <label for="" class="form-check-inline form-check-label" style="margin-left: 15px; margin-right: 0px;">Jubilación</label>
-            <input type="checkbox" class="form-check-inline" value="1" id="jubilacion" name="programa_id[]">
-            <label for="" class="form-check-inline form-check-label" style="margin-left: 15px; margin-right: 0px;">Asignación Universal por Hijo</label>
-            <input type="checkbox" class="form-check-inline" value="2" id="asignacion" name="programa_id[]">
-            <label for="" class="form-check-inline form-check-label" style="margin-left: 15px; margin-right: 0px;">PROGRESAR</label>
-            <input type="checkbox" class="form-check-inline" value="3" id="progresar" name="programa_id[]">
-            <label for=""  class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Pensión</label>
-            <input type="checkbox" class="form-check-inline" value="4"  id="pension" name="programa_id[]">
+
+
+
+               @foreach ($programas as $programa)
+                 <label class="form-check-inline form-check-label">
+                   <input type="checkbox" value="{{ $programa->id }}" class="form-check-inline" name="programa[]">
+
+                   {{ $programa->nombre }}
+
+
+                 </label><br>
+               @endforeach
+
             <label for="" class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Otro</label>
-            <input type="checkbox" class="form-check-inline" id="checkeadoB12"  onclick="muestroCualB12()" name="programa_id[]" value="5">
-         </div>
+            <input type="checkbox" class="form-check-inline" id="checkeadoB12"  onclick="muestroCualB12()" name="" value="5">
+
          <script>
             function selectOnChangeB12(sel) {
                     if (sel.value=="1"){
@@ -439,7 +447,7 @@
       </script>
       <div class="form-group"id="embarazo">
          <label for="">B 13. Embarazo al inicio de la asistencia:</label>
-         <select class="form-control" id="embarazorelevamiento_id" name="embarazorelevamiento_id">
+         <select class="form-control" id="embarazorelevamiento_id" name="embarazorelevamiento">
             <option value="">Está embarazada?</option>
             <option value="1" >Si</option>
             <option value="2" >No</option>
@@ -448,20 +456,16 @@
       <div class="form-group ">
          <label for="">B 14. ¿Presenta algún tipo de discapacidad?</label><br>
          <label for="">En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
-         <div class="">
-            <label for="Físico/Motriz" class=" form-check-inline form-check-label"> </label>Físico/Motriz</label>
-            <input type="checkbox" value="1" class="form-check-inline" id="Físico/Motriz" name="discapacidad_id[]">
-            <label for="Intelectual/Adaptativo" class=" form-check-inline form-check-label"> </label>Intelectual/Adaptativo</label>
-            <input type="checkbox" value="2" class="form-check-inline" id="Intelectual/Adaptativo" name="discapacidad_id[]">
-            <label for="Psíquica" class=" form-check-inline form-check-label"> </label>Psíquica</label>
-            <input type="checkbox" value="3" class="form-check-inline" id="Psíquica" name="discapacidad_id[]">
-            <label for="Sensorial" class=" form-check-inline form-check-label"> </label>Sensorial</label>
-            <input type="checkbox" value="4" class="form-check-inline" id="Sensorial" name="discapacidad_id[]">
-            <label for="No" style="margin-left: 15px;" class="form-check-label">No</label>
-            <input type="checkbox" value="5" class="form-check-inline" name="discapacidad_id[]" id="No" onchange="checkB14(this)">
-            <label for="Se desconoce" style="margin-left: 15px;" class="form-check-label">Se desconoce</label>
-            <input type="checkbox" value="6" class="form-check-inline" name="discapacidad_id[]" id="Se desconoce" onchange="checkB14bis(this)">
-         </div>
+
+           @foreach ($discapacidades as $discapacidad)
+             <label class="form-check-inline form-check-label">
+               <input type="checkbox" value="{{ $discapacidad->id }}" class="form-check-inline" name="discapacidad[]">
+               {{ $discapacidad->nombre }}
+             </label><br>
+           @endforeach
+
+            <input type="checkbox" value="6" class="form-check-inline" name="discapacidad[]" id="Se desconoce" onchange="checkB14bis(this)">
+
       </div>
       <script>
          function checkB14(checkbox)
@@ -511,7 +515,7 @@
       </script>
       <div class="form-group ">
          <label class="">B 15. ¿Presenta lesiones físicas visibles? </label>
-         <select class="form-control" id="tienelesion_id" name="tienelesion_id" onChange="selectOnChangeB15(this)">
+         <select class="form-control" id="tienelesion" name="tienelesion" onChange="selectOnChangeB15(this)">
             <option value="">Presenta lesiones físicas visibles:</option>
             <option value="1" >Si</option>
             <option value="2" >No</option>
@@ -520,7 +524,7 @@
          <div class="" id="cualB15" style="display: none;">
             <label class="">Tipo de lesión:</label>
             <div class="">
-               <input name="victima_lesion" placeholder="" id="victima_lesion" class="form-control" type="text">
+               <input name="tipo_lesion" placeholder="" id="victima_lesion" class="form-control" type="text">
             </div>
          </div>
       </div>
@@ -538,7 +542,7 @@
       </script>
       <div class="form-group ">
          <label class="">B 16. ¿Tiene enfermedades crónicas?</label>
-         <select class="form-control" id="enfermedadcronica_id" name="enfermedadcronica_id" onChange="selectOnChange16(this)">
+         <select class="form-control" id="enfermedadcronica" name="enfermedadcronica" onChange="selectOnChange16(this)">
             <option value="">Posee enfermedades?</option>
             <option value="1" >Si</option>
             <option value="2" >No</option>
@@ -547,7 +551,7 @@
          <div class="" id="victima_tipo_enfermedad_cronica" style="display: none;">
             <label class="">B 16I. Tipo de enfermedad crónica:</label>
             <div class="">
-               <input name="victima_tipo_enfermedad_cronica" placeholder="" id="victima_enfermedad_cronica" class="form-control" type="text">
+               <input name="tipo_enfermedad_cronica" placeholder="" id="victima_enfermedad_cronica" class="form-control" type="text">
             </div>
          </div>
       </div>
@@ -573,24 +577,28 @@
          <label>B 17. ¿Presenta algún tipo de limitación para comunicarse? </label><br>
          <label class="" >En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
          <div>
-            <label for="" class="form-check-inline form-check-label" style="margin-left: 15px; margin-right: 0px;">Analfabetismo</label>
-            <input type="checkbox" class="form-check-inline" value="1" id="Analfabetismo" name="limitacion_id[]">
-            <label for="" class="form-check-inline form-check-label" style="margin-left: 15px; margin-right: 0px;">Discapacidad</label>
-            <input type="checkbox" class="form-check-inline" value="2" id="Discapacidad" name="limitacion_id[]">
-            <label for="" class="form-check-inline form-check-label" style="margin-left: 15px; margin-right: 0px;">Idioma</label>
-            <input type="checkbox" class="form-check-inline" value="3" id="Idioma" name="limitacion_id[]">
-            <label for=""  class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">No</label>
-            <input type="checkbox" class="form-check-inline" value="4" name="limitacion_id[]" onchange="checkB17(this)">
+           @foreach ($limitaciones as $limitacion)
+             <label class="form-check-inline form-check-label">
+               <input type="checkbox" value="{{ $limitacion->id }}" class="form-check-inline" name="limitacion[]">
+               {{ $limitacion->nombre }}
+             </label><br>
+           @endforeach
             <label for="" class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Otro</label>
-            <input type="checkbox" class="form-check-inline" id="checkeadoB17"  onclick="muestroCualB17()" name="limitacion_id[]" value="5">
+            <input type="checkbox" class="form-check-inline" id="checkeadoB17"  onclick="muestroCualB17()" name="" value="5">
          </div>
          <!-- si checkeo el checkbox otro tomo el id checkeado y uso la funcion muestroCual -->
          <!-- mostrando lo que contiene el id cual -->
          <div id="cualB17" style="display:none">
             <label for="">Cual?</label>
-            <input type="text" class="form-control" name="victima_limitacion_otra"  id="victima_limitacion_otra" value="">
+            <input type="text" class="form-control" name="limitacion_otro"  id="victima_limitacion_otra" value="">
          </div>
       </div>
+      <div class="botones" style="overflow:hidden;width:100%;margin-left:40%">
+    <div class="btn-1" style="width:10%;float:left"> <button class="btn btn-primary col-xs" name="button" style="width:108%" >Agregar</button><br><br></div>
+
+      </div>
+    </form>
+<div class="btn-2" style="width:11%;float:left;margin-left:40%">   <button style="width:100%" class="btn btn-primary col-xs" name="button" onclick="window.open('agregarConvivienteC', 'width=800,height=600')"; >Siguiente</button><br><br></div>
       <!-- VER ESTA MANERA TERMINA ACA -->
       <script>
          function muestroCualB17() {
@@ -631,5 +639,7 @@
 
                }
       </script>
+
+
    </body>
 </html>
