@@ -2,6 +2,7 @@
 
 session_start();
 
+<<<<<<< HEAD
 
 //ARMO ARRAY ASOCIATIVO PARA RECORRERLO BUSCANDO EL VALOR DEL SELECT A-5, ESTE VALOR LO GUARDO EN UN SESSION PARA LUEGO MOSTRARLO EN F-1
  /*$derivaciones=["1"=>"Unidad de Ministro (Ministerio de Justicia)",
@@ -55,6 +56,60 @@ session_start();
     $_SESSION["derivacion"]=NULL; }
 
  }}else{$_SESSION["derivacionbis"]=NULL;}*/
+=======
+//ARMO ARRAY ASOCIATIVO PARA RECORRERLO BUSCANDO EL VALOR DEL SELECT A-5, ESTE VALOR LO GUARDO EN UN SESSION PARA LUEGO MOSTRARLO EN F-1
+// $derivaciones=["1"=>"Unidad de Ministro (Ministerio de Justicia)",
+//                  "2"=>"Organismo Provincial de Niñez y Adolescencia",
+//                  "3"=>" Portal Mi Provincia",
+//                  "4"=>"Registro Provincial de Información de Personas Menores de Edad Extraviadas (REPIPME)",
+//                  "5"=>"Fiscalía",
+//                  "6"=>"Comisaría",
+//                  "7"=>"Municipio",
+//                  "8"=>"Centro de Acceso a Justicia (CAJ)",
+//                  "9"=>"Defensoría del Pueblo",
+//                  "10"=>"Estado en Tu Barrio",
+//                  "11"=>"DDI",
+//                  "12"=>"Cerca de Noche",
+//                  "13"=>"Equipo territorial de barrios",
+//                  "14"=>"Otro"];
+//
+// 	if ( $_POST ) {
+//     // VARIABLES SESSION UTILIZADAS EN F-1
+// $_SESSION["derivacion"] = $_POST["derivacion_otro_organismo"];
+// if($_SESSION["derivacion"]==2){
+// $_SESSION["derivacion"]=NULL;
+// $_SESSION["derivacionbis"]=2;}
+//
+// if($_SESSION["derivacion"]==4){
+// $_SESSION["derivacion"]=NULL;
+// $_SESSION["derivacionbis"]=4;}
+//
+// if($_SESSION["derivacion"]==5){
+// $_SESSION["derivacion"]=NULL;
+// $_SESSION["derivacionbis"]=5;}
+//
+// if($_SESSION["derivacion"]==8){
+// $_SESSION["derivacion"]=NULL;
+// $_SESSION["derivacionbis"]=8;}
+//
+// if($_SESSION["derivacion"]==10){
+// $_SESSION["derivacion"]=NULL;
+// $_SESSION["derivacionbis"]=10;}
+//
+// if($_SESSION["derivacion"]==12){
+// $_SESSION["derivacion"]=NULL;
+// $_SESSION["derivacionbis"]=12;}
+//
+// foreach ($derivaciones as $numero=>$nombre){
+// if($_SESSION["derivacion"]==$numero){
+//    $_SESSION["derivacion"]=$nombre;}
+//    if($_SESSION["derivacion"]=="Otro"){
+//    $_SESSION["derivacion"]=$_POST["derivacion_otro_organismo_cual"]; }
+//    if($_SESSION["derivacion"]==" "){
+//    $_SESSION["derivacion"]=NULL; }
+//
+// }}else{$_SESSION["derivacionbis"]=NULL;}
+>>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
 
  ?>
 
@@ -131,10 +186,16 @@ session_start();
                   <div class="Ados">
                       @foreach ($delitos as $delito)
                         <label class="form-check-inline form-check-label">
+<<<<<<< HEAD
                           <input type="checkbox" value="{{ $delito->id }}" class="form-check-inline" name="delito[]">
 
                           {{ $delito->nombre }}
 
+=======
+                          <input type="checkbox" value="{{ $delito->id }}" class="form-check-inline" name="delitos[]">
+
+                          {{ $delito->nombre }}
+>>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
 
                         </label><br>
                       @endforeach

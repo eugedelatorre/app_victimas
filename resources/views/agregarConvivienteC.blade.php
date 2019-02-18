@@ -59,9 +59,22 @@ session_start();
            {{ csrf_field() }}
 
             <div class="form-group">
+<<<<<<< HEAD
               <input type="hidden" name="idCaso" value="{{ $_SESSION["idCaso"]}}">
 
 
+=======
+               <label for="otraspersonas_id">¿Convivía la víctima con una o mas personas? </label>
+               <select class="form-control noPersonas" name="otraspersonas">
+                  <option value="">¿Convivía la víctima con una o mas personas?</option>
+                  <option value="1">Si</option>
+                  <option value="2">No</option>
+                  <option value="3">Se desconoce</option>
+               </select>
+            </div>
+            <div class="padre">
+               <div class="hijo">
+>>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
                   <h3>Datos del Conviviente:</h3>
                   <div class="form-group">
                      <label for="">C 1. Nombre y apellido:</label>
@@ -157,6 +170,7 @@ session_start();
                         <option value="5" >Se desconoce</option>
                      </select>
                   </div>
+<<<<<<< HEAD
 
 
                 <div class="btn-1" style="width:10%;float:left"> <button class="btn btn-primary col-xs" type="submit" style="width:108%" >Agregar</button><br><br></div>
@@ -164,8 +178,38 @@ session_start();
                   </div>
                 </form>
             <div class="btn-2" style="width:11%;float:left;margin-left:40%"><button style="width:100%" class="btn btn-primary col-xs"  onclick="window.open('agregarDelitoD', 'width=800,height=600')"; >Siguiente</button><br><br></div>
+=======
+               </div>
+            </div>
+            <div class="botones" style="overflow:hidden;width:100%;margin-left:40%">
+          <div class="btn-1" style="width:10%;float:left"> <button type="submit" class="btn btn-primary col-xs" name="button" >Agregar/Enviar</button><br><br></div>
+
+            </div>
+         </form>
+         <div class="btn-4" style="width:11%;float:left;margin-left:40%">   <button style="width:100%" class="btn btn-primary col-xs" name="button" onclick="window.open('agregarDelitoD', 'width=800,height=600')";>Siguiente</button><br><br></div>
+
+>>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
       </section>
       <!-- este script lo que hace es agregar otro formulario de profesionales en el caso que intervenga mas de un profesional en el caso -->
 
+<<<<<<< HEAD
+=======
+         $("#borra").click(function(){
+         $('.hijo').last().remove();
+         swal('Se borro un conviviente');
+         });
+      </script>
+      <script>
+         var msg = '';
+         var exist = '';
+         if(exist){
+           swal(msg);
+         }
+      </script>
+      <script src="js/formulario.js" type="text/javascript" charset="utf-8" async defer></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+>>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
    </body>
 </html>

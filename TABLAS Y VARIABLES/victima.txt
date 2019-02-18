@@ -1,0 +1,48 @@
+﻿
+TABLA NECESIDADES:
+
+CREATE  TABLE necesidades  (id int  unsigned not null auto_increment primary key,nombre varchar(255))
+
+INSERT INTO necesidades(nombre) VALUES("Vivienda");
+INSERT INTO necesidades(nombre) VALUES("Alimentos");
+INSERT INTO necesidades(nombre) VALUES("Capacidad Económica");
+INSERT INTO necesidades(nombre) VALUES("Salud");
+INSERT INTO necesidades(nombre) VALUES("Vestimenta");
+INSERT INTO necesidades(nombre) VALUES("Educación");
+INSERT INTO necesidades(nombre) VALUES("Trabajo");
+INSERT INTO necesidades(nombre) VALUES("Otro");
+
+TABLA PROGRAMAS:
+
+CREATE  TABLE programas  (id int  unsigned not null auto_increment primary key,nombre varchar(255))
+
+INSERT INTO programas(nombre) VALUES("Jubilación");
+INSERT INTO programas(nombre) VALUES("Asignación Universal por Hijo");
+INSERT INTO programas(nombre) VALUES("PROGRESAR");
+INSERT INTO programas(nombre) VALUES("Pensión");
+INSERT INTO programas(nombre) VALUES("Otro");
+
+TABLA DISCAPACIDADES:
+
+CREATE  TABLE discapacidades  (id int  unsigned not null auto_increment primary key,nombre varchar(255)
+
+INSERT INTO discapacidades(nombre) VALUES("Físico/Motriz");
+INSERT INTO discapacidades(nombre) VALUES("Intelectual/Adaptativo");
+INSERT INTO discapacidades(nombre) VALUES("Psíquica");
+INSERT INTO discapacidades(nombre) VALUES("Sensorial");
+INSERT INTO discapacidades(nombre) VALUES("No");
+INSERT INTO discapacidades(nombre) VALUES("Se desconoce");
+
+TABLA LIMITACIONES:
+
+CREATE  TABLE limitaciones  (id int  unsigned not null auto_increment primary key,nombre varchar(255))
+
+INSERT INTO limitaciones(nombre) VALUES("Analfabetismo");
+INSERT INTO limitaciones(nombre) VALUES("Discapacidad");
+INSERT INTO limitaciones(nombre) VALUES("Idioma");
+INSERT INTO limitaciones(nombre) VALUES("No");
+INSERT INTO limitaciones(nombre) VALUES("Otro");
+
+
+
+

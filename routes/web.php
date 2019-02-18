@@ -19,11 +19,18 @@ Route::get('/', function () {
 //---------Rutas FORMULARIO A (AGREGAR CASOS)-------------//
 Route::get("/agregarCaso",function(){
   $delitos = App\Delito::all();
+  //dd($delitos);
   $cavajs = App\Cavaj::all();
+<<<<<<< HEAD
   $usuarios = App\Usuario::all();
   $organismos = App\Organismo::all();
   $departamentos = App\Departamento::all();
   return view("agregarCaso", compact("delitos", "cavajs","usuarios","organismos","departamentos"));
+=======
+  //dd($cavajs);
+
+  return view("agregarCaso", compact("delitos", "cavajs"));
+>>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
 });
 
 Route::post("/agregarCaso","CasoController@agregar");
@@ -195,5 +202,31 @@ Route::get("/apitest", function () {
   return view("testApi", compact("arrayParaLaVista"));
 });
 
+<<<<<<< HEAD
 //-------------FIN API GEOLOCALIZACION------------//
+=======
+Route::post("/agregarOrganismoF","OrganismoController@agregar");
+
+Route::get("/apitest", function () {
+  $apiCall = curl_init("https://mapa2.electoral.gov.ar/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&authkey=32fb9979f9574eccbda848ae56183e0d&typeName=descargas:circuito_02&maxFeatures=2000&outputFormat=application%2Fjson");
+	curl_setopt($apiCall, CURLOPT_RETURNTRANSFER, 1);
+	$apiOutput = curl_exec($apiCall);
+	curl_close($apiCall);
+  $result = json_decode($apiOutput, true);
+  $arrayParaLaVista = [];
+  //dd($result["features"][1]);
+
+  foreach ($result["features"] as $dato) {
+    $arrayParaLaVista[] = [
+      $dato["properties"]["departamen"],
+      $dato["geometry"]["coordinates"][0][0][0][0],
+      $dato["geometry"]["coordinates"][0][0][0][1],
+    ];
+  }
+
+  return view("testApi", compact("arrayParaLaVista"));
+})
+
+
+>>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
 ?>

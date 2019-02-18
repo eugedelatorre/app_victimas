@@ -294,16 +294,29 @@ session_start();
          </select>
 
       </div>
+<<<<<<< HEAD
 
       <div class="form-group " id="necesidades_insatisfechas_si"  name="necesidades_socioeconomicas_insatisfechas_si" style="display:none">
          <label>B 11 I. Necesidades socioeconómicas insatisfechas: </label><br>
 <label class="" >En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
 
+=======
+      <div class="form-group " id="necesidades_insatisfechas_si"  name="necesidades_socioeconomicas_insatisfechas_si" style="display:none">
+         <label>B 11 I. Necesidades socioeconómicas insatisfechas: </label><br>
+         <label class="" >En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
+         <div>
+            <label for="" class="form-check-inline form-check-label" style="margin-left: 15px; margin-right: 0px;">Vivienda</label>
+            <input type="checkbox" class="form-check-inline" value="1" id="vivienda" name="necesidades[]">
+
+            <label for="" class="form-check-inline form-check-label" style="margin-left: 15px; margin-right: 0px;">Alimentos</label>
+            <input type="checkbox" class="form-check-inline" value="2" id="alimentos" name="necesidades[]">
+>>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
 
              @foreach ($necesidades as $necesidad)
                <label class="form-check-inline form-check-label">
                  <input type="checkbox" value="{{ $necesidad->id }}" class="form-check-inline" name="necesidades[]">
 
+<<<<<<< HEAD
                  {{ $necesidad->nombre }}
 
 
@@ -322,6 +335,23 @@ session_start();
             </div>
 
 
+=======
+            <label for=""  class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Salud</label>
+            <input type="checkbox" class="form-check-inline" value="4"  id="salud" name="necesidades[]">
+
+            <label for=""  class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Vestimenta</label>
+            <input type="checkbox" class="form-check-inline" value="5"  id="vestimenta" name="necesidades[]">
+
+            <label for=""  class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Educación</label>
+            <input type="checkbox" class="form-check-inline" value="6"  id="educacion" name="necesidades[]">
+
+            <label for=""  class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Trabajo</label>
+            <input type="checkbox" class="form-check-inline" value="7"  id="trabajo" name="necesidades[]">
+
+            <label for="" class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Otro</label>
+            <input type="checkbox" class="form-check-inline" id="checkeadoB11"  onclick="muestroCualB11()" name="necesidades[]" value="8">
+         </div>
+>>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
          <script>
             function selectOnChangeB11(sel) {
                            if (sel.value=="1"){
@@ -352,7 +382,15 @@ session_start();
             }
 
          </script>
+<<<<<<< HEAD
 
+=======
+         <div id="cualB11" style="display:none">
+            <label for="">Cual?</label>
+            <input type="text" class="form-control" name="necesidades_socioeconomicas_insatisfechas_otro" value="" id="necesidades_insatisfechas_otro">
+         </div>
+      </div>
+>>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
 
       <script>
          function muestroCualB11() {
@@ -382,6 +420,7 @@ session_start();
       <div class="form-group " id="programa_subsidio_si" style="display:none">
          <label>B 12 I. ¿Cuál?  </label><br>
          <label class="" >En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
+<<<<<<< HEAD
 
 
 
@@ -398,6 +437,20 @@ session_start();
             <label for="" class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Otro</label>
             <input type="checkbox" class="form-check-inline" id="checkeadoB12"  onclick="muestroCualB12()" name="" value="5">
 
+=======
+         <div>
+            <label for="" class="form-check-inline form-check-label" style="margin-left: 15px; margin-right: 0px;">Jubilación</label>
+            <input type="checkbox" class="form-check-inline" value="1" id="jubilacion" name="programa[]">
+            <label for="" class="form-check-inline form-check-label" style="margin-left: 15px; margin-right: 0px;">Asignación Universal por Hijo</label>
+            <input type="checkbox" class="form-check-inline" value="2" id="asignacion" name="programa[]">
+            <label for="" class="form-check-inline form-check-label" style="margin-left: 15px; margin-right: 0px;">PROGRESAR</label>
+            <input type="checkbox" class="form-check-inline" value="3" id="progresar" name="programa[]">
+            <label for=""  class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Pensión</label>
+            <input type="checkbox" class="form-check-inline" value="4"  id="pension" name="programa[]">
+            <label for="" class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Otro</label>
+            <input type="checkbox" class="form-check-inline" id="checkeadoB12"  onclick="muestroCualB12()" name="programa[]" value="5">
+         </div>
+>>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
          <script>
             function selectOnChangeB12(sel) {
                     if (sel.value=="1"){
@@ -456,6 +509,7 @@ session_start();
       <div class="form-group ">
          <label for="">B 14. ¿Presenta algún tipo de discapacidad?</label><br>
          <label for="">En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
+<<<<<<< HEAD
 
            @foreach ($discapacidades as $discapacidad)
              <label class="form-check-inline form-check-label">
@@ -466,6 +520,22 @@ session_start();
 
             <input type="checkbox" value="6" class="form-check-inline" name="discapacidad[]" id="Se desconoce" onchange="checkB14bis(this)">
 
+=======
+         <div class="">
+            <label for="Físico/Motriz" class=" form-check-inline form-check-label"> </label>Físico/Motriz</label>
+            <input type="checkbox" value="1" class="form-check-inline" id="Físico/Motriz" name="discapacidad[]">
+            <label for="Intelectual/Adaptativo" class=" form-check-inline form-check-label"> </label>Intelectual/Adaptativo</label>
+            <input type="checkbox" value="2" class="form-check-inline" id="Intelectual/Adaptativo" name="discapacidad[]">
+            <label for="Psíquica" class=" form-check-inline form-check-label"> </label>Psíquica</label>
+            <input type="checkbox" value="3" class="form-check-inline" id="Psíquica" name="discapacidad[]">
+            <label for="Sensorial" class=" form-check-inline form-check-label"> </label>Sensorial</label>
+            <input type="checkbox" value="4" class="form-check-inline" id="Sensorial" name="discapacidad[]">
+            <label for="No" style="margin-left: 15px;" class="form-check-label">No</label>
+            <input type="checkbox" value="5" class="form-check-inline" name="discapacidad[]" id="No" onchange="checkB14(this)">
+            <label for="Se desconoce" style="margin-left: 15px;" class="form-check-label">Se desconoce</label>
+            <input type="checkbox" value="6" class="form-check-inline" name="discapacidad[]" id="Se desconoce" onchange="checkB14bis(this)">
+         </div>
+>>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
       </div>
       <script>
          function checkB14(checkbox)
@@ -577,6 +647,7 @@ session_start();
          <label>B 17. ¿Presenta algún tipo de limitación para comunicarse? </label><br>
          <label class="" >En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
          <div>
+<<<<<<< HEAD
            @foreach ($limitaciones as $limitacion)
              <label class="form-check-inline form-check-label">
                <input type="checkbox" value="{{ $limitacion->id }}" class="form-check-inline" name="limitacion[]">
@@ -585,6 +656,18 @@ session_start();
            @endforeach
             <label for="" class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Otro</label>
             <input type="checkbox" class="form-check-inline" id="checkeadoB17"  onclick="muestroCualB17()" name="" value="5">
+=======
+            <label for="" class="form-check-inline form-check-label" style="margin-left: 15px; margin-right: 0px;">Analfabetismo</label>
+            <input type="checkbox" class="form-check-inline" value="1" id="Analfabetismo" name="limitacion[]">
+            <label for="" class="form-check-inline form-check-label" style="margin-left: 15px; margin-right: 0px;">Discapacidad</label>
+            <input type="checkbox" class="form-check-inline" value="2" id="Discapacidad" name="limitacion[]">
+            <label for="" class="form-check-inline form-check-label" style="margin-left: 15px; margin-right: 0px;">Idioma</label>
+            <input type="checkbox" class="form-check-inline" value="3" id="Idioma" name="limitacion[]">
+            <label for=""  class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">No</label>
+            <input type="checkbox" class="form-check-inline" value="4" name="limitacion[]" onchange="checkB17(this)">
+            <label for="" class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Otro</label>
+            <input type="checkbox" class="form-check-inline" id="checkeadoB17"  onclick="muestroCualB17()" name="limitacion[]" value="5">
+>>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
          </div>
          <!-- si checkeo el checkbox otro tomo el id checkeado y uso la funcion muestroCual -->
          <!-- mostrando lo que contiene el id cual -->

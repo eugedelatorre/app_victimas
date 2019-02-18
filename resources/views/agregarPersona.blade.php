@@ -88,9 +88,16 @@ if($_SESSION["derivacion"]==$numero){
    </header>
    <body>
       <h1 class="text-center" style="padding: 15px;">Eje A: Datos institucionales</h1>
+<<<<<<< HEAD
     <div class="divpersona" id="divpersona">  <h2 class="text-center" style="padding: -20px;" >Persona Asistida</h2></div>
 
 
+=======
+      <h2 class="text-center" style="padding: -20px;">Persona Asistida</h2>
+      <div class="form-group">
+    
+      </div>
+>>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
       <section class="container" >
 
         @if ($errors->any())
