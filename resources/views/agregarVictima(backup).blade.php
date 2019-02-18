@@ -19,7 +19,7 @@ session_start();
      <ul class="nav nav-tabs">
         <li class="nav-item"> <strong><a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarCaso">Eje A: Datos institucionales</a> </li></strong>
         <li class="nav-item"><strong> <a class="nav-link "  style="color:black;font-size:1.1em" href="#">Eje B: Caracterización de la victima y su contexto</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarConvivienteC">Eje C: Grupo Conviviente</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarconviviente">Eje C: Grupo Conviviente</a> </li></strong>
         <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em"  href="agregarDelitoD">Eje D: Caracterización de delito</a> </li></strong>
         <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarImputadoE">Eje E: Datos del imputado</a> </li></strong>
         <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarOrganismoF">Eje F: Atención del caso</a> </li></strong>
@@ -27,7 +27,8 @@ session_start();
      </ul>
    </header>
    <body>
-      <h1 class="text-center" style="padding: 15px;">Eje B: Caracterización de la victima y su contexto</h1>
+      <h1 class="text-center" style="padding: 15px;">Eje B: Caracterización de la victima y su contexto</h1><br>
+
       <div class="form-group" style="margin-top:-1%;margin-left:38%">
     <ul>
       @foreach($victims as $victim)
@@ -46,20 +47,16 @@ session_start();
     </ul>
 </div>
       <section class="container">
-      <form class="" action="/agregarVictimaB" method="post">
+      <form class="" action="/agregarVictima" method="post">
         {{csrf_field()}}
 
-      <div class="form-group"{{ $errors->has('victima_nombre_y_apellido') ? 'has-error' : ''}}>
-
-            <input type="hidden" name="idCaso" value="{{$ultimoid}}">
-
+      <div class="form-group ">
+          <input type="hidden" name="idCaso" value="{{$ultimoid}}">
 
          <label for="">B 1. Nombre y apellido:</label>
-         <input type="text" class="form-control" name="victima_nombre_y_apellido" id="victima_nombre_y_apellido" value="{{old('victima_nombre_y_apellido')}}">
-         {!! $errors->first('victima_nombre_y_apellido', '<p class="help-block" style="color:red";>:message</p>') !!}
+         <input type="text" class="form-control" name="victima_nombre_y_apellido" id="victima_nombre_y_apellido" value="">
       </div>
-
-      <div class="form-group"{{ $errors->has('genero') ? 'has-error' : ''}}>
+      <div class="form-group ">
          <label for="">B 2. Género:</label>
          <select class="form-control" name="genero" onChange="selectOnChangeB2(this)">
             <option value="">Elegí género</option>
@@ -69,9 +66,7 @@ session_start();
             <option value="4" >Varon Trans</option>
             <option value="5" >Otro</option>
          </select>
-         {!! $errors->first('genero', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
-
       <script>
          function selectOnChangeB2(sel) {
              if (sel.value=="2" || sel.value=="3"){
@@ -90,16 +85,11 @@ session_start();
              }
          }
       </script>
-
-      <div class="form-group"{{ $errors->has('victima_fecha_nacimiento') ? 'has-error' : ''}}>
-
+      <div class="form-group ">
          <label for="">B 3. Fecha de nacimiento: </label>
-         <input type="date" class="form-control" id="victima_fecha_nacimiento" name="victima_fecha_nacimiento" value="{{old('victima_fecha_nacimiento')}}" >
+         <input type="date" class="form-control" id="victima_fecha_nacimiento" name="victima_fecha_nacimiento" value="" >
          <label for="bloqueo3" class="form-check-label">Se desconoce</label>
          <input type="checkbox" id="bloqueo3" name="victima_fecha_nacimiento_desconoce" value="Se desconoce" onchange="checkB3(this)">
-
-         {!! $errors->first('victima_fecha_nacimiento', '<p class="help-block" style="color:red";>:message</p>') !!}
-
       </div>
       <script>
          function checkB3(checkbox)
@@ -115,12 +105,11 @@ session_start();
                  }
          }
       </script>
-      <div class="form-group"{{ $errors->has('victima_edad') ? 'has-error' : ''}}>
+      <div class="form-group ">
          <label for="victima_edad">B 4. Edad:</label>
-         <input name="victima_edad" value="{{old('victima_edad')}}"  id="victima_edad" class="form-control" type="text" onchange="mostrarValorB4(this.value);">
+         <input name="victima_edad" value="" id="victima_edad" class="form-control" type="text" onchange="mostrarValorB4(this.value);">
          <label class="form-check-label" for="victima_edad_desconoce">Se desconoce</label>
          <input name="victima_edad_desconoce" value="Se desconoce" id="victima_edad_desconoce" placeholder="" type="checkbox" onchange="checkB4(this)">
-          {!! $errors->first('victima_edad', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
       <!-- si clickeo el check de se desconoce automaticamente en la franja etaria ingresa el valor se desconoce y se bloquea el input text para asignar la edad -->
       <script type="text/javascript">
@@ -139,7 +128,7 @@ session_start();
       </script>
       <!-- FIN UNDECIMA PREGUNTA -->
       <!-- DUODECIMA PREGUNTA -->
-      <div class="form-group"{{ $errors->has('franjaetaria') ? 'has-error' : ''}}>
+      <div class="form-group ">
          <label for="">B 5. Franja Etaria</label>
          <select name="franjaetaria" id="franjaetaria_id" class="form-control" value="">
             <option value="">Franja Etaria</option>
@@ -152,7 +141,6 @@ session_start();
             <option value="7" >Se desconoce</option>
             <!-- no hago un array en este caso porque toma los valores una funcion de javascript -->
          </select>
-         {!! $errors->first('franjaetaria', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
       <!-- de acuerdo al valor que se seleccione le asigno una franja etaria  -->
       <script type="text/javascript">
@@ -181,9 +169,7 @@ session_start();
          	document.getElementById('franjaetaria_id').value=6;}
          }
       </script>
-
-      <div class="form-group"{{ $errors->has('tienedoc') ? 'has-error' : ''}}>
-
+      <div class="form-group ">
          <label for="">B 6. ¿Cuenta con alguna documentación que permita acreditar su identidad?:</label>
          <select class="form-control" name="tienedoc" onChange="selectOnChangeB6(this)">
             <option value="">Tiene documentación?</option>
@@ -192,7 +178,6 @@ session_start();
             <option value="5" >En tramite</option>
             <option value="6" >Se desconoce</option>
          </select>
-          {!! $errors->first('tienedoc', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
       <script>
          function selectOnChangeB6(sel)
@@ -220,8 +205,7 @@ session_start();
              }
          }
       </script>
-
-      <div class="form-group " id="tipodoc" {{ $errors->has('tipodocumento') ? 'has-error' : ''}}>
+      <div class="form-group " id="tipodoc">
          <label for="">B 7. Tipo de documentación:</label>
          <select class="form-control" id="tipodocumento_id" name="tipodocumento" onChange="selectOnChangeB7(this)">
             <option value="">Seleccioná el tipo de documento</option>
@@ -235,9 +219,6 @@ session_start();
             <option value="8" >No posee</option>
             <option value="9" >Otro</option>
          </select>
-         {!! $errors->first('tipodocumento', '<p class="help-block" style="color:red";>:message</p>') !!}
-         </div>
-
          <div id="cual_b14" style="display: none">
             <label for="">B 7.I Estado de la residencia precaria</label>
             <select class="form-control" id="residenciaprecaria_id" name="residenciaprecaria" class="form-control">
@@ -247,14 +228,13 @@ session_start();
                <option value="3">Se desconoce</option>
             </select>
          </div>
-
          <div id="cual_b2" style="display: none">
             <label for="">Cuál?</label>
             <div class="">
                <input name="tipo_documento_otro"  id="victima_tipo_documento_otro" class="form-control" type="text" onclick="cual_b5()">
             </div>
          </div>
-
+      </div>
       <script>
          function selectOnChangeB7(sel) {
                             if (sel.value=="6"){
@@ -277,12 +257,11 @@ session_start();
          }
 
       </script>
-      <div class="form-group " id="nrodoc" {{ $errors->has('victima_numero_documento') ? 'has-error' : ''}}>
+      <div class="form-group " id="nrodoc">
          <label for="">B 8. Nro Documento:</label>
-         <input type="text" class="form-control" name="victima_numero_documento" placeholder="" id="victima_documento" value="{{old("victima_numero_documento")}}">
+         <input type="text" class="form-control" name="victima_numero_documento" placeholder="" id="victima_documento" value="">
          <label for="bloqueo3" class="form-check-label">Se desconoce</label>
          <input type="checkbox" id="bloqueo3" name="victima_documento_se_desconoce" value="Se desconoce" onchange="check3(this)">
-          {!! $errors->first('victima_numero_documento', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
       <script>
          function check3(checkbox)
@@ -298,7 +277,7 @@ session_start();
                  }
          }
       </script>
-      <div class="form-group"{{ $errors->has('niveleducativo') ? 'has-error' : ''}}>
+      <div class="form-group ">
          <label for="">B 9. Máximo nivel educativo alcanzado:</label>
          <select class="form-control" name="niveleducativo">
             <option value="">Seleccioná el nivel de educación</option>
@@ -311,9 +290,8 @@ session_start();
             <option value="7" >Terciario-Universitario completo</option>
             <option value="8" >Se desconoce</option>
          </select>
-          {!! $errors->first('niveleducativo', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
-      <div class="form-group"{{ $errors->has('condiciones_de_trabajo') ? 'has-error' : ''}}>
+      <div class="form-group ">
          <label for="modalidad_id">B 10.Condiciones de trabajo:</label>
          <select class="form-control" name="condiciones_de_trabajo" id="condiciones_de_trabajo" >
             <option value="" >Selecciona las condición de trabajo</option>
@@ -323,9 +301,8 @@ session_start();
             <option value="4" >Población Inactiva (jubilados, menores de edad, pensionados, etc.)</option>
             <option value="5" >Se desconoce</option>
          </select>
-          {!! $errors->first('condiciones_de_trabajo', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
-      <div class="form-group"{{ $errors->has('necesidades_socioeconomicas_insatisfechas') ? 'has-error' : ''}}>
+      <div class="form-group ">
          <label for="modalidad_id">B 11.¿Tiene necesidades socioeconómicas insatisfechas?:</label>
          <select class="form-control" name="necesidades_socioeconomicas_insatisfechas" id="necesidades_insatisfechas" onChange="selectOnChangeB11(this)">
             <option value="" >¿Tiene necesidades socioeconómicas insatisfechas?</option>
@@ -333,11 +310,10 @@ session_start();
             <option value="2" >No</option>
             <option value="3" >Se desconoce</option>
          </select>
-           {!! $errors->first('necesidades_socioeconomicas_insatisfechas', '<p class="help-block" style="color:red";>:message</p>') !!}
+
       </div>
 
-      <div class="form-group " id="necesidades_insatisfechas_si"  name="necesidades_socioeconomicas_insatisfechas_si" style="display:none"
-      {{ $errors->has('necesidades') ? 'has-error' : ''}}>
+      <div class="form-group " id="necesidades_insatisfechas_si"  name="necesidades_socioeconomicas_insatisfechas_si" style="display:none">
          <label>B 11 I. Necesidades socioeconómicas insatisfechas: </label><br>
 <label class="" >En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
 
@@ -352,8 +328,6 @@ session_start();
                </label><br>
              @endforeach
 
-{!! $errors->first('necesidades', '<p class="help-block" style="color:red";>:message</p>') !!}
-</div>
 
 <input type="checkbox" class="form-check-inline" id="checkeadoB11"  onclick="muestroCualB11()" name="" value="8">
 
@@ -361,9 +335,9 @@ session_start();
 
             <div id="cualB11" style="display:none">
                <label for="">Cual?</label>
-               <input type="text" class="form-control" name="necesidades_socioeconomicas_insatisfechas_otro" value="{{old("necesidades_socioeconomicas_insatisfechas_otro")}}" id="necesidades_insatisfechas_otro">
+               <input type="text" class="form-control" name="necesidades_socioeconomicas_insatisfechas_otro" value="" id="necesidades_insatisfechas_otro">
             </div>
-
+            </div>
 
 
          <script>
@@ -413,7 +387,7 @@ session_start();
 
 
       </script>
-      <div class="form-group"{{ $errors->has('programa_subsidio') ? 'has-error' : ''}}>
+      <div class="form-group ">
 
          <label for="modalidad_id">B 12.¿Percibe algún tipo de programa o subsidio social?:</label>
          <select class="form-control" name="programa_subsidio" id="programa_subsidio" onChange="selectOnChangeB12(this)">
@@ -422,10 +396,8 @@ session_start();
             <option value="2" >No</option>
             <option value="3" >Se desconoce</option>
          </select>
-         {!! $errors->first('programa_subsidio', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
-
-      <div class="form-group" {{ $errors->has('programa[]') ? 'has-error' : ''}} id="programa_subsidio_si" style="display:none">
+      <div class="form-group " id="programa_subsidio_si" style="display:none">
          <label>B 12 I. ¿Cuál?  </label><br>
          <label class="" >En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
 
@@ -433,16 +405,13 @@ session_start();
 
                @foreach ($programas as $programa)
                  <label class="form-check-inline form-check-label">
-                   <input type="checkbox" value="{{ $programa->id }}" class="form-check-inline" name="programa[]">
+                   <input type="checkbox" value="{{ $programa->id }}" class="form-check-inline" name="programas[]">
 
                    {{ $programa->nombre }}
 
 
                  </label><br>
                @endforeach
-
-               {!! $errors->first('programa[]', '<p class="help-block" style="color:red";>:message</p>') !!}
-             </div>
 
             <label for="" class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Otro</label>
             <input type="checkbox" class="form-check-inline" id="checkeadoB12"  onclick="muestroCualB12()" name="" value="5">
@@ -473,12 +442,11 @@ session_start();
 
             }
          </script>
-
          <div id="cualB12" style="display:none">
             <label for="">Cual?</label>
-            <input type="text" class="form-control" name="programa_subsidio_otro" value="{{old("programa_subsidio_otro")}}" id="programa_subsidio_otro">
+            <input type="text" class="form-control" name="programa_subsidio_otro" value="" id="programa_subsidio_otro">
          </div>
-
+      </div>
       <!-- VER ESTA MANERA TERMINA ACA -->
       <script>
          function muestroCualB12() {
@@ -495,34 +463,26 @@ session_start();
 
 
       </script>
-
-      <div class="form-group"id="embarazo" {{ $errors->has('embarazorelevamiento') ? 'has-error' : ''}}>
-
+      <div class="form-group"id="embarazo">
          <label for="">B 13. Embarazo al inicio de la asistencia:</label>
          <select class="form-control" id="embarazorelevamiento_id" name="embarazorelevamiento">
             <option value="">Está embarazada?</option>
             <option value="1" >Si</option>
             <option value="2" >No</option>
          </select>
-         {!! $errors->first('embarazorelevamiento', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
-
-      <div class="form-group"{{ $errors->has('discapacidad[]') ? 'has-error' : ''}}>
-
+      <div class="form-group ">
          <label for="">B 14. ¿Presenta algún tipo de discapacidad?</label><br>
          <label for="">En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
 
            @foreach ($discapacidades as $discapacidad)
              <label class="form-check-inline form-check-label">
-               <input type="checkbox" value="{{ $discapacidad->id }}" class="form-check-inline" name="discapacidad[]">
+               <input type="checkbox" value="{{ $discapacidad->id }}" class="form-check-inline" name="discapacidades[]">
                {{ $discapacidad->nombre }}
              </label><br>
            @endforeach
 
             <input type="checkbox" value="6" class="form-check-inline" name="discapacidad[]" id="Se desconoce" onchange="checkB14bis(this)">
-
-             {!! $errors->first('discapacidad[]', '<p class="help-block" style="color:red";>:message</p>') !!}
-
 
       </div>
       <script>
@@ -571,9 +531,7 @@ session_start();
                  }
          }
       </script>
-
-      <div class="form-group"{{ $errors->has('tienelesion') ? 'has-error' : ''}}>
-
+      <div class="form-group ">
          <label class="">B 15. ¿Presenta lesiones físicas visibles? </label>
          <select class="form-control" id="tienelesion" name="tienelesion" onChange="selectOnChangeB15(this)">
             <option value="">Presenta lesiones físicas visibles:</option>
@@ -581,12 +539,10 @@ session_start();
             <option value="2" >No</option>
             <option value="3" >Se desconoce</option>
          </select>
-         {!! $errors->first('tienelesion', '<p class="help-block" style="color:red";>:message</p>') !!}
-
          <div class="" id="cualB15" style="display: none;">
             <label class="">Tipo de lesión:</label>
             <div class="">
-               <input name="tipo_lesion" placeholder="" id="victima_lesion" class="form-control" type="text" value="{{old("tipo_lesion")}}">
+               <input name="tipo_lesion" placeholder="" id="victima_lesion" class="form-control" type="text">
             </div>
          </div>
       </div>
@@ -602,9 +558,7 @@ session_start();
                   }}
 
       </script>
-
-      <div class="form-group"{{ $errors->has('enfermedadcronica') ? 'has-error' : ''}}>
-
+      <div class="form-group ">
          <label class="">B 16. ¿Tiene enfermedades crónicas?</label>
          <select class="form-control" id="enfermedadcronica" name="enfermedadcronica" onChange="selectOnChange16(this)">
             <option value="">Posee enfermedades?</option>
@@ -612,14 +566,10 @@ session_start();
             <option value="2" >No</option>
             <option value="3" >Se desconoce</option>
          </select>
-          {!! $errors->first('enfermedadcronica', '<p class="help-block" style="color:red";>:message</p>') !!}
-
-         <div class="" id="victima_tipo_enfermedad_cronica" style="display: none;" {{ $errors->has('tipo_enfermedad_cronica') ? 'has-error' : ''}}>
+         <div class="" id="victima_tipo_enfermedad_cronica" style="display: none;">
             <label class="">B 16I. Tipo de enfermedad crónica:</label>
             <div class="">
-               <input name="tipo_enfermedad_cronica" placeholder="" id="victima_enfermedad_cronica" class="form-control" type="text" value="{{old("tipo_enfermedad_cronica")}}">
-
-                {!! $errors->first('tipo_enfermedad_cronica', '<p class="help-block" style="color:red";>:message</p>') !!}
+               <input name="tipo_enfermedad_cronica" placeholder="" id="victima_enfermedad_cronica" class="form-control" type="text">
             </div>
          </div>
       </div>
@@ -641,21 +591,19 @@ session_start();
 
          }
       </script>
-      <div class="form-group" {{ $errors->has('limitacion[]') ? 'has-error' : ''}}>
+      <div class="form-group ">
          <label>B 17. ¿Presenta algún tipo de limitación para comunicarse? </label><br>
          <label class="" >En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
          <div>
            @foreach ($limitaciones as $limitacion)
              <label class="form-check-inline form-check-label">
-               <input type="checkbox" value="{{ $limitacion->id }}" class="form-check-inline" name="limitacion[]">
+               <input type="checkbox" value="{{ $limitacion->id }}" class="form-check-inline" name="limitaciones[]">
                {{ $limitacion->nombre }}
              </label><br>
            @endforeach
 
-           {!! $errors->first('limitacion[]', '<p class="help-block" style="color:red";>:message</p>') !!}
-
-            <label for="" class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Otro</label>
             <input type="checkbox" class="form-check-inline" id="checkeadoB17"  onclick="muestroCualB17()" name="" value="5">
+        <label for="" class="form-check-label" style="margin-left: -6px">Otro</label>
          </div>
          <!-- si checkeo el checkbox otro tomo el id checkeado y uso la funcion muestroCual -->
          <!-- mostrando lo que contiene el id cual -->
@@ -669,7 +617,7 @@ session_start();
 
       </div>
     </form>
-<div class="btn-2" style="width:11%;float:left;margin-left:40%">   <button style="width:100%" class="btn btn-primary col-xs" name="button" onclick="window.open('agregarConvivienteC', 'width=800,height=600')"; >Siguiente</button><br><br></div>
+<div class="btn-2" style="width:11%;float:left;margin-left:40%">   <button style="width:100%" class="btn btn-primary col-xs" name="button" onclick="window.open('agregarConvivienteC', 'width=800,height=600')"; >Fin Formulario A </button><br><br></div>
       <!-- VER ESTA MANERA TERMINA ACA -->
       <script>
          function muestroCualB17() {
