@@ -21,16 +21,16 @@ Route::get("/agregarCaso",function(){
   $delitos = App\Delito::all();
   //dd($delitos);
   $cavajs = App\Cavaj::all();
-<<<<<<< HEAD
+
   $usuarios = App\Usuario::all();
   $organismos = App\Organismo::all();
   $departamentos = App\Departamento::all();
   return view("agregarCaso", compact("delitos", "cavajs","usuarios","organismos","departamentos"));
-=======
+
   //dd($cavajs);
 
   return view("agregarCaso", compact("delitos", "cavajs"));
->>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
+
 });
 
 Route::post("/agregarCaso","CasoController@agregar");
@@ -169,6 +169,8 @@ Route::get("/detalleimputado/deleteimputado/{id}", "ImputadoController@eliminar"
 //---------Rutas FORMULARIO F (AGREGAR ORGANISMOS)-------------//
 
 Route::get("/agregarOrganismo",function(){
+
+
     return view("agregarOrganismo");
 });
 
@@ -202,9 +204,9 @@ Route::get("/apitest", function () {
   return view("testApi", compact("arrayParaLaVista"));
 });
 
-<<<<<<< HEAD
+
 //-------------FIN API GEOLOCALIZACION------------//
-=======
+
 Route::post("/agregarOrganismoF","OrganismoController@agregar");
 
 Route::get("/apitest", function () {
@@ -228,5 +230,5 @@ Route::get("/apitest", function () {
 })
 
 
->>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
+
 ?>

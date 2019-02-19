@@ -2,7 +2,6 @@
 
 session_start();
 
-<<<<<<< HEAD
 
 //ARMO ARRAY ASOCIATIVO PARA RECORRERLO BUSCANDO EL VALOR DEL SELECT A-5, ESTE VALOR LO GUARDO EN UN SESSION PARA LUEGO MOSTRARLO EN F-1
  /*$derivaciones=["1"=>"Unidad de Ministro (Ministerio de Justicia)",
@@ -56,60 +55,6 @@ session_start();
     $_SESSION["derivacion"]=NULL; }
 
  }}else{$_SESSION["derivacionbis"]=NULL;}*/
-=======
-//ARMO ARRAY ASOCIATIVO PARA RECORRERLO BUSCANDO EL VALOR DEL SELECT A-5, ESTE VALOR LO GUARDO EN UN SESSION PARA LUEGO MOSTRARLO EN F-1
-// $derivaciones=["1"=>"Unidad de Ministro (Ministerio de Justicia)",
-//                  "2"=>"Organismo Provincial de Niñez y Adolescencia",
-//                  "3"=>" Portal Mi Provincia",
-//                  "4"=>"Registro Provincial de Información de Personas Menores de Edad Extraviadas (REPIPME)",
-//                  "5"=>"Fiscalía",
-//                  "6"=>"Comisaría",
-//                  "7"=>"Municipio",
-//                  "8"=>"Centro de Acceso a Justicia (CAJ)",
-//                  "9"=>"Defensoría del Pueblo",
-//                  "10"=>"Estado en Tu Barrio",
-//                  "11"=>"DDI",
-//                  "12"=>"Cerca de Noche",
-//                  "13"=>"Equipo territorial de barrios",
-//                  "14"=>"Otro"];
-//
-// 	if ( $_POST ) {
-//     // VARIABLES SESSION UTILIZADAS EN F-1
-// $_SESSION["derivacion"] = $_POST["derivacion_otro_organismo"];
-// if($_SESSION["derivacion"]==2){
-// $_SESSION["derivacion"]=NULL;
-// $_SESSION["derivacionbis"]=2;}
-//
-// if($_SESSION["derivacion"]==4){
-// $_SESSION["derivacion"]=NULL;
-// $_SESSION["derivacionbis"]=4;}
-//
-// if($_SESSION["derivacion"]==5){
-// $_SESSION["derivacion"]=NULL;
-// $_SESSION["derivacionbis"]=5;}
-//
-// if($_SESSION["derivacion"]==8){
-// $_SESSION["derivacion"]=NULL;
-// $_SESSION["derivacionbis"]=8;}
-//
-// if($_SESSION["derivacion"]==10){
-// $_SESSION["derivacion"]=NULL;
-// $_SESSION["derivacionbis"]=10;}
-//
-// if($_SESSION["derivacion"]==12){
-// $_SESSION["derivacion"]=NULL;
-// $_SESSION["derivacionbis"]=12;}
-//
-// foreach ($derivaciones as $numero=>$nombre){
-// if($_SESSION["derivacion"]==$numero){
-//    $_SESSION["derivacion"]=$nombre;}
-//    if($_SESSION["derivacion"]=="Otro"){
-//    $_SESSION["derivacion"]=$_POST["derivacion_otro_organismo_cual"]; }
-//    if($_SESSION["derivacion"]==" "){
-//    $_SESSION["derivacion"]=NULL; }
-//
-// }}else{$_SESSION["derivacionbis"]=NULL;}
->>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
 
  ?>
 
@@ -186,16 +131,10 @@ session_start();
                   <div class="Ados">
                       @foreach ($delitos as $delito)
                         <label class="form-check-inline form-check-label">
-<<<<<<< HEAD
                           <input type="checkbox" value="{{ $delito->id }}" class="form-check-inline" name="delito[]">
 
                           {{ $delito->nombre }}
 
-=======
-                          <input type="checkbox" value="{{ $delito->id }}" class="form-check-inline" name="delitos[]">
-
-                          {{ $delito->nombre }}
->>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
 
                         </label><br>
                       @endforeach
@@ -221,6 +160,7 @@ session_start();
             </div>
             <div class="form-group">
             {{ $errors->has('modalidad_ingreso') ? 'has-error' : ''}}
+
                <label for="modalidad_ingreso">A 5. Modalidad de Ingreso</label>
                <select class="form-control" name="modalidad_ingreso" id="modalidad_id" onChange="selectOnChangeA5(this)" >
                  <option value=" " >Modalidad de Ingreso</option>
@@ -236,14 +176,14 @@ session_start();
                  @foreach ($organismos as $organismo)
 
                    <label class="form-check-inline form-check-label">
-                     <input type="checkbox" value="{{ $organismo->id }}"  class="form-check-inline" name="organismos[]">
+                     <input type="checkbox" value="{{ $organismo->id }}"  class="form-check-inline" name="organismos[]" onchange="check5(this)">
                      {{ $organismo->nombre }}
 
                    </label><br>
                  @endforeach
 
                  <input type="checkbox" class="form-check-inline" id="checkeadoA5"  onclick="muestroCualA5()" name="" value="">
-             <label for="" class="form-check-label" style="margin-left: -6px">Otro</label>
+             <label for="" class="form-check-label" style="margin-left: -6px" id="otro">Otro</label>
 
              {!! $errors->first('cavaj', '<p class="help-block" style="color:red";>:message</p>') !!}
              </div>
@@ -258,7 +198,7 @@ session_start();
             </div>
 
 
-            <div class="AunoDos" {{ $errors->has('cavaj') ? 'has-error' : ''}}>
+
                <label for="">A 6. CAVAJ interviniente:</label><br>
                <label for="">En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
                <div class="Ados">
@@ -363,6 +303,8 @@ session_start();
       <script>
          function selectOnChange1(sel) {
              if (sel.value=="2"){
+
+
                  divC = document.getElementById("no");
                  divC.style.display = "";
              }else{
@@ -398,23 +340,12 @@ session_start();
       }
       </script>
 
-      <script>
-         function selectOnChangeA5bis(sel) {
-         if (sel.value=="22"){
-         divC = document.getElementById("cualA5");
-         divC.style.display = "";}
-         else{
-         divC = document.getElementById("cualA5");
-         $('#derivacion_otro_organismo_cual').val('');
 
-         divC.style.display = "none";}
-         }
-      </script>
       <script>
          function selectOnChangeA5(sel) {
            if (sel.value=="1"||sel.value=="2"){
                 divC = document.getElementById("derivacion_otro_organismo_id");
-
+                $('#cual_otro_organismo').val('');
                 divC.style.display = "none";}
 
 

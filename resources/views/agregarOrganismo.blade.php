@@ -35,82 +35,62 @@ session_start();
       <section class="container">
          <form class="" action="/F-agregarOrganismo" method="post">
            {{ csrf_field() }}
-          <input type="hidden" name="idCaso" value="{{$ultimoid}}">
 
-            <div class="form-group ">
-               <div class="AunoDos">
-                  <label>F 1. Organismos que intervinieron previamente:</label>
-                  <label for="">En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
-                  <div class="Auno">
+  <div class="form-group">
+  {{ $errors->has('organismos_intervinieron') ? 'has-error' : ''}}
 
+     <label for="modalidad_ingreso">F 5.¿intervinieron otros organismos previamente?</label>
+     <select class="form-control" name="organismos_intervinieron" id="organismos_intervinieron" onChange="selectOnChangeF1(this)" >
 
-
-
-
-                      <input type="checkbox" checked value="0" class="form-check-inline" name="organismos_previos[]" id="derivacion">
-                      <label for="" class="form-check-inline form-check-label"><?=$_SESSION["derivacion"]?></label><br>
+        <option value="1" >Sí</option>
+        <option value="2" >NO. </option>
+     </select><br>
+     {!! $errors->first('organismos_intervinieron', '<p class="help-block" style="color:red";>:message</p>') !!}
 
 
-                                        <?php endif; ?>
+         <div class="form-group" id="si_otro_organismo" style="display:none">
 
-  <?php if (($_SESSION["derivacionbis"]==5)) :  ?>
-                     <input type="checkbox" checked value="1" class="form-check-inline" name="organismos_previos[]" id="Fiscalía">
-                     <label for="Fiscalía" class="form-check-inline form-check-label">Fiscalía</label><br>
- <?php endif; ?>
-                     <input type="checkbox" value="2" class="form-check-inline" name="organismos_previos[]" id="juzgado">
-                     <label for="juzgado" class="form-check-inline form-check-label">juzgado</label> <br>
-<?php if (($_SESSION["derivacionbis"]==10)) :  ?>
-                     <input type="checkbox" checked value="3" class="form-check-inline" name="organismos_previos[]" id="Estado en tu barrio">
-                     <label for="Estado en tu barrio" class="form-check-inline form-check-label">Estado en tu barrio</label><br>
-<?php endif; ?>
-<?php if (($_SESSION["derivacionbis"]==8)) :  ?>
-                     <input type="checkbox" checked value="4" class="form-check-inline" name="organismos_previos[]" id="Centro de Acceso a Justicia (CAJ)">
-                     <label for="Centro de Acceso a Justicia (CAJ)" class="form-check-inline form-check-label">Centro de Acceso a Justicia (CAJ)</label><br>
-<?php endif; ?>
-                     <input type="checkbox" value="5" class="form-check-inline" name="organismos_previos[]" id="ANSES">
-                     <label for="ANSES" class="form-check-inline form-check-label">ANSES</label><br>
+    
 
-                     <input type="checkbox" value="6" class="form-check-inline" name="organismos_previos[]" id="Otro CAVAJ">
-                     <label for="Otro CAVAJ" class="form-check-inline form-check-label">Otro CAVAJ</label><br>
-     <?php if (($_SESSION["derivacionbis"]==2)) :  ?>
+       <input type="checkbox" class="form-check-inline" id="checkeadoF1"  onclick="muestroCualF1()" name="" value="">
+   <label for="" class="form-check-label" style="margin-left: -6px" id="otro">Otro</label>
 
-                     <input type="checkbox" value="7" checked class="form-check-inline" name="organismos_previos[]" id="Organismo Provincial de Niñez y Adolescencia">
-                     <label for="Organismo Provincial de Niñez y Adolescencia" class="form-check-inline form-check-label">Organismo Provincial de Niñez y Adolescencia</label><br>
-      <?php endif; ?>
-<?php if (($_SESSION["derivacionbis"]==12)) :  ?>
-                     <input type="checkbox"  value="8" checked class="form-check-inline" name="organismos_previos[]" id="Programa Provincial Cerca de Noche">
-                     <label for="cPrograma Provincial Cerca de Noche" class="form-check-inline form-check-label">Programa Provincial Cerca de Noche</label><br>
-  <?php endif; ?>
-                     <input type="checkbox" value="9" class="form-check-inline" name="organismos_previos[]" id="Dirección Provincial de Equidad de Género y Diversidad Sexual">
-                     <label for="Dirección Provincial de Equidad de Género y Diversidad Sexual" class="form-check-inline form-check-label">Dirección Provincial de Equidad de Género y Diversidad Sexual</label><br>
-    <?php if (($_SESSION["derivacionbis"]==4)) :  ?>
-                     <input type="checkbox" value="10" checked class="form-check-inline" name="organismos_previos[]" id="Registro Provincial de Información de Personas Menores de Edad Extraviadas (REPIPME)">
-                     <label for="Registro Provincial de Información de Personas Menores de Edad Extraviadas (REPIPME)" class="form-check-inline form-check-label">Registro Provincial de Información de Personas Menores de Edad Extraviadas (REPIPME)</label><br>
-  <?php endif; ?>
-                     <input type="checkbox" value="11" class="form-check-inline" name="organismos_previos[]" id="Dirección Provincial de Salud Mental y Adicciones">
-                     <label for="Dirección Provincial de Salud Mental y Adicciones" class="form-check-inline form-check-label">Dirección Provincial de Salud Mental y Adicciones</label><br>
+   {!! $errors->first('cavaj', '<p class="help-block" style="color:red";>:message</p>') !!}
+   </div>
 
-                     <input type="checkbox" value="12" class="form-check-inline" name="organismos_previos[]" id="Policía Federal">
-                     <label for="Policía Federal" class="form-check-inline form-check-label">Policía Federal</label><br>
+     <div id="cualF1" style="display: none;">
+        <br><label for="">Cuál?</label>
 
-                     <input type="checkbox" value="13" class="form-check-inline" name="organismos_previos[]" id="Policía Bonaerense">
-                     <label for="Policía Bonaerense" class="form-check-inline form-check-label">Policía Bonaerense</label><br>
+           <input class="form-control" name="cual_otro_organismo" id="cual_otro_organismo" type="text" value="">
 
-                     <input type="checkbox" value="14" class="form-check-inline" name="organismos_previos[]" id="Policía Local">
-                     <label for="Policía Local" class="form-check-inline form-check-label">Policía Local</label><br>
+     </div>
 
-                     <input type="checkbox" value="15" class="form-check-inline" name="organismos_previos[]" id="Policía Metropolitana">
-                     <label for="Policía Metropolitana" class="form-check-inline form-check-label">Policía Metropolitana</label><br>
+  </div>
 
-                     <input type="checkbox" value="16" class="form-check-inline" name="organismos_previos[]"  id="checkeadoF1"  onclick="muestroCualF1()">
-                     <label for="otro" class="form-check-inline form-check-label" >otro</label><br>
-                  </div>
-               </div>
-            </div>
-            <div id="cualF1"style="display:none">
-               <label for="organismos_previos_otro_cualF1">Cuál?:</label>
-               <input class="form-control" name="organismos_previos_otro_cualF1" type="text" id="organismos_previos_otro_cualF1">
-            </div>
+  <script>
+  function muestroCualA5() {
+      var checkBox = document.getElementById("checkeadoA5");
+      var text = document.getElementById("cualA5");
+      if (checkBox.checked == true){
+          text.style.display = "block";
+      } else {
+            $('#cual_otro_organismo').val('');
+         text.style.display = "none";
+      }
+  }
+  </script>
+
+
+  <script>
+     function selectOnChangeA5(sel) {
+       if (sel.value=="1"){
+            divC = document.getElementById("si_otro_organismo");
+            $('#cual_otro_organismo').val('');
+            divC.style.display = "block";}
+
+
+    }
+  </script>
             <div class="AunoDosF2">
                <label>F 2. Tipo de asistencia requerida:</label>
                <label for="">En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
