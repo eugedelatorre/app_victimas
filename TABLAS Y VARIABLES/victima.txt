@@ -44,5 +44,16 @@ INSERT INTO limitaciones(nombre) VALUES("No");
 INSERT INTO limitaciones(nombre) VALUES("Otro");
 
 
+TABLA SOCIO_ECONOMICO:
+
+CREATE  TABLE socio_economico(id int  unsigned not null auto_increment primary key,nombre varchar(255))
+
+TABLA ORGANISMOS_ARTICULA:
+
+CREATE  TABLE organismos_articula(id int  unsigned not null auto_increment primary key,nombre varchar(255))
+
+TABLA ORGANISMOS_PREVIOS:
+
+CREATE  TABLE organismos_articula(id int  unsigned not null auto_increment primary key,nombre varchar(255))
 
 

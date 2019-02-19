@@ -129,15 +129,15 @@ session_start();
 
                   </div>
                   <div class="Ados">
-                      @foreach ($delitos as $delito)
-                        <label class="form-check-inline form-check-label">
-                          <input type="checkbox" value="{{ $delito->id }}" class="form-check-inline" name="delito[]">
+                    @foreach ($cavajs as $cavaj)
 
-                          {{ $delito->nombre }}
+                         <label class="form-check-inline form-check-label">
+                           <input type="checkbox" value="{{ $cavaj->id }}" class="form-check-inline" name="cavaj[]">
+                           {{ $cavaj->nombre }}
 
+                         </label><br>
+                       @endforeach
 
-                        </label><br>
-                      @endforeach
               {!! $errors->first('delitos', '<p class="help-block" style="color:red";>:message</p>') !!}
 
                   </div>

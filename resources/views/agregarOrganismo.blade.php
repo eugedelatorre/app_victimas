@@ -41,23 +41,64 @@ session_start();
 
      <label for="modalidad_ingreso">F 5.¿intervinieron otros organismos previamente?</label>
      <select class="form-control" name="organismos_intervinieron" id="organismos_intervinieron" onChange="selectOnChangeF1(this)" >
-
+        <option value="" >Selecciona una opción</option>
         <option value="1" >Sí</option>
-        <option value="2" >NO. </option>
+        <option value="2" >NO.Intervino solo el organismo que derivó </option>
      </select><br>
      {!! $errors->first('organismos_intervinieron', '<p class="help-block" style="color:red";>:message</p>') !!}
+<div class="organismos_previos_si" id="organismos_previos_si" style="display:none">
+     <input type="checkbox" value="5" class="form-check-inline" name="organismos_previos[]" id="1">
+     <label for="ANSES" class="form-check-inline form-check-label">ANSES</label><br>
 
 
-         <div class="form-group" id="si_otro_organismo" style="display:none">
+     <input type="checkbox"  value="1" class="form-check-inline" name="organismos_previos[]" id="2">
+     <label for="Fiscalía" class="form-check-inline form-check-label">Fiscalía</label><br>
 
-    
+     <input type="checkbox" value="2" class="form-check-inline" name="organismos_previos[]" id="3">
+     <label for="juzgado" class="form-check-inline form-check-label">juzgado</label> <br>
 
-       <input type="checkbox" class="form-check-inline" id="checkeadoF1"  onclick="muestroCualF1()" name="" value="">
-   <label for="" class="form-check-label" style="margin-left: -6px" id="otro">Otro</label>
+     <input type="checkbox"  value="3" class="form-check-inline" name="organismos_previos[]" id="4">
+     <label for="Estado en tu barrio" class="form-check-inline form-check-label">Estado en tu barrio</label><br>
 
-   {!! $errors->first('cavaj', '<p class="help-block" style="color:red";>:message</p>') !!}
-   </div>
+     <input type="checkbox" value="4" class="form-check-inline" name="organismos_previos[]" id="5">
+     <label for="Centro de Acceso a Justicia (CAJ)" class="form-check-inline form-check-label">Centro de Acceso a Justicia (CAJ)</label><br>
 
+
+
+     <input type="checkbox" value="6" class="form-check-inline" name="organismos_previos[]" id="6">
+     <label for="Otro CAVAJ" class="form-check-inline form-check-label">Otro CAVAJ</label><br>
+
+
+     <input type="checkbox" value="7"  class="form-check-inline" name="organismos_previos[]" id="7">
+     <label for="Organismo Provincial de Niñez y Adolescencia" class="form-check-inline form-check-label">Organismo Provincial de Niñez y Adolescencia</label><br>
+
+     <input type="checkbox"  value="8"  class="form-check-inline" name="organismos_previos[]" id="8">
+     <label for="cPrograma Provincial Cerca de Noche" class="form-check-inline form-check-label">Programa Provincial Cerca de Noche</label><br>
+
+     <input type="checkbox" value="9" class="form-check-inline" name="organismos_previos[]" id="9">
+     <label for="Dirección Provincial de Equidad de Género y Diversidad Sexual" class="form-check-inline form-check-label">Dirección Provincial de Equidad de Género y Diversidad Sexual</label><br>
+
+     <input type="checkbox" value="10"  class="form-check-inline" name="organismos_previos[]" id="10">
+     <label for="Registro Provincial de Información de Personas Menores de Edad Extraviadas (REPIPME)" class="form-check-inline form-check-label">Registro Provincial de Información de Personas Menores de Edad Extraviadas (REPIPME)</label><br>
+
+     <input type="checkbox" value="11" class="form-check-inline" name="organismos_previos[]" id="11">
+     <label for="Dirección Provincial de Salud Mental y Adicciones" class="form-check-inline form-check-label">Dirección Provincial de Salud Mental y Adicciones</label><br>
+
+     <input type="checkbox" value="12" class="form-check-inline" name="organismos_previos[]" id="12">
+     <label for="Policía Federal" class="form-check-inline form-check-label">Policía Federal</label><br>
+
+     <input type="checkbox" value="13" class="form-check-inline" name="organismos_previos[]" id="13">
+     <label for="Policía Bonaerense" class="form-check-inline form-check-label">Policía Bonaerense</label><br>
+
+     <input type="checkbox" value="14" class="form-check-inline" name="organismos_previos[]" id="14">
+     <label for="Policía Local" class="form-check-inline form-check-label">Policía Local</label><br>
+
+     <input type="checkbox" value="15" class="form-check-inline" name="organismos_previos[]" id="15">
+     <label for="Policía Metropolitana" class="form-check-inline form-check-label">Policía Metropolitana</label><br>
+
+     <input type="checkbox" value="16" class="form-check-inline" name="organismos_previos[]"  id="checkeadoF1"  onclick="muestroCualF1()">
+     <label for="otro" class="form-check-inline form-check-label" >otro</label><br>
+</div>
      <div id="cualF1" style="display: none;">
         <br><label for="">Cuál?</label>
 
@@ -87,6 +128,46 @@ session_start();
             divC = document.getElementById("si_otro_organismo");
             $('#cual_otro_organismo').val('');
             divC.style.display = "block";}
+
+
+    }
+  </script>
+
+  <script>
+     function selectOnChangeF1(sel) {
+       if (sel.value=="1"){
+            divC = document.getElementById("organismos_previos_si");
+            divC.style.display = "block";
+
+
+      }else{divC2 = document.getElementById("cualF1");
+      divC2.style.display = "none";
+      $('#cual_otro_organismo').val('');
+      divC = document.getElementById("organismos_previos_si");
+      divC.style.display = "none";
+       document.getElementById("checkeadoF1").checked = false;
+       document.getElementById("1").checked = false;
+       document.getElementById("2").checked = false;
+       document.getElementById("3").checked = false;
+       document.getElementById("4").checked = false;
+       document.getElementById("5").checked = false;
+       document.getElementById("6").checked = false;
+       document.getElementById("7").checked = false;
+       document.getElementById("8").checked = false;
+       document.getElementById("9").checked = false;
+       document.getElementById("10").checked = false;
+       document.getElementById("11").checked = false;
+       document.getElementById("12").checked = false;
+       document.getElementById("13").checked = false;
+       document.getElementById("14").checked = false;
+       document.getElementById("15").checked = false;
+  
+
+
+
+
+
+      }
 
 
     }

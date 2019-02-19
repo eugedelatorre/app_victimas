@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Caso;
 use App\Delito;
-<<<<<<< HEAD
+
 use App\Cavaj;
 use App\Usuario;
 =======
 //use App\Cavaj;
 //use App\Cavaj;
->>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
+
 
 class CasoController extends Controller
 {
@@ -20,10 +20,7 @@ class CasoController extends Controller
 
 
   public function agregar(Request $form){
-<<<<<<< HEAD
 
-=======
->>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
 
 
 
@@ -33,7 +30,6 @@ class CasoController extends Controller
 //$reglas = [
 //];
 
-<<<<<<< HEAD
 /*$mensajes=["string"=>"El campo :attribute debe ser un texto","integer"=>"El campo :attribute debe ser un número entero",
 "date"=>"El campo :attribute debe ser una fecha","unique"=>"El campo :attribute está repetido","required"=>"Complete el campo :attribute "];*/
 
@@ -42,7 +38,7 @@ class CasoController extends Controller
 /*$mensajes=["string"=>"El campo :attribute debe ser un texto","integer"=>"El campo :attribute debe ser un número entero",
 "date"=>"El campo :attribute debe ser una fecha","unique"=>"El campo :attribute está repetido","required"=>"Complete el campo :attribute "];*/
 
->>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
+
 //$this->validate($form,$reglas,$mensajes);
 
 $caso= new Caso();
@@ -71,12 +67,6 @@ $caso->save();
 
 
 
-<<<<<<< HEAD
-
-
-
-
-=======
 $caso->save();
 
 $idCaso = $caso->id;
@@ -97,26 +87,17 @@ $_SESSION["idCaso"] = $idCaso;
  foreach ($form["delitos"] as $delito) {
 
   $caso->delitos()->attach($delito);}
->>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
 
 
-<<<<<<< HEAD
 
- foreach ($form["delito"] as $delito) {
-
-  $caso->delitos()->attach($delito);}
 
 
 
  foreach ($form["cavaj"] as $cavaj) {
 $caso->cavajs()->attach($cavaj);}
-=======
-  //$caratula->save();
-// }
->>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
 
- foreach ($form["cavaj"] as $cavaj) {
-$caso->cavajs()->attach($cavaj);}
+
+
 
 
 
