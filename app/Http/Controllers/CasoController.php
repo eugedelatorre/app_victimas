@@ -9,7 +9,7 @@ use App\Delito;
 
 use App\Cavaj;
 use App\Usuario;
-=======
+
 //use App\Cavaj;
 //use App\Cavaj;
 
@@ -32,8 +32,6 @@ class CasoController extends Controller
 
 /*$mensajes=["string"=>"El campo :attribute debe ser un texto","integer"=>"El campo :attribute debe ser un número entero",
 "date"=>"El campo :attribute debe ser una fecha","unique"=>"El campo :attribute está repetido","required"=>"Complete el campo :attribute "];*/
-
-=======
 
 /*$mensajes=["string"=>"El campo :attribute debe ser un texto","integer"=>"El campo :attribute debe ser un número entero",
 "date"=>"El campo :attribute debe ser una fecha","unique"=>"El campo :attribute está repetido","required"=>"Complete el campo :attribute "];*/
@@ -62,16 +60,14 @@ $caso->usuarios= $form["usuarios"];
 
 $caso->save();
 
-
-
-
-
-
-$caso->save();
-
 $idCaso = $caso->id;
-session_start();
-$_SESSION["idCaso"] = $idCaso;
+
+session(["idCaso" => $idCaso]);
+
+
+//session()->forget('idCaso');
+// dd($idCaso, $_SESSION["idCaso"]);
+
 
 /*if ($form["persona_asistida"] == 1) {
   return view("agregarPersona");
@@ -110,7 +106,9 @@ return redirect ("agregarPersona");
     public function search(Request $req) {
         $search = $req["search"];
 
-        $casos = Caso::where("nombre_referencia", "like", "%$search%")->get();
+        $casos = Caso::where("nombre_referencia", "like", "%$search%")
+          ->orWhere("nombre_y_apellido_de_la_victima", "like", "%$search%")
+          ->get();
 
         return view("home", compact("casos"));
     }
@@ -128,5 +126,24 @@ return redirect ("agregarPersona");
           return redirect("home");
 
       }
+      /*public function editar(Request $form) {
+          $persona = Persona::find($form["idCaso"]);}
+          $persona->nombre_persona_asistida= $form ["nombre_persona_asistida"];
+          $persona->vinculo_persona_asistida= $form ["vinculo_persona_asistida"];
+          $persona->otro_vinculo_persona_asistida_cual= $form ["otro_vinculo_persona_asistida_cual"];
+          $persona->telefono_persona_asistida= $form ["telefono_persona_asistida"];
+          $persona->domicilio_persona_asistida= $form ["domicilio_persona_asistida"];
+          $persona->localidad_persona_asistida= $form ["localidad_persona_asistida"];
+          $persona->idCaso= $form ["idCaso"];
+          $caso-> ??? = $form["???"];
+
+         $caso->save();
+          return redirect("detallePersona/" . $form["idCaso"]);
+
+
+
+
+
+*/
 
 }

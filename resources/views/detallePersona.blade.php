@@ -112,7 +112,8 @@ if($_SESSION["derivacion"]==$numero){
 
                   <div class="form-group" {{ $errors->has('nombre_persona_asistida') ? 'has-error' : ''}}>
 
-                      <input type="hidden" name="idCaso" value="{{$persona->idCaso}}">
+                      <input type="hidden" name="idPersona" value="{{$persona->id}}">
+
                      <label for="nombre_persona_asistida">A 14I. Nombre y apellido de la persona asistida: </label>
                      <input type="text" class="form-control" name="nombre_persona_asistida" id="Nombre_apellido_persona_asistida" value="{{$persona->nombre_persona_asistida}}">
 

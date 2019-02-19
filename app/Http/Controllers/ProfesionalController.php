@@ -27,7 +27,7 @@ $profesional->nombre_profesional_interviniente= $form [ "nombre_profesional_inte
 $profesional->desde_profesional_interviniente= $form [ "desde_profesional_interviniente"];
 $profesional->actual_profesional_interviniente= $form [ "actual_profesional_interviniente"];
 $profesional->hasta_profesional_interviniente= $form [ "hasta_profesional_interviniente"];
-$profesional->idCaso= $form [ "idCaso"];
+$profesional->idCaso= session("idCaso");
 
 
 $profesional->save( );

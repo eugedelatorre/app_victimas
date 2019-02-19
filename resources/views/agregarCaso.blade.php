@@ -129,11 +129,11 @@ session_start();
 
                   </div>
                   <div class="Ados">
-                    @foreach ($cavajs as $cavaj)
+                    @foreach ($delitos as $delito)
 
                          <label class="form-check-inline form-check-label">
-                           <input type="checkbox" value="{{ $cavaj->id }}" class="form-check-inline" name="cavaj[]">
-                           {{ $cavaj->nombre }}
+                           <input type="checkbox" value="{{ $delito->id }}" class="form-check-inline" name="delitos[]">
+                           {{ $delito->nombre }}
 
                          </label><br>
                        @endforeach
@@ -245,10 +245,14 @@ session_start();
             <select class="form-control" name="departamento_judicial">
             <option value="">Departamento Judicial</option>
           @foreach ($departamentos as $departamento)
-            <option value="{{ $departamento->id }}">{{ $departamento->nombre}}</option>
-            @endforeach
+            @if(old("departamento_judicial")==$departamento->id)
+            <option selected value="{{ $departamento->id }}">{{ $departamento->nombre}}</option>
+          @else <option  value="{{ $departamento->id }}">{{ $departamento->nombre}}</option>
+          @endif
+        @endforeach
         </select>
 
+        
             {!! $errors->first('departamento_judicial', '<p class="help-block" style="color:red";>:message</p>') !!}
           </div>
             <div class="form-group "{{ $errors->has('estado') ? 'has-error' : ''}}>

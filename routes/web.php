@@ -51,6 +51,7 @@ Route::get("/agregarProfesional",function(){
     $profesionales = App\Profesional::all();
     $ultimoid=App\Caso::where("usuarios","=","2")->max('id');
     $usuarios = App\Usuario::all();
+
     // al Model Caso le pido de la columna usuarios todas las filas que coinciden con el usuario autenticado y cuyo id sea el máxima (o sea el último),
     //cuando va por Get a agregarConviviente le pasa a la vista ese valor $ultimoid
     //2=AUTH, USUARIO AUTENTICADO
@@ -65,16 +66,19 @@ Route::get("/detalleProfesional/deleteProfesional/{id}", "ProfesionalController@
 
 //---------Rutas FORMULARIO A (AGREGAR PERSONAS ASISTIDAS)-------------//
 Route::get("/agregarPersona",function(){
-    $personas = App\Persona::all();
+
+  $personas = App\Persona::all();
   $ultimoid=App\Caso::where("usuarios","=","2")->max('id');
+  $idCaso = session("idCaso");
   // al Model Caso le pido de la columna usuarios todas las filas que coinciden con el usuario autenticado y cuyo id sea el máxima (o sea el último),
   //cuando va por Get a agregarPersona le pasa a la vista ese valor $ultimoid
   //2=AUTH, USUARIO AUTENTICADO
-  return view("agregarPersona",compact("personas","ultimoid"));
+  return view("agregarPersona",compact("personas","ultimoid", "idCaso"));
 });
 //---------Rutas FORMULARIO A (EDITAR PERSONAS ASISTIDAS AGREGADAS)-------------//
 Route::post("/agregarPersona","PersonaController@agregar");
 Route::get("/detallePersona/{id}", "PersonaController@detalle");
+Route::post("/detallePersona", "PersonaController@editar");
 Route::get("/detallePersona/deletePersona/{id}", "PersonaController@eliminar");
 
 //---------Rutas FORMULARIO A (AGREGAR CONVIVIENTES)-------------//
@@ -140,7 +144,7 @@ Route::get("/home",function(){
 
     $casos = App\Caso::all();
 
-    return view("home");
+    return view("home",compact("casos"));
 });
 
 Route::get("/search", "CasoController@search");
@@ -168,13 +172,13 @@ Route::get("/detalleimputado/deleteimputado/{id}", "ImputadoController@eliminar"
 
 //---------Rutas FORMULARIO F (AGREGAR ORGANISMOS)-------------//
 
-Route::get("/agregarOrganismo",function(){
+Route::get("/agregarorganismo",function(){
 
 
-    return view("agregarOrganismo");
+    return view("agregarorganismo");
 });
 
-Route::post("/agregarOrganismo","OrganismoController@agregar");
+Route::post("/agregarorganismo","OrganismoController@agregar");
 //---------FIN FORMULARIO F-------------//
 
 //---------API GEOLOCALIZACION https://mapa2.electoral.gov.ar/descargas/-------------//

@@ -28,10 +28,11 @@ $persona->otro_vinculo_persona_asistida_cual= $form ["otro_vinculo_persona_asist
 $persona->telefono_persona_asistida= $form ["telefono_persona_asistida"];
 $persona->domicilio_persona_asistida= $form ["domicilio_persona_asistida"];
 $persona->localidad_persona_asistida= $form ["localidad_persona_asistida"];
-$persona->idCaso= $form ["idCaso"];
+$persona->idCaso= session("idCaso");
 
 
 $persona->save();
+
 return redirect ("agregarPersona");
 }
 
@@ -53,19 +54,20 @@ public function detalle($id) {
 
   }
 
-      public function actualizar (Request $form,$id){
-        $persona = Persona::find($id);
-        $persona->nombre_persona_asistida= $form ["nombre_persona_asistida"];
-        $persona->vinculo_persona_asistida= $form ["vinculo_persona_asistida"];
-        $persona->otro_vinculo_persona_asistida_cual= $form ["otro_vinculo_persona_asistida_cual"];
-        $persona->telefono_persona_asistida= $form ["telefono_persona_asistida"];
-        $persona->domicilio_persona_asistida= $form ["domicilio_persona_asistida"];
-        $persona->localidad_persona_asistida= $form ["localidad_persona_asistida"];
-        $persona->idCaso= $form ["idCaso"];
+  public function editar(Request $form) {
+      $persona = Persona::find($form["idPersona"]);
+
+      $persona->nombre_persona_asistida= $form ["nombre_persona_asistida"];
+      $persona->vinculo_persona_asistida= $form ["vinculo_persona_asistida"];
+      $persona->otro_vinculo_persona_asistida_cual= $form ["otro_vinculo_persona_asistida_cual"];
+      $persona->telefono_persona_asistida= $form ["telefono_persona_asistida"];
+      $persona->domicilio_persona_asistida= $form ["domicilio_persona_asistida"];
+      $persona->localidad_persona_asistida= $form ["localidad_persona_asistida"];
+      $persona->idCaso= $form ["idCaso"];
 
 
-        $persona->save();
-        return redirect ("agregarPersona");
-        }
+     $persona->save();
+      return redirect("home");}
+
 
 }
