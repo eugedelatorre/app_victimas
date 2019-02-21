@@ -22,5 +22,12 @@ class Caso extends Model
   public function delitosIds() {
     return $this->delitos->pluck("id");
   }
+
+  public function cavajsIds() {
+    return $this->cavajs->pluck("id");
+  }
+
+
+
 }
 ?>

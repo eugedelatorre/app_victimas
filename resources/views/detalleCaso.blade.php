@@ -3,58 +3,6 @@
 session_start();
 
 
-//ARMO ARRAY ASOCIATIVO PARA RECORRERLO BUSCANDO EL VALOR DEL SELECT A-5, ESTE VALOR LO GUARDO EN UN SESSION PARA LUEGO MOSTRARLO EN F-1
- /*$derivaciones=["1"=>"Unidad de Ministro (Ministerio de Justicia)",
-                  "2"=>"Organismo Provincial de Niñez y Adolescencia",
-                  "3"=>" Portal Mi Provincia",
-                  "4"=>"Registro Provincial de Información de Personas Menores de Edad Extraviadas (REPIPME)",
-                  "5"=>"Fiscalía",
-                  "6"=>"Comisaría",
-                  "7"=>"Municipio",
-                  "8"=>"Centro de Acceso a Justicia (CAJ)",
-                  "9"=>"Defensoría del Pueblo",
-                  "10"=>"Estado en Tu Barrio",
-                  "11"=>"DDI",
-                  "12"=>"Cerca de Noche",
-                  "13"=>"Equipo territorial de barrios",
-                  "14"=>"Otro"];
-
- 	if ( $_POST ) {
-      VARIABLES SESSION UTILIZADAS EN F-1
- $_SESSION["derivacion"] = $_POST["derivacion_otro_organismo"];
- if($_SESSION["derivacion"]==2){
- $_SESSION["derivacion"]=NULL;
- $_SESSION["derivacionbis"]=2;}
-
- if($_SESSION["derivacion"]==4){
- $_SESSION["derivacion"]=NULL;
- $_SESSION["derivacionbis"]=4;}
-
- if($_SESSION["derivacion"]==5){
- $_SESSION["derivacion"]=NULL;
- $_SESSION["derivacionbis"]=5;}
-
- if($_SESSION["derivacion"]==8){
- $_SESSION["derivacion"]=NULL;
- $_SESSION["derivacionbis"]=8;}
-
- if($_SESSION["derivacion"]==10){
- $_SESSION["derivacion"]=NULL;
- $_SESSION["derivacionbis"]=10;}
-
- if($_SESSION["derivacion"]==12){
- $_SESSION["derivacion"]=NULL;
- $_SESSION["derivacionbis"]=12;}
-
- foreach ($derivaciones as $numero=>$nombre){
- if($_SESSION["derivacion"]==$numero){
-    $_SESSION["derivacion"]=$nombre;}
-    if($_SESSION["derivacion"]=="Otro"){
-    $_SESSION["derivacion"]=$_POST["derivacion_otro_organismo_cual"]; }
-    if($_SESSION["derivacion"]==" "){
-    $_SESSION["derivacion"]=NULL; }
-
- }}else{$_SESSION["derivacionbis"]=NULL;}*/
 
  ?>
 
@@ -102,12 +50,13 @@ session_start();
          <form class="" action="/detalleCaso" method="post">
                 {{csrf_field()}}
 
-
+                   <input type="hidden" name="idCaso" value="{{$caso->id}}">
 
 
                       <label class="form-check-inline form-check-label">Usuario:</label><br><br>
                         <select class="form-control" name="usuarios" >
                           <option value="">Selecciona un usuario</option>
+                        
                         @foreach ($usuarios as $usuario)
                           <option value="{{ $usuario->id }}">{{ $usuario->nombre_y_apellido}}</option>
                           @endforeach
@@ -131,15 +80,22 @@ session_start();
 
                   </div>
                   <div class="Ados">
-                      @foreach ($delitos as $delito)
+                    @foreach ($delitos as $delito)
+
+
                         <label class="form-check-inline form-check-label">
-                          <input type="checkbox" value="{{ $delito->id }}" class="form-check-inline" name="delito[]">
 
+
+                        @if ($caso->delitosIds()->contains($delito->id))
+                          <input type="checkbox" value="{{ $delito->id }}" class="form-check-inline" name="delitos[]" checked>
+                        @else
+                          <input type="checkbox" value="{{ $delito->id }}" class="form-check-inline" name="delitos[]">
+                        @endif
                           {{ $delito->nombre }}
-
-
                         </label><br>
-                      @endforeach
+
+
+                    @endforeach
               {!! $errors->first('delitos', '<p class="help-block" style="color:red";>:message</p>') !!}
 
                   </div>
@@ -147,17 +103,17 @@ session_start();
             </div>
             <div id="cualA2"style="display:none">
                <label for="tipos_delitos_cual">Cuál?:</label>
-               <input class="form-control" name="Cuál" type="text" id="tipos_delitos_otro_cual">
+               <input class="form-control" name="Cuál" type="text" id="tipos_delitos_otro_cual" value="{{$caso->Cuál}}" >
             </div>
             <div class="form-group {{ $errors->has('descripcion_caso') ? 'has-error' : ''}}">
                <label for="breve_descripcion_caso">A 3. Breve descripción del caso:</label>
-               <input type="text" class="form-control" name="descripcion_caso" id="breve_descripcion_caso" value="{{old('descripcion_caso')}}" style="height:80px">
+               <input type="text" class="form-control" name="descripcion_caso" id="breve_descripcion_caso" value="{{$caso->descripcion_caso}}" style="height:80px">
             {!! $errors->first('descripcion_caso', '<p class="help-block" style="color:red";>:message</p>') !!}
             </div>
             <div class="form-group "
           {{ $errors->has('fecha_ingreso') ? 'has-error' : ''}}>
                <label for="datos_fecha_ingreso">A 4. Fecha de Ingreso:</label>
-               <input type="date" class="form-control" name="fecha_ingreso" id="datos_fecha_ingreso" value="{{old('fecha_ingreso')}}">
+               <input type="date" class="form-control" name="fecha_ingreso" id="datos_fecha_ingreso" value="{{$caso->fecha_ingreso}}">
           {!! $errors->first('fecha_ingreso', '<p class="help-block" style="color:red";>:message</p>') !!}
             </div>
             <div class="form-group
@@ -194,7 +150,7 @@ session_start();
                <div id="cualA5" style="display: none;">
                   <br><label for="">Cuál?</label>
                   <div class="">
-                     <input class="form-control" name="cual_otro_organismo" id="derivacion_otro_organismo_cual" type="text" value="">
+                     <input class="form-control" name="cual_otro_organismo" id="derivacion_otro_organismo_cual" type="text" value="{{$caso->cual_otro_organismo}}">
                   </div>
                </div>
 
@@ -205,31 +161,42 @@ session_start();
                <label for="">A 6. CAVAJ interviniente:</label><br>
                <label for="">En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
                <div class="Ados">
-                   @foreach ($cavajs as $cavaj)
+
+                 @foreach ($cavajs as $cavaj)
+
 
                      <label class="form-check-inline form-check-label">
-                       <input type="checkbox" value="{{ $cavaj->id }}" class="form-check-inline" name="cavaj[]">
-                       {{ $cavaj->nombre }}
 
+
+                     @if ($caso->cavajsIds()->contains($cavaj->id))
+                       <input type="checkbox" value="{{ $cavaj->id }}" class="form-check-inline" name="cavaj[]" checked>
+                     @else
+                       <input type="checkbox" value="{{ $cavaj->id }}" class="form-check-inline" name="cavaj[]">
+                     @endif
+                       {{ $cavaj->nombre }}
                      </label><br>
-                   @endforeach
+
+
+                 @endforeach
+
+
         {!! $errors->first('cavaj', '<p class="help-block" style="color:red";>:message</p>') !!}
                </div>
 
              </div><br>
             <div class="form-group "{{ $errors->has('fiscalia_juzgado') ? 'has-error' : ''}}>
                <label for="datos_ente_judicial">A 7. Fiscalía/Juzgado a cargo:</label>
-               <input type="text" class="form-control" name="fiscalia_juzgado" id="datos_ente_judicial" value="{{old('fiscalia_juzgado')}}">
+               <input type="text" class="form-control" name="fiscalia_juzgado" id="datos_ente_judicial" value="{{$caso->fiscalia_juzgado}}">
            {!! $errors->first('fiscalia_juzgado', '<p class="help-block" style="color:red";>:message</p>') !!}
             </div>
             <div class="form-group "{{ $errors->has('causa_id_judicial') ? 'has-error' : ''}}>
                <label for="causa_id_judicial"}>A 8. N° Causa o Id Judicial:</label>
-               <input type="text" class="form-control" name="causa_id_judicial" value="{{old('causa_id_judicial')}}">
+               <input type="text" class="form-control" name="causa_id_judicial" value="{{$caso->causa_id_judicial}}">
           {!! $errors->first('causa_id_judicial', '<p class="help-block" style="color:red";>:message</p>') !!}
             </div>
             <div class="form-group " for="comisaria"{{ $errors->has('comisaria') ? 'has-error' : ''}}>
                <label >A 9. Comisaría interviniente:</label>
-               <input type="text" class="form-control" name="comisaria" value="{{old('comisaria')}}">
+               <input type="text" class="form-control" name="comisaria" value="{{$caso->comisaria}}">
             {!! $errors->first('comisaria', '<p class="help-block" style="color:red";>:message</p>') !!}
             </div>
             <div class="form-group "for=""{{ $errors->has('denuncias_previas') ? 'has-error' : ''}}>
@@ -291,12 +258,12 @@ session_start();
             <div id="cualA12" style="display: none;">
                <br><label for="">Cuál?</label>
                <div class="">
-                  <input class="form-control" name="cual_otro_motivospasivos" type="text" id="motivo_pase_pasivo_cual">
+                  <input class="form-control" name="cual_otro_motivospasivos" type="text" id="motivo_pase_pasivo_cual" value="{{$caso->cual_otro_motivospasivos}}">
                </div>
             </div>
             <div class="form-group "{{ $errors->has('nombre_y_apellido_de_la_victima') ? 'has-error' : ''}}>
                <label for="">A 13. Nombre y apellido de la víctima:</label>
-               <input type="text" class="form-control" name="nombre_y_apellido_de_la_victima" id="victima_nombre_y_apellido" value="{{old('victima_nombre_y_apellido')}}">
+               <input type="text" class="form-control" name="nombre_y_apellido_de_la_victima" id="victima_nombre_y_apellido"  value="{{$caso->nombre_y_apellido_de_la_victima}}">
         {!! $errors->first('nombre_y_apellido_de_la_victima', '<p class="help-block" style="color:red";>:message</p>') !!}
             </div>
             <div class="form-group "{{ $errors->has('nombre_y_apellido_de_la_victima') ? 'has-error' : ''}}>
@@ -313,8 +280,7 @@ session_start();
              </div>
 <br>
 
-            <button style="display:none;background:#4CAF50;color:black;font-size: 1.5em;text-align:center" id="btn-1" type="submit" class="btn btn-primary col-xl" name="button"  onclick="window.open('agregarProfesional', 'width=800,height=600');">Agregar Profesional</button><br><br>
-            <button style="display:none;background:#4CAF50;color:black;font-size: 1.5em;text-align:center" id="btn-2" type="submit" class="btn btn-primary col-xl" name="button" onclick="window.open('agregarPersona', 'width=800,height=600');">Agregar Persona Asistida</button><br><br>
+            <<div class="btn-2" style="width:11%;float:left;margin-left:40%">   <button style="width:100%" class="btn btn-primary col-xs" name="button">Editar</button><br><br></div>
          </form>
       </section>
       <script>
