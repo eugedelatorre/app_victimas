@@ -63,7 +63,7 @@ public function detalle($id) {
       $persona->telefono_persona_asistida= $form ["telefono_persona_asistida"];
       $persona->domicilio_persona_asistida= $form ["domicilio_persona_asistida"];
       $persona->localidad_persona_asistida= $form ["localidad_persona_asistida"];
-      $persona->idCaso= $form ["idCaso"];
+      $persona->idCaso= $form["idCaso"];
 
 
      $persona->save();

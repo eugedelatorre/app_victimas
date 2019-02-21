@@ -101,7 +101,7 @@ session_start();
 
          <form class="" action="/agregarCaso" method="post">
                 {{csrf_field()}}
-
+                
 
                       <label class="form-check-inline form-check-label">Usuario:</label><br><br>
                         <select class="form-control" name="usuarios" >
@@ -252,7 +252,7 @@ session_start();
         @endforeach
         </select>
 
-        
+
             {!! $errors->first('departamento_judicial', '<p class="help-block" style="color:red";>:message</p>') !!}
           </div>
             <div class="form-group "{{ $errors->has('estado') ? 'has-error' : ''}}>

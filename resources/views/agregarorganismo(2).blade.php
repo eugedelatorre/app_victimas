@@ -33,22 +33,18 @@ session_start();
    <body>
       <h1 class="text-center" style="padding: 15px;">Eje F: Atención del caso.</h1>
       <section class="container">
-         <form class="" action="/agregarOrganismo" method="post">
+         <form class="" action="/F-agregarOrganismo" method="post">
            {{ csrf_field() }}
-           <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
 
   <div class="form-group">
   {{ $errors->has('organismos_intervinieron') ? 'has-error' : ''}}
 
-     <label for="modalidad_ingreso">F 1.¿intervinieron otros organismos previamente?</label>
+     <label for="modalidad_ingreso">F 5.¿intervinieron otros organismos previamente?</label>
      <select class="form-control" name="organismos_intervinieron" id="organismos_intervinieron" onChange="selectOnChangeF1(this)" >
         <option value="" >Selecciona una opción</option>
         <option value="1" >Sí</option>
         <option value="2" >NO.Intervino solo el organismo que derivó </option>
      </select><br>
-
-
-
      {!! $errors->first('organismos_intervinieron', '<p class="help-block" style="color:red";>:message</p>') !!}
 <div class="organismos_previos_si" id="organismos_previos_si" style="display:none">
      <input type="checkbox" value="5" class="form-check-inline" name="organismos_previos[]" id="1">
@@ -180,11 +176,11 @@ session_start();
                <label>F 2. Tipo de asistencia requerida:</label>
                <label for="">En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
                <div class="Auno">
-                  <input type="checkbox" value="1" class="form-check-inline" name="asistencia_juridica" id="Jurídica">
+                  <input type="checkbox" value="1" class="form-check-inline" name="tipo_asistencia_requerida[]" id="Jurídica">
                   <label for="Jurídica" class="form-check-inline form-check-label">Jurídica</label><br>
-                  <input type="checkbox" value="2" class="form-check-inline" name="asistencia_psicologica" id="Psicológica">
+                  <input type="checkbox" value="2" class="form-check-inline" name="tipo_asistencia_requerida[]" id="Psicológica">
                   <label for="Psicológica" class="form-check-inline form-check-label">Psicológica</label> <br>
-                  <input type="checkbox" value="3" class="form-check-inline" name="asistencia_socioeconomica"  id="checkeadosocioeco"  onclick="muestrosocioeco()">
+                  <input type="checkbox" value="3" class="form-check-inline" name="tipo_asistencia_requerida[]"  id="checkeadosocioeco"  onclick="muestrosocioeco()">
                   <label for="Socioeconomica" class="form-check-inline form-check-label" >Socioeconomica</label><br>
                </div>
             </div>
@@ -212,7 +208,7 @@ session_start();
                <div id="cualF2I"style="display:none">
 
                   <label for="socioeconomica_otro_cualF2I">Cuál?:</label>
-                  <input class="form-control" name="socioeconomica_otro" type="text" id="socioeconomica_otro_cualF2I">
+                  <input class="form-control" name="socioeconomica_otro_cualF2I" type="text" id="socioeconomica_otro_cualF2I">
                </div>
             </div>
             <div class="form-group ">
@@ -287,7 +283,7 @@ session_start();
             </div>
             <div id="cualF4"style="display:none">
                <label for="organismos_actual_otro_cualF4">Cuál?:</label>
-               <input class="form-control" name="organismos_actual_otro" type="text" id="organismos_actual_otro_cualF4">
+               <input class="form-control" name="organismos_actual_otro_cualF4" type="text" id="organismos_actual_otro_cualF4">
             </div>
             <div class="form-group ">
                <label for="patrocinio">F 6.Patrocinio jurìdico gratuito:</label>
@@ -300,12 +296,12 @@ session_start();
                </select>
             </div>
             <div id="cualF6" style="display:none">
-               <label for="letrado_designado">F 6I.Nombre y Apellido del letrado designado:</label>
-               <input type="text" class="form-control" name="letrado_designado" id="designado" value="">
+               <label for="designado">F 6I.Nombre y Apellido del letrado designado:</label>
+               <input type="text" class="form-control" name="designado" id="designado" value="">
             </div>
             <div class="form-group " id="conformidad" style="display:none">
-               <label for="pratocinio_conformidad">F 6II.¿La víctima está conforme con la asistencia recibida por parte del letrado designado?:</label>
-               <select class="form-control" name="pratocinio_conformidad" id="pratocinio_gratuito-designado" onChange="selectOnChangeF6II(this)">
+               <label for="pratocinio_gratuito-designado">F 6II.¿La víctima está conforme con la asistencia recibida por parte del letrado designado?:</label>
+               <select class="form-control" name="pratocinio_gratuito-designado" id="pratocinio_gratuito-designado" onChange="selectOnChangeF6II(this)">
                   <option value=""> Conformidad con la asistencia recibida</option>
                   <option value="1" >Sí</option>
                   <option value="2" >No</option>
@@ -323,7 +319,7 @@ session_start();
             </div>
             <div class="form-group " id="fecha_designacion" style="display:none">
                <label for="">F 6IV. Fecha de designación: </label>
-               <input type="date" class="form-control" id="fecha_designacion_del_letrad" name="fecha_designacion" value="" ><br>
+               <input type="date" class="form-control" id="fecha_designacion_del_letrado" name="fecha_designacion_del_letrado" value="" ><br>
             </div>
             <div class="form-group ">
                <label for="abogado_particular">F 7.¿Cuenta con abogado particular?:</label>
@@ -427,10 +423,7 @@ session_start();
                        }
                }
             </script>
-            <div class="botones" style="overflow:hidden;width:100%;margin-left:40%">
-          <div class="btn-1" style="width:10%;float:left"> <button type="submit" class="btn btn-primary col-xs" name="button"  >Agregar/Enviar</button><br><br></div>
-
-            </div>
+            <button type="submit" class="btn btn-primary col-xl" name="button">Enviar</button>
          </form>
       </section>
    </body>

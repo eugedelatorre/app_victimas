@@ -27,17 +27,19 @@
 
       </h1>
       <section class="container">
-         <form class="ejeC" action="/agregarimputado" method="post">
+         <form class="ejeC" action="/detalleimputado" method="post">
            {{ csrf_field() }}
+           <input type="hidden" name="idImputado" value="{{$imputado->id}}">
+           <input type="hidden" name="idCaso" value="{{$imputado->idCaso}}">
 
             <div class="form-group">
             <div class="padre">
                <div class="hijo">
                   <h3>Datos del Imputado:</h3>
                   <div class="form-group ">
-                    <input type="hidden" name="idCaso" value="{{$imputado->idCaso}}">
+
                      <label for="">E 1. Nombre y apellido:</label>
-      <input type="text" class="form-control" name="imputado_nombre_y_apellido" id="imputado_nombre_y_apellido" value=""><br>
+      <input type="text" class="form-control" name="nombre_y_apellido" id="imputado_nombre_y_apellido" value="{{$imputado->nombre_y_apellido}}"><br>
                      <label for="bloqueo1" class="form-check-label">Se desconoce</label>
       <input type="checkbox" id="bloqueo1" name="imputado_nombre_y_apellido" value="Se desconoce" onchange="checkE1(this)">
                   </div>
@@ -57,7 +59,7 @@
                   </script>
                   <div class="form-group " id="tipodoc">
                      <label for="">E 2. Tipo de documentación:</label>
-      <select class="form-control" id="tipodocumento_id" name="tipodocumento_id" onChange="selectOnChangeE2(this)">
+      <select class="form-control" id="tipodocumento_id" name="tipo_documento_id" onChange="selectOnChangeE2(this)">
                         <option value="">Seleccioná el tipo de documento</option>
                         <option value="1" >D.N.I.</option>
                         <option value="2" >Documento Extranjero</option>
@@ -72,7 +74,7 @@
                      <div id="cualE2" style="display: none">
                         <label for="">Cual?</label>
                         <div class="">
-      <input name="imputado_tipo_documento_otro"  id="imputado_tipo_documento_otro" class="form-control" type="text" >
+      <input name="tipo_documento_otro"  id="imputado_tipo_documento_otro" class="form-control" type="text" >
                         </div>
                      </div>
                   </div>
@@ -93,7 +95,7 @@
                   </script>
                   <div class="form-group" id="nrodoc">
                      <label for="">E 3. Nro Documento:</label>
-      <input type="text" class="form-control" name="imputado_documento" placeholder="" id="imputado_documento" value="">
+      <input type="text" class="form-control" name="documento_nro" placeholder="" id="imputado_documento" value="">
                   </div>
                   <label for="bloqueo3" class=" form-check-inline form-check-label"> </label>Se desconoce</label>
       <input type="checkbox" id="bloqueo3" class="form-check-inline" name="imputado_documento" value="Se desconoce" onchange="checkE3(this)">
@@ -172,7 +174,7 @@
                   </div>
                   <div class="form-group">
                      <label for="">E 6. Defensoría N°: </label>
-                     <input type="text" class="form-control" name="defensoria_numero" id="defensoria_numero" value="">
+                     <input type="text" class="form-control" name="defensoria_nro" id="defensoria_numero" value="">
                      <label for="bloqueo6" class="form-check-label">Se desconoce</label>
                      <input type="checkbox" id="bloqueo6" name="defensoria_numero" value="Se desconoce" onchange="checkE6(this)">
                   </div>

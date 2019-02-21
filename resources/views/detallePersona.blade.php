@@ -1,60 +1,4 @@
 <?php
-session_start();
-
-/*
-ARMO ARRAY ASOCIATIVO PARA RECORRERLO BUSCANDO EL VALOR DEL SELECT A-5, ESTE VALOR LO GUARDO EN UN SESSION PARA LUEGO MOSTRARLO EN F-1
-$derivaciones=;
-$derivaciones=["1"=>"Unidad de Ministro (Ministerio de Justicia)",
-                 "2"=>"Organismo Provincial de Niñez y Adolescencia",
-                 "3"=>" Portal Mi Provincia",
-                 "4"=>"Registro Provincial de Información de Personas Menores de Edad Extraviadas (REPIPME)",
-                 "5"=>"Fiscalía",
-                 "6"=>"Comisaría",
-                 "7"=>"Municipio",
-                 "8"=>"Centro de Acceso a Justicia (CAJ)",
-                 "9"=>"Defensoría del Pueblo",
-                 "10"=>"Estado en Tu Barrio",
-                 "11"=>"DDI",
-                 "12"=>"Cerca de Noche",
-                 "13"=>"Equipo territorial de barrios",
-                 "14"=>"Otro"];
-
-	if ( $_POST ) {
-    // VARIABLES SESSION UTILIZADAS EN F-1
-$_SESSION["derivacion"] = $_POST["derivacion_otro_organismo"];
-if($_SESSION["derivacion"]==2){
-$_SESSION["derivacion"]=NULL;
-$_SESSION["derivacionbis"]=2;}
-
-if($_SESSION["derivacion"]==4){
-$_SESSION["derivacion"]=NULL;
-$_SESSION["derivacionbis"]=4;}
-
-if($_SESSION["derivacion"]==5){
-$_SESSION["derivacion"]=NULL;
-$_SESSION["derivacionbis"]=5;}
-
-if($_SESSION["derivacion"]==8){
-$_SESSION["derivacion"]=NULL;
-$_SESSION["derivacionbis"]=8;}
-
-if($_SESSION["derivacion"]==10){
-$_SESSION["derivacion"]=NULL;
-$_SESSION["derivacionbis"]=10;}
-
-if($_SESSION["derivacion"]==12){
-$_SESSION["derivacion"]=NULL;
-$_SESSION["derivacionbis"]=12;}
-
-foreach ($derivaciones as $numero=>$nombre){
-if($_SESSION["derivacion"]==$numero){
-   $_SESSION["derivacion"]=$nombre;}
-   if($_SESSION["derivacion"]=="Otro"){
-   $_SESSION["derivacion"]=$_POST["derivacion_otro_organismo_cual"]; }
-   if($_SESSION["derivacion"]==" "){
-   $_SESSION["derivacion"]=NULL; }
-
-}}else{$_SESSION["derivacionbis"]=NULL;}*/
 
  ?>
 
@@ -113,6 +57,10 @@ if($_SESSION["derivacion"]==$numero){
                   <div class="form-group" {{ $errors->has('nombre_persona_asistida') ? 'has-error' : ''}}>
 
                       <input type="hidden" name="idPersona" value="{{$persona->id}}">
+                        <input type="hidden" name="idCaso" value="{{$persona->idCaso}}">
+
+
+
 
                      <label for="nombre_persona_asistida">A 14I. Nombre y apellido de la persona asistida: </label>
                      <input type="text" class="form-control" name="nombre_persona_asistida" id="Nombre_apellido_persona_asistida" value="{{$persona->nombre_persona_asistida}}">

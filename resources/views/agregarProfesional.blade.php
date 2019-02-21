@@ -1,5 +1,5 @@
 <?php
-  $idCaso = session("idCaso");
+
 
  ?>
 
@@ -72,11 +72,7 @@
 
          <form class="" action="/agregarProfesional" method="post">
                 {{csrf_field()}}
-
-
-
-<!--<input type="hidden" name="idCaso" value="{{$idCaso}}">-->
-
+                <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
 
                   <div class="form-group"{{ $errors->has('nombre_profesional_interviniente') ? 'has-error' : ''}}>
                     <h3>A 15. Profesional Interviniente:</h3>

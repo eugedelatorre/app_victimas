@@ -31,7 +31,7 @@ session_start();
       <div class="form-group" style="margin-top:-1%;margin-left:38%">
     <ul>
       @foreach($victims as $victim)
-           @if($victim->idCaso==$ultimoid)
+
 
              <li>
           <a href="detallevictima/{{$victim->id}}">
@@ -39,19 +39,19 @@ session_start();
 
           </a>
           </li>
-        @endif
+
 
       @endforeach
 
     </ul>
 </div>
       <section class="container">
-      <form class="" action="/agregarVictimaB" method="post">
+      <form class="" action="/agregarVictima" method="post">
         {{csrf_field()}}
 
       <div class="form-group"{{ $errors->has('victima_nombre_y_apellido') ? 'has-error' : ''}}>
 
-            <input type="hidden" name="idCaso" value="{{$ultimoid}}">
+            <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
 
 
          <label for="">B 1. Nombre y apellido:</label>
@@ -433,7 +433,7 @@ session_start();
 
                @foreach ($programas as $programa)
                  <label class="form-check-inline form-check-label">
-                   <input type="checkbox" value="{{ $programa->id }}" class="form-check-inline" name="programa[]">
+                   <input type="checkbox" value="{{ $programa->id }}" class="form-check-inline" name="programas[]">
 
                    {{ $programa->nombre }}
 
@@ -514,7 +514,7 @@ session_start();
 
            @foreach ($discapacidades as $discapacidad)
              <label class="form-check-inline form-check-label">
-               <input type="checkbox" value="{{ $discapacidad->id }}" class="form-check-inline" name="discapacidad[]">
+               <input type="checkbox" value="{{ $discapacidad->id }}" class="form-check-inline" name="discapacidades[]">
                {{ $discapacidad->nombre }}
              </label><br>
            @endforeach
@@ -647,7 +647,7 @@ session_start();
          <div>
            @foreach ($limitaciones as $limitacion)
              <label class="form-check-inline form-check-label">
-               <input type="checkbox" value="{{ $limitacion->id }}" class="form-check-inline" name="limitacion[]">
+               <input type="checkbox" value="{{ $limitacion->id }}" class="form-check-inline" name="limitaciones[]">
                {{ $limitacion->nombre }}
              </label><br>
            @endforeach

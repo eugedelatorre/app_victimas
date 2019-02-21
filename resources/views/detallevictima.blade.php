@@ -36,16 +36,19 @@ session_start();
           @foreach($victims as $victim)
                @if($victim->idCaso==$ultimoid)
 
-              
+
             @endif
 
           @endforeach
 
         </ul>
         {{csrf_field()}}
+        <input type="hidden" name="idProfesional" value="{{$victim->id}}">
+        <input type="hidden" name="idCaso" value="{{$victim->idCaso}}">
+
 
       <div class="form-group ">
-          <input type="hidden" name="idCaso" value="{{$victim->idCaso}}">
+
 
          <label for="">B 1. Nombre y apellido:</label>
          <input type="text" class="form-control" name="victima_nombre_y_apellido" id="victima_nombre_y_apellido" value="">

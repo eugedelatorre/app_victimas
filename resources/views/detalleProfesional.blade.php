@@ -1,59 +1,4 @@
 <?php
-session_start();
-/*
-ARMO ARRAY ASOCIATIVO PARA RECORRERLO BUSCANDO EL VALOR DEL SELECT A-5, ESTE VALOR LO GUARDO EN UN SESSION PARA LUEGO MOSTRARLO EN F-1
-$derivaciones=;
-$derivaciones=["1"=>"Unidad de Ministro (Ministerio de Justicia)",
-                 "2"=>"Organismo Provincial de Niñez y Adolescencia",
-                 "3"=>" Portal Mi Provincia",
-                 "4"=>"Registro Provincial de Información de Personas Menores de Edad Extraviadas (REPIPME)",
-                 "5"=>"Fiscalía",
-                 "6"=>"Comisaría",
-                 "7"=>"Municipio",
-                 "8"=>"Centro de Acceso a Justicia (CAJ)",
-                 "9"=>"Defensoría del Pueblo",
-                 "10"=>"Estado en Tu Barrio",
-                 "11"=>"DDI",
-                 "12"=>"Cerca de Noche",
-                 "13"=>"Equipo territorial de barrios",
-                 "14"=>"Otro"];
-
-	if ( $_POST ) {
-    // VARIABLES SESSION UTILIZADAS EN F-1
-$_SESSION["derivacion"] = $_POST["derivacion_otro_organismo"];
-if($_SESSION["derivacion"]==2){
-$_SESSION["derivacion"]=NULL;
-$_SESSION["derivacionbis"]=2;}
-
-if($_SESSION["derivacion"]==4){
-$_SESSION["derivacion"]=NULL;
-$_SESSION["derivacionbis"]=4;}
-
-if($_SESSION["derivacion"]==5){
-$_SESSION["derivacion"]=NULL;
-$_SESSION["derivacionbis"]=5;}
-
-if($_SESSION["derivacion"]==8){
-$_SESSION["derivacion"]=NULL;
-$_SESSION["derivacionbis"]=8;}
-
-if($_SESSION["derivacion"]==10){
-$_SESSION["derivacion"]=NULL;
-$_SESSION["derivacionbis"]=10;}
-
-if($_SESSION["derivacion"]==12){
-$_SESSION["derivacion"]=NULL;
-$_SESSION["derivacionbis"]=12;}
-
-foreach ($derivaciones as $numero=>$nombre){
-if($_SESSION["derivacion"]==$numero){
-   $_SESSION["derivacion"]=$nombre;}
-   if($_SESSION["derivacion"]=="Otro"){
-   $_SESSION["derivacion"]=$_POST["derivacion_otro_organismo_cual"]; }
-   if($_SESSION["derivacion"]==" "){
-   $_SESSION["derivacion"]=NULL; }
-
-}}else{$_SESSION["derivacionbis"]=NULL;}*/
 
  ?>
 
@@ -104,10 +49,12 @@ if($_SESSION["derivacion"]==$numero){
           </div>
         @endif
 
-         <form class="" action="/agregarProfesional" method="post">
+         <form class="" action="/detalleProfesional" method="post">
                 {{csrf_field()}}
+                <input type="hidden" name="idProfesional" value="{{$profesional->id}}">
+                <input type="hidden" name="idCaso" value="{{$profesional->idCaso}}">
 
-<input type="hidden" name="idCaso" value="{{$profesional->idCaso}}">
+
 
 
                   <div class="form-group"{{ $errors->has('nombre_profesional_interviniente') ? 'has-error' : ''}}>

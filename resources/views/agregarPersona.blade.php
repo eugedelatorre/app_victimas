@@ -69,12 +69,9 @@
         </ul>
          <form class="" action="/agregarPersona" method="post">
                 {{csrf_field()}}
-
-<!--<input type="hidden" name="idCaso" value="{{$idCaso}}">-->
-
-
+                <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
                   <div class="form-group" {{ $errors->has('nombre_persona_asistida') ? 'has-error' : ''}}>
-                    <input type="hidden" name="idCaso" value="{{$ultimoid}}">
+
 
                      <label for="nombre_persona_asistida">A 14I. Nombre y apellido de la persona asistida: </label>
                      <input type="text" class="form-control" name="nombre_persona_asistida" id="Nombre_apellido_persona_asistida" value="{{old("nombre_persona_asistida")}}">

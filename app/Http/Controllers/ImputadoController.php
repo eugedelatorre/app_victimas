@@ -19,7 +19,7 @@ class ImputadoController extends Controller
     $imputado->vinculo_otro= $form["vinculo_otro"];
     $imputado->antecedentes_id= $form["antecedentes_id"];
     $imputado->defensoria_nro= $form["defensoria_numero"];
-    $imputado->idCaso= $form ["idCaso"];
+    $imputado->idCaso= session("idCaso");
 
 
     $imputado->save();
@@ -42,4 +42,21 @@ public function detalle($id) {
       return redirect("agregarimputado");
 
   }
+
+  public function editar(Request $form) {
+      $imputado = Imputado::find($form["idImputado"]);
+      $imputado->nombre_y_apellido= $form["nombre_y_apellido"];
+      $imputado->tipo_documento_id= $form["tipodo_documento_id"];
+      $imputado->tipo_documento_otro= $form["tipo_documento_otro"];
+      $imputado->documento_nro= $form["documento_nro"];
+      $imputado->vinculo_id= $form["vinculo_id"];
+      $imputado->vinculo_otro= $form["vinculo_otro"];
+      $imputado->antecedentes_id= $form["antecedentes_id"];
+      $imputado->defensoria_nro= $form["defensoria_nro"];
+      $imputado->idCaso= $form ["idCaso"];
+      $imputado->save();
+       return redirect("home");
+
+
+}
 }

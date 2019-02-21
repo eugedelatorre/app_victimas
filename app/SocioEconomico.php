@@ -3,10 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
-class SocioEconmico extends Model
+use App\Institucion;
+class Socioeconomico extends Model
 {
-      public $table="socio_economicos";
-      public $timestamps=false;
-      public $guarded=[];
+  public $table="socioeconomicos";
+  public $timestamps=false;
+  public $guarded=[];
+
+
+    public function instituciones() {
+      return $this->belongsToMany(Institucion::class,"institucion_socioeconomico","socioeconomico_id","institucion_id");
+    }
 }
+?>

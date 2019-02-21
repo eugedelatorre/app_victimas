@@ -33,7 +33,7 @@
 
           @foreach($imputados as $imputado)
 
-               @if($imputado->idCaso==$ultimoid)
+
 
                  <li>
               <a href="detalleimputado/{{$imputado->id}}">
@@ -41,7 +41,7 @@
 
               </a>
               </li>
-            @endif
+
 
           @endforeach
 
@@ -50,7 +50,7 @@
            {{ csrf_field() }}
 
             <div class="form-group">
-            <input type="hidden" name="idCaso" value="{{$ultimoid}}">
+            <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
                   <h3>Datos del Imputado:</h3>
                   <div class="form-group ">
                      <label for="">E 1. Nombre y apellido:</label>

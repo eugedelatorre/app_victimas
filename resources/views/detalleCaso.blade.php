@@ -99,8 +99,10 @@ session_start();
 
         @endif
 
-         <form class="" action="/agregarCaso" method="post">
+         <form class="" action="/detalleCaso" method="post">
                 {{csrf_field()}}
+
+
 
 
                       <label class="form-check-inline form-check-label">Usuario:</label><br><br>
@@ -115,7 +117,7 @@ session_start();
             <div class="form-group {{ $errors->has('nombre_referencia') ? 'has-error' : ''}}">
                <label for="datos_nombre_referencia">A 1. Nombre de referencia:</label>
 
-               <input type="text" class="form-control" name="nombre_referencia" id="datos_nombre_referencia" value="{{old('nombre_referencia')}}">
+               <input type="text" class="form-control" name="nombre_referencia" id="datos_nombre_referencia" value="{{$caso->nombre_referencia}}">
            {!! $errors->first('nombre_referencia', '<p class="help-block" style="color:red";>:message</p>') !!}
             </div>
 

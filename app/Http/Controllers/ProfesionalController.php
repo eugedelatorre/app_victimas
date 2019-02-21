@@ -49,5 +49,18 @@ public function detalle($id) {
       return redirect("agregarProfesional");
 
   }
+  public function editar(Request $form) {
+      $profesional = Profesional::find($form["idProfesional"]);
+      $profesional->nombre_profesional_interviniente= $form ["nombre_profesional_interviniente"];
+      $profesional->desde_profesional_interviniente= $form ["desde_profesional_interviniente"];
+      $profesional->actual_profesional_interviniente= $form ["actual_profesional_interviniente"];
+      $profesional->hasta_profesional_interviniente= $form ["hasta_profesional_interviniente"];
+      $profesional->idCaso= $form ["idCaso"];
+
+           $profesional->save();
+            return redirect("home");}
+
+
+
 
 }

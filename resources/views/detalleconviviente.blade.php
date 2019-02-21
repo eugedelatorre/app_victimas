@@ -32,16 +32,19 @@ session_start();
          <h5></h5>
       </h1>
       <section class="container">
-         <form class="ejeC" action="/agregarconviviente" method="post">
+         <form class="ejeC" action="/detalleconviviente" method="post">
            {{ csrf_field() }}
+           <input type="hidden" name="idConviviente" value="{{$conviviente->id}}">
+           <input type="hidden" name="idCaso" value="{{$conviviente->idCaso}}">
+
 
             <div class="form-group">
-              <input type="hidden" name="idCaso" value="{{$conviviente->idCaso}}">
+
 
 
                   <h3>Datos del Conviviente:</h3>
                   <div class="form-group">
-                    <input type="hidden" name="idCaso" value="{{$conviviente->idCaso}}">
+
                      <label for="">C 1. Nombre y apellido:</label>
                      <input type="text" class="form-control" name="nombre_y_apellido" id="victima_nombre_y_apellido" value="{{$conviviente->nombre_y_apellido}}">
                      <label for="bloqueo1" class="form-check-label">Se desconoce</label>
@@ -62,8 +65,8 @@ session_start();
                      }
                   </script>
                   <div class="form-group ">
-                     <label for="victima_edad">C 2. Edad:</label>
-                     <input name="victima_edad" value="{{$conviviente->edad}}" id="victima_edad" class="form-control" type="text" onchange="mostrarValor(this.value);">
+                     <label for="edad_conviviente">C 2. Edad:</label>
+                     <input name="edad_conviviente" value="{{$conviviente->edad_conviviente}}" id="victima_edad" class="form-control" type="text" onchange="mostrarValor(this.value);">
                      <label class="form-check-label" for="victima_edad_desconoce">Se desconoce</label>
                      <input name="victima_edad_desconoce" value="Se desconoce" id="victima_edad" placeholder="" type="checkbox" onchange="checkC2(this)">
                   </div>

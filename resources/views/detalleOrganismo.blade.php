@@ -33,9 +33,10 @@ session_start();
    <body>
       <h1 class="text-center" style="padding: 15px;">Eje F: Atención del caso.</h1>
       <section class="container">
-         <form class="" action="/agregarOrganismo" method="post">
+         <form class="" action="/detalleOrganismo" method="post">
            {{ csrf_field() }}
-           <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
+           <input type="hidden" name="idPersona" value="{{$institucion->id}}">
+             <input type="hidden" name="idCaso" value="{{$institucion->idCaso}}">
 
   <div class="form-group">
   {{ $errors->has('organismos_intervinieron') ? 'has-error' : ''}}
@@ -427,10 +428,13 @@ session_start();
                        }
                }
             </script>
-            <div class="botones" style="overflow:hidden;width:100%;margin-left:40%">
-          <div class="btn-1" style="width:10%;float:left"> <button type="submit" class="btn btn-primary col-xs" name="button"  >Agregar/Enviar</button><br><br></div>
+            <  <div class="botones" style="overflow:hidden;width:100%;margin-left:40%">
+            <div class="btn-4" style="width:11%;float:left;margin-left:0.1%"><input type ='submit' style="width:100%;background-color:green" class="btn btn col-xs" value = 'Editar' ></button><br><br></div>
 
-            </div>
+              </div>
+            </form>
+
+  <div class="btn-4" style="width:11%;float:left;margin-left:40%"><input type ='button' style="width:100%" class="btn btn-danger col-xs" name="button" value = 'Eliminar' onclick="window.open('deleteOrganismo/{{$institucion->id}}', 'width=800,height=600');"/></button><br><br></div>
          </form>
       </section>
    </body>

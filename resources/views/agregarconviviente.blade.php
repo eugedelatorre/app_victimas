@@ -58,10 +58,10 @@ session_start();
       <section class="container">
          <form class="ejeC" action="/agregarconviviente" method="post">
            {{ csrf_field() }}
-           <input type="hidden" name="idCaso" value="{{$ultimoid}}">
+
 
             <div class="form-group">
-          <input type="hidden" name="idCaso" value="{{$ultimoid}}">
+          <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
 
 
                   <h3>Datos del Conviviente:</h3>
@@ -87,7 +87,7 @@ session_start();
                   </script>
                   <div class="form-group ">
                      <label for="victima_edad">C 2. Edad:</label>
-                     <input name="edad" value="{{old("edad")}}" id="victima_edad" class="form-control" type="text" onchange="mostrarValor(this.value);">
+                     <input name="edad_conviviente" value="{{old("edad_conviviente")}}" id="victima_edad" class="form-control" type="text" onchange="mostrarValor(this.value);">
                      <label class="form-check-label" for="victima_edad_desconoce">Se desconoce</label>
                      <input name="victima_edad_desconoce" value="Se desconoce" id="victima_edad" placeholder="" type="checkbox" onchange="checkC2(this)">
                   </div>

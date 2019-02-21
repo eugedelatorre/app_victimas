@@ -12,35 +12,25 @@ class ConvivienteController extends Controller
 
     $conviviente = new Conviviente();
 
-<<<<<<< HEAD
     $conviviente->nombre_y_apellido= $form["nombre_y_apellido"];
-    $conviviente->edad= $form["edad"];
+    $conviviente->edad_conviviente= $form["edad_conviviente"];
     $conviviente->vinculo_victima= $form["vinculo_victima"];
     $conviviente->niveleducativo_id= $form["niveleducativo_id"];
     $conviviente->condiciones_de_trabajo= $form["condiciones_de_trabajo"];
-    $conviviente->idCaso= $form ["idCaso"];
-=======
-    $conviviente->nombre_y_apellido= $form["victima_nombre_y_apellido"];
-    $conviviente->edad= $form["victima_edad"];
-    $conviviente->vinculo_victima= $form["vinculo_victima"];
-    $conviviente->niveleducativo_id= $form["niveleducativo_id"];
-    $conviviente->condiciones_de_trabajo= $form["condiciones_de_trabajo"];
-    $conviviente->caso_id= 99999;
->>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
+
+    $conviviente->idCaso= session("idCaso");
+
 
 
     $conviviente->save();
 
-<<<<<<< HEAD
     return redirect("agregarconviviente");
-=======
-    return redirect("agregarConvivienteC");
->>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
+
 
 
 
   }
-<<<<<<< HEAD
+
   public function detalle($id) {
 
       $conviviente = Conviviente::find($id);
@@ -57,19 +47,22 @@ class ConvivienteController extends Controller
         return redirect("agregarconviviente");
 
     }
+    public function editar(Request $form) {
+
+        $conviviente = Conviviente::find($form["idConviviente"]);
+
+        $conviviente->nombre_y_apellido= $form["nombre_y_apellido"];
+        $conviviente->edad_conviviente= $form["edad_conviviente"];
+        $conviviente->vinculo_victima= $form["vinculo_victima"];
+        $conviviente->niveleducativo_id= $form["niveleducativo_id"];
+        $conviviente->condiciones_de_trabajo= $form["condiciones_de_trabajo"];
+
+        $conviviente->idCaso= $form ["idCaso"];
+
+             $conviviente->save();
+              return redirect("home");}
 
 
 
 
-
-
-
-
-
-
-
-
-
-=======
->>>>>>> 72b5794bfa33317bc08a6812e37ef0e34d22931b
-}
+    }

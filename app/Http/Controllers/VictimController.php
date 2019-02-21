@@ -79,7 +79,7 @@ class VictimController extends Controller
     $victim->enfermedadcronica= $form ["enfermedadcronica"];
     $victim->tipo_enfermedad_cronica= $form ["tipo_enfermedad_cronica"];
     $victim->limitacion_otro= $form ["limitacion_otro"];
-    $victim->idCaso= $form ["idCaso"];
+    $victim->idCaso= session("idCaso");
 
 
     $victim->save();
@@ -140,6 +140,48 @@ class VictimController extends Controller
       }
 
 
+    public function editar(Request $form) {
+
+        $victim = Victim::find($form["idVictima"]);
+
+        $victim->victima_nombre_y_apellido= $form ["victima_nombre_y_apellido"];
+        $victim->genero= $form ["genero"];
+        $victim->victima_fecha_nacimiento= $form ["victima_fecha_nacimiento"];
+        $victim->victima_edad= $form ["victima_edad"];
+        $victim->franjaetaria= $form ["franjaetaria"];
+        $victim->tienedoc= $form ["tienedoc"];
+        $victim->tipodocumento= $form ["tipodocumento"];
+        $victim->tipo_documento_otro= $form ["victima_tipo_documento_otro"];
+        $victim->residenciaprecaria= $form ["residenciaprecaria"];
+        $victim->victima_numero_documento= $form ["victima_numero_documento"];
+        $victim->victima_tipo_documento_otro= $form ["victima_tipo_documento_otro"];
+        $victim->niveleducativo= $form ["niveleducativo"];
+        $victim->condiciones_de_trabajo= $form ["condiciones_de_trabajo"];
+        $victim->necesidades_socioeconomicas_insatisfechas= $form ["necesidades_socioeconomicas_insatisfechas"];
+        $victim->necesidades_socioeconomicas_insatisfechas_otro= $form ["necesidades_socioeconomicas_insatisfechas_otro"];
+        $victim->programa_subsidio= $form ["programa_subsidio"];
+        $victim->programa_subsidio_otro= $form ["programa_subsidio_otro"];
+        $victim->embarazorelevamiento= $form ["embarazorelevamiento"];
+        $victim->tienelesion= $form ["tienelesion"];
+        $victim->tipo_lesion= $form ["tipo_lesion"];
+        $victim->enfermedadcronica= $form ["enfermedadcronica"];
+        $victim->tipo_enfermedad_cronica= $form ["tipo_enfermedad_cronica"];
+        $victim->limitacion_otro= $form ["limitacion_otro"];
+
+        $victim->idCaso= $form ["idCaso"];
+
+             $victim->save();
+             foreach ($form["necesidades"] as $necesidad) {
+             $victim->necesidades()->attach($necesidad);}
+
+             foreach ($form["programas"] as $programa) {
+             $victim->programas()->attach($programa);}
+
+             foreach ($form["discapacidades"] as $discapacidad) {
+             $victim->discapacidades()->attach($discapacidad);}
+
+             foreach ($form["limitaciones"] as $limitacion) {
+             $victim->limitaciones()->attach($limitacion);}
 
 
 
@@ -147,6 +189,14 @@ class VictimController extends Controller
 
 
 
+
+
+
+
+
+
+
+              return redirect("home");}
 
 
 
