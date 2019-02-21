@@ -17,27 +17,28 @@ use App\Usuario;
 class CasoController extends Controller
 {
 
-
-
   public function agregar(Request $form){
 
+    $reglas = [
+          "usuarios" => "required",
+          "nombre_referencia" =>"required|max:255",
+          "delitos" => "required",
+          "descripcion_caso" => "required",
+          "fecha_ingreso" => "required",
+          "modalidad_ingreso" => "required",
+          "cavaj" => "required",
+          "fiscalia_juzgado" => "required",
+          "causa_id_judicial" => "required",
+          "comisaria" => "required",
+          "denuncias_previas" => "required",
+          "departamento_judicial" => "required",
+          "estado" => "required",
+          "nombre_y_apellido_de_la_victima" => "required",
+          "persona_asistida" => "required"
+        ];
 
+        $this->validate($form, $reglas);
 
-
-//$reglas = [
-//];
-
-//$reglas = [
-//];
-
-/*$mensajes=["string"=>"El campo :attribute debe ser un texto","integer"=>"El campo :attribute debe ser un número entero",
-"date"=>"El campo :attribute debe ser una fecha","unique"=>"El campo :attribute está repetido","required"=>"Complete el campo :attribute "];*/
-
-/*$mensajes=["string"=>"El campo :attribute debe ser un texto","integer"=>"El campo :attribute debe ser un número entero",
-"date"=>"El campo :attribute debe ser una fecha","unique"=>"El campo :attribute está repetido","required"=>"Complete el campo :attribute "];*/
-
-
-//$this->validate($form,$reglas,$mensajes);
 
 $caso= new Caso();
 
@@ -64,11 +65,8 @@ $idCaso = $caso->id;
 
 session(["idCaso" => $idCaso]);
 
-
 //session()->forget('idCaso');
 // dd($idCaso, $_SESSION["idCaso"]);
-
-
 /*if ($form["persona_asistida"] == 1) {
   return view("agregarPersona");
 } else {
@@ -80,24 +78,17 @@ session(["idCaso" => $idCaso]);
 
 
 */
+
  foreach ($form["delitos"] as $delito) {
 
   $caso->delitos()->attach($delito);}
 
-
-
-
-
-
  foreach ($form["cavaj"] as $cavaj) {
-$caso->cavajs()->attach($cavaj);}
+
+  $caso->cavajs()->attach($cavaj);}
 
 
-
-
-
-
-return redirect ("agregarPersona");
+    return redirect ("agregarPersona");
 
 
 

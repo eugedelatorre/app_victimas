@@ -2,7 +2,6 @@
 
 session_start();
 
-
 //ARMO ARRAY ASOCIATIVO PARA RECORRERLO BUSCANDO EL VALOR DEL SELECT A-5, ESTE VALOR LO GUARDO EN UN SESSION PARA LUEGO MOSTRARLO EN F-1
  /*$derivaciones=["1"=>"Unidad de Ministro (Ministerio de Justicia)",
                   "2"=>"Organismo Provincial de Niñez y Adolescencia",
@@ -91,87 +90,125 @@ session_start();
       <h1 class="text-center" style="padding: 15px;">Eje A: Datos institucionales</h1>
 
       <section class="container">
+
         @if ($errors->any())
-
           <div class="alert alert-danger" style="background:#4CAF50;color:black;font-size: 1.5em;text-align:center">
-              <p>Debes completar todo el <strong>formulario A</strong> para continuar</p>
+          <p>Debes completar todo el <strong>formulario A</strong> para continuar</p>
           </div>
-
         @endif
 
          <form class="" action="/agregarCaso" method="post">
                 {{csrf_field()}}
-                
 
-                      <label class="form-check-inline form-check-label">Usuario:</label><br><br>
-                        <select class="form-control" name="usuarios" >
-                          <option value="">Selecciona un usuario</option>
-                        @foreach ($usuarios as $usuario)
-                          <option value="{{ $usuario->id }}">{{ $usuario->nombre_y_apellido}}</option>
-                          @endforeach
-                      </select><br><br>
+<!-Usuario->
+        <div class="form-group {{ $errors->has('usuarios') ? 'has-error' : ''}}">
+        <label class="form-check-inline form-check-label">Usuario:</label><br><br>
+        <select class="form-control" name="usuarios">
+        <option value="">Selecciona un usuario</option>
+              @foreach ($usuarios as $usuario)
+                @if ($usuario->id == old('usuarios'))
+        <option selected value="{{ $usuario->id }}">{{ $usuario->nombre_y_apellido}}</option>
+                @else
+        <option value="{{ $usuario->id }}">{{ $usuario->nombre_y_apellido}}</option>
+                @endif
+              @endforeach
+        </select>
+        {!! $errors->first('usuarios', '<p class="help-block" style="color:red";>:message</p>') !!}
+        </div>
+        <br><br>
 
+<!-A1 Nombre de referencia->
 
-            <div class="form-group {{ $errors->has('nombre_referencia') ? 'has-error' : ''}}">
-               <label for="datos_nombre_referencia">A 1. Nombre de referencia:</label>
+        <div class="form-group {{ $errors->has('nombre_referencia') ? 'has-error' : ''}}">
 
-               <input type="text" class="form-control" name="nombre_referencia" id="datos_nombre_referencia" value="{{old('nombre_referencia')}}">
+        <label for="datos_nombre_referencia">A 1. Nombre de referencia:</label>
+
+        <input type="text" class="form-control" name="nombre_referencia" id="datos_nombre_referencia" value="{{old('nombre_referencia')}}">
            {!! $errors->first('nombre_referencia', '<p class="help-block" style="color:red";>:message</p>') !!}
-            </div>
+
+        </div>
+
+<!-A2 Tipo de delito->
+
+        <div class="form-group">
+          <div class="AunoDos" {{ $errors->has('delitos') ? 'has-error' : ''}}>
+
+          <label for="">A 2. Tipo de delito:</label><br>
+          <label for="">En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
+
+          <div class="Ados">
+
+            @foreach ($delitos as $delito)
 
 
-            <div class="form-group ">
-               <div class="AunoDos" {{ $errors->has('delitos') ? 'has-error' : ''}}>
+                <label class="form-check-inline form-check-label">
 
-                  <label for="">A 2. Tipo de delito:</label><br>
-                  <label for="">En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
-                  <div class="Auno">
+                @if (is_array(old("delitos")) && in_array($delito->id, old("delitos")))
+                  <input type="checkbox" value="{{ $delito->id }}" class="form-check-inline" name="delitos[]" checked>
+                @else
+                  <input type="checkbox" value="{{ $delito->id }}" class="form-check-inline" name="delitos[]">
+                @endif
+                  {{ $delito->nombre }}
+                </label><br>
 
-                  </div>
-                  <div class="Ados">
-                    @foreach ($delitos as $delito)
 
-                         <label class="form-check-inline form-check-label">
-                           <input type="checkbox" value="{{ $delito->id }}" class="form-check-inline" name="delitos[]">
-                           {{ $delito->nombre }}
-
-                         </label><br>
-                       @endforeach
+            @endforeach
 
               {!! $errors->first('delitos', '<p class="help-block" style="color:red";>:message</p>') !!}
 
                   </div>
                </div>
             </div>
+            <br>
             <div id="cualA2"style="display:none">
                <label for="tipos_delitos_cual">Cuál?:</label>
                <input class="form-control" name="Cuál" type="text" id="tipos_delitos_otro_cual">
             </div>
-            <div class="form-group {{ $errors->has('descripcion_caso') ? 'has-error' : ''}}">
-               <label for="breve_descripcion_caso">A 3. Breve descripción del caso:</label>
-               <input type="text" class="form-control" name="descripcion_caso" id="breve_descripcion_caso" value="{{old('descripcion_caso')}}" style="height:80px">
-            {!! $errors->first('descripcion_caso', '<p class="help-block" style="color:red";>:message</p>') !!}
-            </div>
-            <div class="form-group "
-          {{ $errors->has('fecha_ingreso') ? 'has-error' : ''}}>
-               <label for="datos_fecha_ingreso">A 4. Fecha de Ingreso:</label>
-               <input type="date" class="form-control" name="fecha_ingreso" id="datos_fecha_ingreso" value="{{old('fecha_ingreso')}}">
-          {!! $errors->first('fecha_ingreso', '<p class="help-block" style="color:red";>:message</p>') !!}
-            </div>
-            <div class="form-group">
-            {{ $errors->has('modalidad_ingreso') ? 'has-error' : ''}}
 
-               <label for="modalidad_ingreso">A 5. Modalidad de Ingreso</label>
-               <select class="form-control" name="modalidad_ingreso" id="modalidad_id" onChange="selectOnChangeA5(this)" >
-                 <option value=" " >Modalidad de Ingreso</option>
-                  <option value="1" >Presentación espontánea</option>
-                  <option value="2" >Intervenciòn de oficio</option>
-                  <option value="3" >Derivación de otro organismo</option>
+<!-A3 Descripción del caso->
+
+          <div class="form-group {{ $errors->has('descripcion_caso') ? 'has-error' : ''}}">
+          <label for="breve_descripcion_caso">A 3. Breve descripción del caso:</label>
+          <input type="text" class="form-control" name="descripcion_caso" id="breve_descripcion_caso" value="{{old('descripcion_caso')}}" style="height:80px">
+          {!! $errors->first('descripcion_caso', '<p class="help-block" style="color:red";>:message</p>') !!}
+          </div>
+
+<!-A4 Fecha de ingreso->
+
+          <div class="form-group "
+          {{ $errors->has('fecha_ingreso') ? 'has-error' : ''}}>
+          <label for="datos_fecha_ingreso">A 4. Fecha de Ingreso:</label>
+          <input type="date" class="form-control" name="fecha_ingreso" id="datos_fecha_ingreso" value="{{old('fecha_ingreso')}}">
+          {!! $errors->first('fecha_ingreso', '<p class="help-block" style="color:red";>:message</p>') !!}
+          </div>
+
+<!-A5 Modalidad de ingreso->
+
+          <div class="form-group"
+            {{ $errors->has('modalidad_ingreso') ? 'has-error' : ''}}>
+          <label for="modalidad_ingreso">A 5. Modalidad de Ingreso</label>
+          <select class="form-control" name="modalidad_ingreso" id="modalidad_id" onChange="selectOnChangeA5(this)">
+                  <option value="">Modalidad de Ingreso</option>
+                  @if (old("modalidad_ingreso")==1)
+                    <option value="1" selected>Presentación espontánea</option>
+                  @else <option value="1" >Presentación espontánea</option>
+                  @endif
+
+                  @if (old("modalidad_ingreso")==2)
+                    <option value="2" selected>Intervención de oficio</option>
+                  @else <option value="2" >Intervención de oficio</option>
+                  @endif
+
+                  @if (old("modalidad_ingreso")==3)
+                    <option value="3" selected>Derivación de otro organismo</option>
+                  @else <option value="3" >Derivación de otro organismo</option>
+                  @endif
+
                </select><br>
                {!! $errors->first('modalidad_ingreso', '<p class="help-block" style="color:red";>:message</p>') !!}
 
 
-                   <div class="form-group" id="derivacion_otro_organismo_id" style="display:none">
+            <div class="form-group" id="derivacion_otro_organismo_id" style="display:none">
 
                  @foreach ($organismos as $organismo)
 
@@ -183,25 +220,22 @@ session_start();
                  @endforeach
 
                  <input type="checkbox" class="form-check-inline" id="checkeadoA5"  onclick="muestroCualA5()" name="" value="">
-             <label for="" class="form-check-label" style="margin-left: -6px" id="otro">Otro</label>
+                 <label for="" class="form-check-label" style="margin-left: -6px" id="otro">Otro</label>
 
              {!! $errors->first('cavaj', '<p class="help-block" style="color:red";>:message</p>') !!}
              </div>
 
-               <div id="cualA5" style="display: none;">
-                  <br><label for="">Cuál?</label>
+             <div id="cualA5" style="display: none;">
+              <label for="">Cuál?</label>
+              <input class="form-control" name="cual_otro_organismo" id="cual_otro_organismo" type="text" value="">
+              </div>
+              </div>
 
-                     <input class="form-control" name="cual_otro_organismo" id="cual_otro_organismo" type="text" value="">
-
-               </div>
-
-            </div>
-
-
-
-               <label for="">A 6. CAVAJ interviniente:</label><br>
+<!-A6 CAVAJ Interviniente->
+            <div class="form-group">
+              <label for="">A 6. CAVAJ interviniente:</label><br>
                <label for="">En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
-               <div class="Ados">
+
                    @foreach ($cavajs as $cavaj)
 
                      <label class="form-check-inline form-check-label">
@@ -210,26 +244,40 @@ session_start();
 
                      </label><br>
                    @endforeach
-        {!! $errors->first('cavaj', '<p class="help-block" style="color:red";>:message</p>') !!}
-               </div>
+                   {!! $errors->first('cavaj', '<p class="help-block" style="color:red";>:message</p>') !!}
 
-             </div><br>
-            <div class="form-group "{{ $errors->has('fiscalia_juzgado') ? 'has-error' : ''}}>
+             </div>
+             <br>
+
+<!-A7 Fiscalia/juzgado a cargo->
+
+            <div class="form-group">
+               {{ $errors->has('fiscalia_juzgado') ? 'has-error' : ''}}
                <label for="datos_ente_judicial">A 7. Fiscalía/Juzgado a cargo:</label>
                <input type="text" class="form-control" name="fiscalia_juzgado" id="datos_ente_judicial" value="{{old('fiscalia_juzgado')}}">
            {!! $errors->first('fiscalia_juzgado', '<p class="help-block" style="color:red";>:message</p>') !!}
             </div>
-            <div class="form-group "{{ $errors->has('causa_id_judicial') ? 'has-error' : ''}}>
+
+
+<!-A8 Causa o Id Judicial->
+
+        <div class="form-group "{{ $errors->has('causa_id_judicial') ? 'has-error' : ''}}>
                <label for="causa_id_judicial"}>A 8. N° Causa o Id Judicial:</label>
                <input type="text" class="form-control" name="causa_id_judicial" value="{{old('causa_id_judicial')}}">
           {!! $errors->first('causa_id_judicial', '<p class="help-block" style="color:red";>:message</p>') !!}
             </div>
+
+<!-A9 Comisaría interviniente->
+
             <div class="form-group " for="comisaria"{{ $errors->has('comisaria') ? 'has-error' : ''}}>
                <label >A 9. Comisaría interviniente:</label>
                <input type="text" class="form-control" name="comisaria" value="{{old('comisaria')}}">
             {!! $errors->first('comisaria', '<p class="help-block" style="color:red";>:message</p>') !!}
             </div>
-            <div class="form-group "for=""{{ $errors->has('denuncias_previas') ? 'has-error' : ''}}>
+
+<!-A10 Denuncias previas->
+
+          <div class="form-group "for=""{{ $errors->has('denuncias_previas') ? 'has-error' : ''}}>
                <label for="denuncias_previas">A 10.¿Hubo denuncias previas vinculadas a la temática del tipo de delito actual?:</label>
                <select class="form-control" name="denuncias_previas">
                   <option value="">Hubo denuncias previas</option>
@@ -239,7 +287,10 @@ session_start();
                </select>
                {!! $errors->first('denuncias_previas', '<p class="help-block" style="color:red";>:message</p>') !!}
             </div>
-            <div class="form-group "{{ $errors->has('departamento_judicial') ? 'has-error' : ''}}>
+
+<!-A11 Departamento judicial->
+
+        <div class="form-group "{{ $errors->has('departamento_judicial') ? 'has-error' : ''}}>
             <label for="departamento_judicial">A 11.Departamento judicial:</label>
 
             <select class="form-control" name="departamento_judicial">
@@ -252,9 +303,11 @@ session_start();
         @endforeach
         </select>
 
-
             {!! $errors->first('departamento_judicial', '<p class="help-block" style="color:red";>:message</p>') !!}
           </div>
+
+<!-A12 Estado->
+
             <div class="form-group "{{ $errors->has('estado') ? 'has-error' : ''}}>
                <label for="">A 12. Estado:</label>
                <select class="form-control" name="estado" onChange="selectOnChangeA12(this)">
@@ -265,6 +318,8 @@ session_start();
                {!! $errors->first('estado', '<p class="help-block" style="color:red";>:message</p>') !!}
 
             </div>
+
+
             <div id="pase_pasivo" style="display:none">
                <label for="">A12I. Motivo de pase a pasivo:</label>
                <select class="form-control" onChange="selectOnChangeA12bis(this)" name="motivospasivos" id="motivo_pase_pasivo">
@@ -274,36 +329,41 @@ session_start();
                   <option value="3" >Imposibilidad de contacto</option>
                   <option value="4" >Otro</option>
                </select>
-            </div>
+            </div><br>
             <div id="cualA12" style="display: none;">
                <br><label for="">Cuál?</label>
                <div class="">
                   <input class="form-control" name="cual_otro_motivospasivos" type="text" id="motivo_pase_pasivo_cual">
                </div>
             </div>
-            <div class="form-group "{{ $errors->has('nombre_y_apellido_de_la_victima') ? 'has-error' : ''}}>
+
+<!-A13 Nombre y apellido de la victima->
+
+          <div class="form-group "{{ $errors->has('nombre_y_apellido_de_la_victima') ? 'has-error' : ''}}>
                <label for="">A 13. Nombre y apellido de la víctima:</label>
-               <input type="text" class="form-control" name="nombre_y_apellido_de_la_victima" id="victima_nombre_y_apellido" value="{{old('victima_nombre_y_apellido')}}">
+               <input type="text" class="form-control" name="nombre_y_apellido_de_la_victima" id="victima_nombre_y_apellido" value="{{old('nombre_y_apellido_de_la_victima')}}">
         {!! $errors->first('nombre_y_apellido_de_la_victima', '<p class="help-block" style="color:red";>:message</p>') !!}
             </div>
-            <div class="form-group "{{ $errors->has('nombre_y_apellido_de_la_victima') ? 'has-error' : ''}}>
+
+<!-A14 Persona asistida es la víctima?->
+
+          <div class="form-group"{{ $errors->has('persona_asistida') ? 'has-error' : ''}}>
                <label for="persona_asistida">A 14. ¿Es la persona asistida la víctima directa?:</label>
                <select class="form-control" name="persona_asistida" onChange="selectOnChangeA14(this)">
                   <option value="">¿Es la persona asistida la víctima directa?</option>
                 <option value="1">Sí</option>
               <option value="2">No</option>
-
-
-               </select>
-               {!! $errors->first('nombre_y_apellido_de_la_victima', '<p class="help-block" style="color:red";>:message</p>') !!}
-
-             </div>
+              </select>
+               {!! $errors->first('persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
+          </div>
 <br>
 
+<!-BOTONES->
             <button style="display:none;background:#4CAF50;color:black;font-size: 1.5em;text-align:center" id="btn-1" type="submit" class="btn btn-primary col-xl" name="button"  onclick="window.open('agregarProfesional', 'width=800,height=600');">Agregar Profesional</button><br><br>
             <button style="display:none;background:#4CAF50;color:black;font-size: 1.5em;text-align:center" id="btn-2" type="submit" class="btn btn-primary col-xl" name="button" onclick="window.open('agregarPersona', 'width=800,height=600');">Agregar Persona Asistida</button><br><br>
          </form>
       </section>
+
       <script>
          function selectOnChange1(sel) {
              if (sel.value=="2"){
@@ -318,7 +378,6 @@ session_start();
              }
          }
       </script>
-
       <script>
          function muestroCualA2() {
              var checkBox = document.getElementById("checkeado");
@@ -332,7 +391,7 @@ session_start();
          }
       </script>
       <script>
-      function muestroCualA5() {
+        function muestroCualA5() {
           var checkBox = document.getElementById("checkeadoA5");
           var text = document.getElementById("cualA5");
           if (checkBox.checked == true){
@@ -341,10 +400,8 @@ session_start();
                 $('#cual_otro_organismo').val('');
              text.style.display = "none";
           }
-      }
-      </script>
-
-
+              }
+            </script>
       <script>
          function selectOnChangeA5(sel) {
            if (sel.value=="1"||sel.value=="2"){
@@ -358,7 +415,7 @@ session_start();
                 divC.style.display = "";
 
          }}
-      </script>
+         </script>
       <script>
          function selectOnChangeA12(sel) {
 
@@ -366,15 +423,15 @@ session_start();
                 divC = document.getElementById("pase_pasivo");
                 divC.style.display = "";
 
-         }
-         else{
+              }
+              else{
                divC = document.getElementById("pase_pasivo");
                $('#motivo_pase_pasivo').val(' ');
                divC.style.display = "none";
                divC = document.getElementById("cualA12");
                $('#motivo_pase_pasivo_cual').val('');
              divC.style.display = "none";}}
-      </script>
+             </script>
       <script>
          function selectOnChangeA12bis(sel) {
            if (sel.value=="4"){
@@ -385,8 +442,8 @@ session_start();
                 $('#motivo_pase_pasivo_cual').val('');
 
                 divC.style.display = "none";}
-         }
-      </script>
+                  }
+                  </script>
       <script>
          function selectOnChangeA14(sel) {
            if (sel.value=="1"){
@@ -399,7 +456,7 @@ session_start();
                divC.style.display = "none";
                divC = document.getElementById("btn-2");
                divC.style.display = "";}}
-      </script>
+               </script>
       <script>
          function selectOnChangeA14II(sel) {
            if (sel.value=="4"){
@@ -410,8 +467,8 @@ session_start();
                 $('#vinculo_victima_cual_otro').val('');
 
                 divC.style.display = "none";}
-         }
-      </script>
+              }
+              </script>
       <script>
          function selectOnChangeA15(sel) {
            if (sel.value=="2"){
@@ -422,8 +479,8 @@ session_start();
                 $('#no').val('');
 
                 divC.style.display = "none";}
-         }
-      </script>
+                }
+            </script>
 
    </body>
 </html>

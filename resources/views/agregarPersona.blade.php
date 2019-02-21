@@ -33,38 +33,49 @@
    </header>
    <body>
 
-      <h1 class="text-center" style="padding: 15px;">Eje A: Datos institucionales</h1>
+    <h1 class="text-center" style="padding: 15px;">Eje A: Datos institucionales</h1>
 
-    <div class="divpersona" id="divpersona">  <h2 class="text-center" style="padding: -20px;" >Persona Asistida</h2></div>
+    <div class="divpersona" id="divpersona">  <h2 class="text-center" style="padding: -20px;">Persona Asistida</h2></div>
 
+    <section class="container" >
 
-      <section class="container" >
+<!Listado Personas asistidas>
 
-        @if ($errors->any())
-          <div class="alert alert-danger">
-              <ul>
-                  @foreach ($errors->all() as $error)
-                      <li>{{ $error }}</li>
-                  @endforeach
-              </ul>
-          </div>
-        @endif
         <ul>
-
-
-          @foreach($personas as $persona)
-
-               @if($persona->idCaso==$ultimoid)
-
-                 <li>
+        @foreach($personas as $persona)
+          @if($persona->idCaso==$ultimoid)
+            <li>
               <a href="detallePersona/{{$persona->id}}">
-                {{$persona->nombre_persona_asistida}}
+              {{$persona->nombre_persona_asistida}}</a>
+            </li>
+          @endif
+        @endforeach
+        </ul>
+        <br>
 
-              </a>
-              </li>
-            @endif
 
-          @endforeach
+    <form class="" action="/agregarPersona" method="post">
+      {{csrf_field()}}
+      <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
+
+<!-A14I Persona Asistida>
+
+      <div class="form-group" {{ $errors->has('nombre_persona_asistida') ? 'has-error' : ''}}>
+      <input type="hidden" name="idCaso" value="{{$ultimoid}}">
+      <label for="nombre_persona_asistida">A 14I. Nombre y apellido de la persona asistida: </label>
+      <input type="text" class="form-control" name="nombre_persona_asistida" id="Nombre_apellido_persona_asistida" value="{{old("nombre_persona_asistida")}}">
+      {!! $errors->first('nombre_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
+      </div>
+
+<!-A14II Tipo de vínculo>
+
+      <div class="form-group" {{ $errors->has('vinculo_persona_asistida') ? 'has-error' : ''}}>
+      <label for="vinculo_persona_asistida">A 14II. Tipo de vínculo con la víctima: </label>
+      <select class="form-control" name="vinculo_persona_asistida" id="vinculo_victima" onChange="selectOnChangeA14II(this)">
+          <option value="">Tipo de vínculo</option>
+          @if(old("vinculo_persona_asistida")==1)
+            <option value="1" selected >Familiar</option>
+          @else <option value="1">Familiar</option>@endif
 
         </ul>
          <form class="" action="/agregarPersona" method="post">
@@ -130,6 +141,7 @@
           </form>
 <div class="btn-4" style="width:11%;float:left;margin-left:40%">   <button style="width:100%" class="btn btn-primary col-xs" name="button" onclick="window.open('agregarProfesional', 'width=800,height=600')"; >Pregunta 15 </button><br><br></div>
       </section>
+=======
 
       <script>
 
@@ -144,9 +156,6 @@
              }
          }
       </script>
-
-
-
       <script>
          function muestroCualA2() {
              var checkBox = document.getElementById("checkeado");

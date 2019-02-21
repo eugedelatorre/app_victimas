@@ -17,25 +17,22 @@ class VictimController extends Controller
 
   public function agregar(Request $form){
 
-
-
-
-  /*  $reglas = [
+   $reglas = [
     "victima_nombre_y_apellido"=>"required|string",
     "genero"=>"required|integer",
     "victima_fecha_nacimiento"=>"required",
-    "victima_edad"=>"required|integer",
+    "victima_edad"=>"required",
     "franjaetaria"=>"required|integer",
     "tienedoc"=>"required|integer",
     "tipodocumento"=>"required|integer",
-    "tipo_documento_otro"=>"required|srting",
+    "tipo_documento_otro"=>"required|string",
     "residenciaprecaria"=>"required|integer",
     "victima_numero_documento"=>"required|integer",
     "victima_tipo_documento_otro"=>"required|string",
     "niveleducativo"=>"required|integer",
     "condiciones_de_trabajo"=>"required|integer",
     "necesidades_socioeconomicas_insatisfechas"=>"required|integer",
-    "necesidades_socioeconomicas_insatisfechas_otro"=>"required|srting",
+    "necesidades_socioeconomicas_insatisfechas_otro"=>"required|string",
     "programa_subsidio"=>"required|integer",
     "programa_subsidio_otro"=>"required|string",
     "embarazorelevamiento"=>"required|integer",
@@ -43,16 +40,11 @@ class VictimController extends Controller
     "tipo_lesion"=>"required|string",
     "enfermedadcronica"=>"required|integer",
     "tipo_enfermedad_cronica"=>"required|string",
-    "limitacion_otro"=>"required|string",
+    "limitacion_otro"=>"required|string"];
 
 
 
-
-
-    mensajes=["string"=>"El campo :attribute debe ser un texto","integer"=>"El campo :attribute debe ser un número entero",
-    date=>"El campo :attribute debe ser una fecha","unique"=>"El campo :attribute está repetido","required"=>"Complete el campo :attribute "];
-
-    $this->validate($form,$reglas,$mensajes);*/
+    $this->validate($form,$reglas);
 
     $victim= new Victim( );
 

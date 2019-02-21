@@ -33,42 +33,63 @@
      </ul>
    </header>
    <body>
-      <h1 class="text-center" style="padding: 15px;">Eje A: Datos institucionales</h1>
-      <h2 class="text-center" style="padding: -30px;">Profesional interviniente</h2><br>
-      <div class="form-group" style="margin-top:-1%;margin-left:38%">
-        <ul>
-          @foreach($profesionales as $profesional)
 
-            @if($profesional->idCaso==$ultimoid)
-                 <li>
-              <a href="detalleProfesional/{{$profesional->id}}">
+    <h1 class="text-center" style="padding: 15px;">Eje A: Datos institucionales</h1>
+    <h2 class="text-center" style="padding: -30px;">Profesional interviniente</h2><br>
 
-                @foreach($usuarios as $usuario)
-                  @if($usuario->id==$profesional->nombre_profesional_interviniente)
-                      {{$usuario->nombre_y_apellido}}
-                    @endif
-                  @endforeach
+<!Listado profesionales>
 
-              </a>
-              </li>
-            @endif
-
+    <div class="form-group" style="margin-top:-1%;margin-left:38%">
+    <ul>
+      @foreach($profesionales as $profesional)
+        @if($profesional->idCaso==$ultimoid)
+        <li>
+          <a href="detalleProfesional/{{$profesional->id}}">
+      @foreach($usuarios as $usuario)
+        @if($usuario->id==$profesional->nombre_profesional_interviniente)
+            {{$usuario->nombre_y_apellido}}
+          @endif
           @endforeach
-
-        </ul>
-
-    </div>
-      <section class="container">
-
-        @if ($errors->any())
-          <div class="alert alert-danger">
-              <ul>
-                  @foreach ($errors->all() as $error)
-                      <li>{{ $error }}</li>
-                  @endforeach
-              </ul>
-          </div>
+          </a>
+        </li>
         @endif
+      @endforeach
+    </ul>
+    </div>
+
+      <section class="container">
+      <form class="" action="/agregarProfesional" method="post">
+      {{csrf_field()}}
+      <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
+
+<!A15 Profesional interviniente>
+
+    <div class="form-group"{{ $errors->has('nombre_profesional_interviniente') ? 'has-error' : ''}}>
+    <h3>A 15. Profesional Interviniente:</h3>
+    <select class="form-control" name="nombre_profesional_interviniente" >
+      <option value="">Seleccione un profesional</option>
+        @foreach ($usuarios as $usuario)
+          @if ($usuario->id == old("nombre_profesional_interviniente"))
+            <option selected value="{{ $usuario->id }}">
+              {{$usuario->nombre_y_apellido}}</option>
+          @else
+            <option value="{{ $usuario->id }}">
+              {{$usuario->nombre_y_apellido}}</option>
+          @endif
+        @endforeach
+    </select>
+    {!! $errors->first('nombre_profesional_interviniente', '<p class="help-block" style="color:red";>:message</p>') !!}
+    </div>
+
+<!A15.3 Interviene desde>
+
+    <div class="form-group"{{ $errors->has('desde_profesional_interviniente') ? 'has-error' : ''}}>
+    <label for="">A 15.3 Interviene desde:</label>
+    <input type="date" class="form-control" name="desde_profesional_interviniente" id="datos_profesional_interviene_desde" value="{{old("desde_profesional_interviniente")}}">
+    {!! $errors->first('desde_profesional_interviniente', '<p class="help-block" style="color:red";>:message</p>') !!}
+    </div>
+
+<!A15.4 Actualmente interviniente>
 
          <form class="" action="/agregarProfesional" method="post">
                 {{csrf_field()}}
@@ -109,7 +130,14 @@
                     </div>
             </div>
             <div class="botones" style="overflow:hidden;width:100%;margin-left:40%">
-          <div class="btn-1" style="width:10%;float:left"> <button class="btn btn-primary col-xs" name="button" style="width:108%" >Agregar</button><br><br></div>
+            <div class="btn-1" style="width:10%;float:left"> <button class="btn btn-primary col-xs" name="button" style="width:108%" >Agregar</button><br><br></div>
+            </div>
+
+            </form>
+
+            <div class="btn-4" style="width:11%;float:left;margin-left:40%">   <button style="width:100%" class="btn btn-primary col-xs" name="button" onclick="window.open('agregarVictima', 'width=800,height=600')"; >Fin Formulario A </button><br><br></div>
+          
+            </section>
 
             </div>
           </form>
@@ -129,7 +157,6 @@
              }
          }
       </script>
-
       <script>
          function muestroCualA2() {
              var checkBox = document.getElementById("checkeado");
