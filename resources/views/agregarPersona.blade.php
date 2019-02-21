@@ -33,106 +33,106 @@
    </header>
    <body>
 
-      <h1 class="text-center" style="padding: 15px;">Eje A: Datos institucionales</h1>
+    <h1 class="text-center" style="padding: 15px;">Eje A: Datos institucionales</h1>
 
-    <div class="divpersona" id="divpersona">  <h2 class="text-center" style="padding: -20px;" >Persona Asistida</h2></div>
+    <div class="divpersona" id="divpersona">  <h2 class="text-center" style="padding: -20px;">Persona Asistida</h2></div>
 
+    <section class="container" >
 
-      <section class="container" >
+<!Listado Personas asistidas>
 
-        @if ($errors->any())
-          <div class="alert alert-danger">
-              <ul>
-                  @foreach ($errors->all() as $error)
-                      <li>{{ $error }}</li>
-                  @endforeach
-              </ul>
-          </div>
-        @endif
         <ul>
-
-
-          @foreach($personas as $persona)
-
-               @if($persona->idCaso==$ultimoid)
-
-                 <li>
+        @foreach($personas as $persona)
+          @if($persona->idCaso==$ultimoid)
+            <li>
               <a href="detallePersona/{{$persona->id}}">
-                {{$persona->nombre_persona_asistida}}
-
-              </a>
-              </li>
-            @endif
-
-          @endforeach
-
+              {{$persona->nombre_persona_asistida}}</a>
+            </li>
+          @endif
+        @endforeach
         </ul>
-         <form class="" action="/agregarPersona" method="post">
-                {{csrf_field()}}
-
-<!--<input type="hidden" name="idCaso" value="{{$idCaso}}">-->
+        <br>
 
 
-                  <div class="form-group" {{ $errors->has('nombre_persona_asistida') ? 'has-error' : ''}}>
-                    <input type="hidden" name="idCaso" value="{{$ultimoid}}">
+    <form class="" action="/agregarPersona" method="post">
+      {{csrf_field()}}
+      <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
 
-                     <label for="nombre_persona_asistida">A 14I. Nombre y apellido de la persona asistida: </label>
-                     <input type="text" class="form-control" name="nombre_persona_asistida" id="Nombre_apellido_persona_asistida" value="{{old("nombre_persona_asistida")}}">
+<!-A14I Persona Asistida>
 
-                 {!! $errors->first('nombre_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
+      <div class="form-group" {{ $errors->has('nombre_persona_asistida') ? 'has-error' : ''}}>
+      <input type="hidden" name="idCaso" value="{{$ultimoid}}">
+      <label for="nombre_persona_asistida">A 14I. Nombre y apellido de la persona asistida: </label>
+      <input type="text" class="form-control" name="nombre_persona_asistida" id="Nombre_apellido_persona_asistida" value="{{old("nombre_persona_asistida")}}">
+      {!! $errors->first('nombre_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
+      </div>
 
-                  </div>
-                  <div class="form-group" {{ $errors->has('vinculo_persona_asistida') ? 'has-error' : ''}}>
-                     <label for="vinculo_persona_asistida">A 14II. Tipo de vínculo con la víctima: </label>
-                     <select class="form-control" name="vinculo_persona_asistida" id="vinculo_victima" onChange="selectOnChangeA14II(this)">
-                        <option value=""></option>
-                        @if(old("vinculo_persona_asistida")==1)
-                        <option value="1" selected >Familiar</option>
-                      @else <option value="1">Familiar</option>@endif
+<!-A14II Tipo de vínculo>
 
-                        @if(old("vinculo_persona_asistida")==2)
-                        <option value="2" selected >Lazo afectivo</option>
-                      @else  <option value="2" >Lazo afectivo</option>@endif
+      <div class="form-group" {{ $errors->has('vinculo_persona_asistida') ? 'has-error' : ''}}>
+      <label for="vinculo_persona_asistida">A 14II. Tipo de vínculo con la víctima: </label>
+      <select class="form-control" name="vinculo_persona_asistida" id="vinculo_victima" onChange="selectOnChangeA14II(this)">
+          <option value="">Tipo de vínculo</option>
+          @if(old("vinculo_persona_asistida")==1)
+            <option value="1" selected >Familiar</option>
+          @else <option value="1">Familiar</option>@endif
 
-                      @if(old("vinculo_persona_asistida")==3)
-                        <option value="3" selected >Organismo o institución</option>
-                      @else  <option value="3">Organismo o institución</option>@endif
-                      @if(old("vinculo_persona_asistida")==4)
-                        <option value="4" selected >Otro</option>
-                      @else<option value="4" >Otro</option>@endif
-                     </select>
-                     {!! $errors->first('vinculo_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
-                  </div>
-                  <div id="vinculo_victima_cual" style="display: none;">
-                     <br><label for="">Cuál?</label>
-                     <div class="">
-                        <input class="form-control" name="otro_vinculo_persona_asistida_cual" id="vinculo_victima_cual_otro" type="text" value="{{old("otro_vinculo_persona_asistida_cual")}}">
-                     </div>
-                  </div>
-                  <div class="form-group"{{ $errors->has('telefono_persona_asistida') ? 'has-error' : ''}}>
-                     <label for="telefono_persona_asistida">A 14III. Teléfono de contacto: </label>
-                     <input type="text" class="form-control" name="telefono_persona_asistida" id="telefono_contacto" value="{{old("telefono_persona_asistida")}}">
-                {!! $errors->first('telefono_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
-                  </div>
-                  <div class="form-group"{{ $errors->has('domicilio_persona_asistida') ? 'has-error' : ''}}>
-                     <label for="domicilio_persona_asistida">A 14 IV. Domicilio del contacto: </label>
-                     <input type="text" class="form-control" name="domicilio_persona_asistida" id="domicilio_contacto"value="{{old("domicilio_persona_asistida")}}">
-                  {!! $errors->first('domicilio_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
-                  </div>
-                  <div class="form-group"{{ $errors->has('localidad_persona_asistida') ? 'has-error' : ''}}>
-                     <label for="localidad_persona_asistida">A 14 V. Localidad de residencia: </label>
-                     <input type="text" class="form-control" name="localidad_persona_asistida" id="localidad_residencia" value="{{old("localidad_persona_asistida")}}">
-              {!! $errors->first('localidad_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
-                  </div>
-               </div>
-            </div>
-            <div class="botones" style="overflow:hidden;width:100%;margin-left:40%">
-          <div class="btn-1" style="width:10%;float:left"> <button type="submit" class="btn btn-primary col-xs" name="button"  >Agregar/Enviar</button><br><br></div>
+          @if(old("vinculo_persona_asistida")==2)
+            <option value="2" selected >Lazo afectivo</option>
+          @else  <option value="2" >Lazo afectivo</option>@endif
 
-            </div>
-          </form>
-<div class="btn-4" style="width:11%;float:left;margin-left:40%">   <button style="width:100%" class="btn btn-primary col-xs" name="button" onclick="window.open('agregarProfesional', 'width=800,height=600')"; >Pregunta 15 </button><br><br></div>
-      </section>
+          @if(old("vinculo_persona_asistida")==3)
+            <option value="3" selected >Organismo o institución</option>
+          @else  <option value="3">Organismo o institución</option>@endif
+
+          @if(old("vinculo_persona_asistida")==4)
+            <option value="4" selected >Otro</option>
+          @else<option value="4" >Otro</option>@endif
+        </select>
+        {!! $errors->first('vinculo_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
+        </div>
+
+        <div id="vinculo_victima_cual" style="display: none;">
+        <label for="">Cuál?</label>
+        <input class="form-control" name="otro_vinculo_persona_asistida_cual" id="vinculo_victima_cual_otro" type="text" value="{{old("otro_vinculo_persona_asistida_cual")}}">
+        <br>
+        </div>
+
+<!-A14III telefono_persona_asistida>
+
+    <div class="form-group"{{ $errors->has('telefono_persona_asistida') ? 'has-error' : ''}}>
+    <label for="telefono_persona_asistida">A 14III. Teléfono de contacto: </label>
+    <input type="text" class="form-control" name="telefono_persona_asistida" id="telefono_contacto" value="{{old("telefono_persona_asistida")}}">
+    {!! $errors->first('telefono_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
+    </div>
+
+<!-A14IV domicilio_persona_asistida>
+
+    <div class="form-group"{{ $errors->has('domicilio_persona_asistida') ? 'has-error' : ''}}>
+    <label for="domicilio_persona_asistida">A 14 IV. Domicilio del contacto: </label>
+    <input type="text" class="form-control" name="domicilio_persona_asistida" id="domicilio_contacto"value="{{old("domicilio_persona_asistida")}}">
+    {!! $errors->first('domicilio_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
+    </div>
+
+<!-A14V localidad_residencia>
+
+    <div class="form-group"{{ $errors->has('localidad_persona_asistida') ? 'has-error' : ''}}>
+    <label for="localidad_persona_asistida">A 14 V. Localidad de residencia: </label>
+    <input type="text" class="form-control" name="localidad_persona_asistida" id="localidad_residencia" value="{{old("localidad_persona_asistida")}}">
+    {!! $errors->first('localidad_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
+    </div>
+
+<!-BOTONES>
+
+    <div class="botones" style="overflow:hidden;width:100%;margin-left:40%">
+    <div class="btn-1" style="width:10%;float:left"> <button type="submit" class="btn btn-primary col-xs" name="button"  >Agregar/Enviar</button><br><br></div>
+    </div>
+
+    </form>
+
+    <div class="btn-4" style="width:11%;float:left;margin-left:40%">   <button style="width:100%" class="btn btn-primary col-xs" name="button" onclick="window.open('agregarProfesional', 'width=800,height=600')"; >Pregunta 15 </button><br><br></div>
+
+    </section>
 
       <script>
 
@@ -147,9 +147,6 @@
              }
          }
       </script>
-
-
-
       <script>
          function muestroCualA2() {
              var checkBox = document.getElementById("checkeado");

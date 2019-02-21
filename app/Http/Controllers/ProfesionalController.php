@@ -6,33 +6,43 @@ use Illuminate\Http\Request;
 
 use App\Profesional;
 
+use Validator;
+
 class ProfesionalController extends Controller
 {
 public function agregar(Request $form){
 
+  $reglas = [
+    "nombre_profesional_interviniente"=>"required|string",
+    "desde_profesional_interviniente"=>"required",
+    "actual_profesional_interviniente"=>"required"
+  ];
 
+  $validator = Validator::make($form->all(), $reglas);
 
-  $reglas = ["nombre_profesional_interviniente"=>"required|string","desde_profesional_interviniente"=>"required",
-  "actual_profesional_interviniente"=>"required",
-  "hasta_profesional_interviniente"=>"required"];
+  $validator->sometimes('hasta_profesional_interviniente', 'required|after:desde_profesional_interviniente', function ($input) {
+    return $input->actual_profesional_interviniente == 2;
+  });
 
-  $mensajes=["string"=>"El campo :attribute debe ser un texto","integer"=>"El campo :attribute debe ser un número entero",
-  "date"=>"El campo :attribute debe ser una fecha","unique"=>"El campo :attribute está repetido",
-  "required"=>"Complete el campo :attribute"];$this->validate($form,$reglas,$mensajes);
+  if ($validator->fails()) {
+      return back()
+                  ->withErrors($validator)
+                  ->withInput();
+  }
 
-$profesional= new Profesional( );
+  $profesional= new Profesional( );
 
+  $profesional->nombre_profesional_interviniente= $form [ "nombre_profesional_interviniente"];
+  $profesional->desde_profesional_interviniente= $form [ "desde_profesional_interviniente"];
+  $profesional->actual_profesional_interviniente= $form [ "actual_profesional_interviniente"];
+  $profesional->hasta_profesional_interviniente= $form [ "hasta_profesional_interviniente"];
+  $profesional->idCaso= session("idCaso");
 
-$profesional->nombre_profesional_interviniente= $form [ "nombre_profesional_interviniente"];
-$profesional->desde_profesional_interviniente= $form [ "desde_profesional_interviniente"];
-$profesional->actual_profesional_interviniente= $form [ "actual_profesional_interviniente"];
-$profesional->hasta_profesional_interviniente= $form [ "hasta_profesional_interviniente"];
-$profesional->idCaso= session("idCaso");
-
-
-$profesional->save( );
-return redirect ("agregarProfesional");
+  $profesional->save( );
+  return redirect ("agregarProfesional");
 }
+
+
 public function detalle($id) {
 
     $profesional = Profesional::find($id);

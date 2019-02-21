@@ -11,14 +11,14 @@ class PersonaController extends Controller
 public function agregar(Request $form){
 
 
-$reglas = ["nombre_persona_asistida"=>"required|string","vinculo_persona_asistida"=>"required","telefono_persona_asistida"=>"required|integer",
-"domicilio_persona_asistida"=>"required|string","localidad_persona_asistida"=>"required|string"];
+$reglas = [
+  "nombre_persona_asistida"=>"required|string",
+  "vinculo_persona_asistida"=>"required",
+  "telefono_persona_asistida"=>"required|integer",
+  "domicilio_persona_asistida"=>"required|string",
+  "localidad_persona_asistida"=>"required|string"];
 
-$mensajes=["string"=>"El campo :attribute debe ser un texto","integer"=>"El campo :attribute debe ser un número entero",
-"date"=>"El campo :attribute debe ser una fecha","unique"=>"El campo :attribute está repetido","required"=>"Complete el campo :attribute "];
-
-
-$this->validate($form,$reglas,$mensajes);
+$this->validate($form,$reglas);
 
 $persona= new Persona();
 
