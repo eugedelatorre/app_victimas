@@ -9,6 +9,7 @@ use App\Necesidad;
 use App\Programa;
 use App\Limitacion;
 use App\Discapacidad;
+use Validator;
 
 class VictimController extends Controller
 {
@@ -26,7 +27,6 @@ class VictimController extends Controller
     "tienedoc"=>"required|integer",
     "tipodocumento"=>"required|integer",
     "tipo_documento_otro"=>"required|string",
-    "residenciaprecaria"=>"required|integer",
     "victima_numero_documento"=>"required|integer",
     "victima_tipo_documento_otro"=>"required|string",
     "niveleducativo"=>"required|integer",
@@ -43,8 +43,17 @@ class VictimController extends Controller
     "limitacion_otro"=>"required|string"];
 
 
+    $validator = Validator::make($form->all(), $reglas);
 
-    $this->validate($form,$reglas);
+    $validator->sometimes('residenciaprecaria', 'required', function ($input) {
+      return $input->tipodocumento == 6;
+    });
+
+    if ($validator->fails()) {
+        return back()
+                    ->withErrors($validator)
+                    ->withInput();
+    }
 
     $victim= new Victim( );
 
