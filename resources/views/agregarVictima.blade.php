@@ -1,4 +1,4 @@
-F<?php
+<?php
 
 session_start();
 ?>
@@ -28,22 +28,16 @@ session_start();
    </header>
    <body>
       <h1 class="text-center" style="padding: 15px;">Eje B: Caracterización de la victima y su contexto</h1>
-      <div class="form-group" style="margin-top:-1%;margin-left:38%">
-    <ul>
-      @foreach($victims as $victim)
-
-
-    <h1 class="text-center" style="padding: 15px;">Eje B: Caracterización de la victima y su contexto</h1>
 
     <div class="form-group" style="margin-top:-1%;margin-left:38%">
       <ul>
       @foreach($victims as $victim)
-        @if($victim->idCaso==$ultimoid)
-          <li>
-          <a href="detallevictima/{{$victim->id}}">
-            {{$victim->victima_nombre_y_apellido}}</a>
-          </li>
-        @endif
+          @if ($victim->idCaso == session("idCaso"))
+            <li>
+            <a href="detallevictima/{{$victim->id}}">
+              {{$victim->victima_nombre_y_apellido}}</a>
+            </li>
+          @endif
       @endforeach
       </ul>
     </div>
@@ -120,7 +114,7 @@ session_start();
 
     <div class="form-group"{{ $errors->has('victima_fecha_nacimiento') ? 'has-error' : ''}}>
     <label for="">B 3. Fecha de nacimiento: </label>
-    <input type="date" class="form-control" id="victima_fecha_nacimiento" name="victima_fecha_nacimiento" value="{{old('victima_fecha_nacimiento')}}" >
+    <input type="date" class="form-control" id="victima_fecha_nacimiento" name="victima_fecha_nacimiento" value="{{old('victima_fecha_nacimiento')}}">
     <label for="bloqueo3" class="form-check-label">Se desconoce</label>
     <input type="checkbox" id="bloqueo3" name="victima_fecha_nacimiento_desconoce" value="Se desconoce" onchange="checkB3(this)">
     {!! $errors->first('victima_fecha_nacimiento', '<p class="help-block" style="color:red";>:message</p>') !!}
@@ -221,10 +215,14 @@ session_start();
     <label for="">B 6. ¿Cuenta con alguna documentación que permita acreditar su identidad?:</label>
     <select class="form-control" name="tienedoc" onChange="selectOnChangeB6(this)">
             <option value="">Tiene documentación?</option>
-            <option value="1" >Posee</option>
-            <option value="3" >No posee</option>
-            <option value="5" >En tramite</option>
-            <option value="6" >Se desconoce</option>
+            @if (old("tienedoc") == 1)<option value="1" selected>Posee</option> @else <option value="1">Posee</option> @endif
+
+            @if (old("tienedoc") == 3)<option value="3" selected>No posee</option>
+            @else <option value="3" >No posee</option> @endif
+
+            @if (old("tienedoc") == 5)<option value="5" selected>En tramite</option> @else <option value="5">En tramite</option>@endif
+
+            @if (old("tienedoc") == 6)<option value="6" selected>Se desconoce</option> @else<option value="6" >Se desconoce</option> @endif
     </select>
     {!! $errors->first('tienedoc', '<p class="help-block" style="color:red";>:message</p>') !!}
     </div>
@@ -262,33 +260,61 @@ session_start();
     <label for="">B 7. Tipo de documentación:</label>
     <select class="form-control" id="tipodocumento_id" name="tipodocumento" onChange="selectOnChangeB7(this)">
             <option value="">Seleccioná el tipo de documento</option>
-            <option value="1" >D.N.I.</option>
-            <option value="2" >Documento Extranjero</option>
-            <option value="3" >Libreta Cívica</option>
-            <option value="4" >Libreta de Enrolamiento</option>
-            <option value="5" >Pasaporte</option>
-            <option value="6" >Residencia Precaria</option>
-            <option value="7" >Se Desconoce</option>
-            <option value="8" >No posee</option>
-            <option value="9" >Otro</option>
+            @if(old("tipodocumento") ==1)<option value="1" selected>D.N.I.</option> @else<option value="1" >D.N.I.</option>@endif
+
+            @if(old("tipodocumento") ==2)<option value="2" selected>Documento Extranjero</option>
+            @else<option value="2">Documento Extranjero</option>@endif
+
+            @if(old("tipodocumento") ==3)<option value="3" selected>Libreta Cívica</option>
+            @else<option value="3">Libreta Cívica</option>@endif
+
+            @if(old("tipodocumento") ==4)<option value="4" selected>Libreta de Enrolamiento</option>
+            @else<option value="4" >Libreta de Enrolamiento</option>@endif
+
+            @if(old("tipodocumento") ==5)<option value="5" selected>Pasaporte</option>
+            @else<option value="5">Pasaporte</option>@endif
+
+            @if(old("tipodocumento") ==6)<option value="6" selected>Residencia Precaria</option>
+            @else<option value="6">Residencia Precaria</option> @endif
+
+            @if(old("tipodocumento") ==7)<option value="7" selected>Se Desconoce</option>
+            @else<option value="7">Se Desconoce</option> @endif
+
+            @if(old("tipodocumento") ==8)<option value="8" selected>No posee</option>
+            @else<option value="8">No posee</option>@endif
+
+            @if(old("tipodocumento") ==9)<option value="9" selected>Otro</option>
+            @else<option value="9">Otro</option>@endif
     </select>
     {!! $errors->first('tipodocumento', '<p class="help-block" style="color:red";>:message</p>') !!}
-    </div>
-
-    <div id="cual_b14" style="display: none">
-    <label for="">B 7.I Estado de la residencia precaria</label>
-    <select class="form-control" id="residenciaprecaria_id" name="residenciaprecaria" class="form-control">
-            <option value="">Estado?</option>
-            <option value="1">Vigente</option>
-            <option value="2">Vencida</option>
-            <option value="3">Se desconoce</option>
-    </select>
     </div>
 
     <div id="cual_b2" style="display: none">
     <label for="">Cuál?</label>
     <input name="tipo_documento_otro"  id="victima_tipo_documento_otro" class="form-control" type="text" onclick="cual_b5()">
     </div>
+
+
+    @if (old("tipodocumento") == 6) <div id="cual_b14">
+    @else <div id="cual_b14" style="display: none">
+    @endif
+
+    <label for="">B 7.I Estado de la residencia precaria</label>
+    <select class="form-control" id="residenciaprecaria_id" name="residenciaprecaria" class="form-control">
+            <option value="">Estado?</option>
+            @if(old("residenciaprecaria") == 1)<option value="1" selected>Vigente</option>
+            @else <option value="1">Vigente</option>@endif
+
+            @if(old("residenciaprecaria") == 2)<option value="2" selected>Vencida</option>
+            @else <option value="2">Vencida</option>@endif
+
+            @if(old("residenciaprecaria") == 3)<option value="3" selected>Se desconoce</option>
+            @else <option value="3">Se desconoce</option>@endif
+    </select>
+    {!! $errors->first('residenciaprecaria', '<p class="help-block" style="color:red";>:message</p>') !!}
+    </div>
+
+
 
       <script>
          function selectOnChangeB7(sel) {
@@ -434,7 +460,7 @@ session_start();
 
          </script>
          <script>
-         function muestroCualB11() {
+          function muestroCualB11() {
              var checkBox = document.getElementById("checkeadoB11");
              var text = document.getElementById("cualB11");
              if (checkBox.checked == true){
@@ -444,40 +470,8 @@ session_start();
                	$('#necesidades_insatisfechas_otro').val('');
                 text.style.display = "none";
              }
-         }
+         }</script>
 
-
-      </script>
-      <div class="form-group"{{ $errors->has('programa_subsidio') ? 'has-error' : ''}}>
-
-         <label for="modalidad_id">B 12.¿Percibe algún tipo de programa o subsidio social?:</label>
-         <select class="form-control" name="programa_subsidio" id="programa_subsidio" onChange="selectOnChangeB12(this)">
-            <option value="" >¿Percibe algún tipo de programa o subsidio social?</option>
-            <option value="1" >Sí</option>
-            <option value="2" >No</option>
-            <option value="3" >Se desconoce</option>
-         </select>
-         {!! $errors->first('programa_subsidio', '<p class="help-block" style="color:red";>:message</p>') !!}
-      </div>
-
-      <div class="form-group" {{ $errors->has('programa[]') ? 'has-error' : ''}} id="programa_subsidio_si" style="display:none">
-         <label>B 12 I. ¿Cuál?  </label><br>
-         <label class="" >En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
-
-
-
-               @foreach ($programas as $programa)
-                 <label class="form-check-inline form-check-label">
-                   <input type="checkbox" value="{{ $programa->id }}" class="form-check-inline" name="programas[]">
-
-                   {{ $programa->nombre }}
-
-
-                 </label><br>
-               @endforeach
-
-               {!! $errors->first('programa[]', '<p class="help-block" style="color:red";>:message</p>') !!}
-             </div>
 
 <!B12 Programa o subsidio social>
 
@@ -501,11 +495,12 @@ session_start();
               {{ $programa->nombre }}
           </label><br>
         @endforeach
+        <input type="checkbox" class="form-check-inline" id="checkeadoB12"  onclick="muestroCualB12()" name="" value="5">
+        <label for="" class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Otro</label>
+
     {!! $errors->first('programa[]', '<p class="help-block" style="color:red";>:message</p>') !!}
     </div>
 
-    <input type="checkbox" class="form-check-inline" id="checkeadoB12"  onclick="muestroCualB12()" name="" value="5">
-    <label for="" class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Otro</label>
 
       <script>
             function selectOnChangeB12(sel) {
@@ -556,37 +551,34 @@ session_start();
 
       </script>
 
-      <div class="form-group"id="embarazo" {{ $errors->has('embarazorelevamiento') ? 'has-error' : ''}}>
+<!B13 Embarazo>
 
-         <label for="">B 13. Embarazo al inicio de la asistencia:</label>
-         <select class="form-control" id="embarazorelevamiento_id" name="embarazorelevamiento">
+    <div class="form-group"id="embarazo" {{ $errors->has('embarazorelevamiento') ? 'has-error' : ''}}>
+    <label for="">B 13. Embarazo al inicio de la asistencia:</label>
+    <select class="form-control" id="embarazorelevamiento_id" name="embarazorelevamiento">
             <option value="">Está embarazada?</option>
             <option value="1" >Si</option>
             <option value="2" >No</option>
-         </select>
-         {!! $errors->first('embarazorelevamiento', '<p class="help-block" style="color:red";>:message</p>') !!}
-      </div>
+    </select>
+    {!! $errors->first('embarazorelevamiento', '<p class="help-block" style="color:red";>:message</p>') !!}
+    </div>
 
-      <div class="form-group"{{ $errors->has('discapacidad[]') ? 'has-error' : ''}}>
+<!B14 Discapacidad>
 
-         <label for="">B 14. ¿Presenta algún tipo de discapacidad?</label><br>
-         <label for="">En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
+    <div class="form-group"{{ $errors->has('discapacidad[]') ? 'has-error' : ''}}>
+    <label for="">B 14. ¿Presenta algún tipo de discapacidad?</label><br>
+    <label for="">En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
+        @foreach ($discapacidades as $discapacidad)
+            <label class="form-check-inline form-check-label">
+            <input type="checkbox" value="{{ $discapacidad->id }}" class="form-check-inline" name="discapacidades[]">
+            {{ $discapacidad->nombre }}
+            </label><br>
+        @endforeach
+    <input type="checkbox" value="6" class="form-check-inline" name="discapacidad[]" id="Se desconoce" onchange="checkB14bis(this)">
+    {!! $errors->first('discapacidad[]', '<p class="help-block" style="color:red";>:message</p>') !!}
+    </div>
 
-           @foreach ($discapacidades as $discapacidad)
-             <label class="form-check-inline form-check-label">
-               <input type="checkbox" value="{{ $discapacidad->id }}" class="form-check-inline" name="discapacidades[]">
-               {{ $discapacidad->nombre }}
-             </label><br>
-           @endforeach
-
-            <input type="checkbox" value="6" class="form-check-inline" name="discapacidad[]" id="Se desconoce" onchange="checkB14bis(this)">
-
-             {!! $errors->first('discapacidad[]', '<p class="help-block" style="color:red";>:message</p>') !!}
-
-
-      </div>
-
-      <script>
+    <script>
          function checkB14(checkbox)
          {
 
@@ -633,24 +625,26 @@ session_start();
          }
       </script>
 
-      <div class="form-group"{{ $errors->has('tienelesion') ? 'has-error' : ''}}>
+<!B15 Lesiones físicas>
 
-         <label class="">B 15. ¿Presenta lesiones físicas visibles? </label>
-         <select class="form-control" id="tienelesion" name="tienelesion" onChange="selectOnChangeB15(this)">
+    <div class="form-group"{{ $errors->has('tienelesion') ? 'has-error' : ''}}>
+    <label class="">B 15. ¿Presenta lesiones físicas visibles? </label>
+    <select class="form-control" id="tienelesion" name="tienelesion" onChange="selectOnChangeB15(this)">
             <option value="">Presenta lesiones físicas visibles:</option>
             <option value="1" >Si</option>
             <option value="2" >No</option>
             <option value="3" >Se desconoce</option>
-         </select>
-         {!! $errors->first('tienelesion', '<p class="help-block" style="color:red";>:message</p>') !!}
+    </select>
+    {!! $errors->first('tienelesion', '<p class="help-block" style="color:red";>:message</p>') !!}
 
-         <div class="" id="cualB15" style="display: none;">
-            <label class="">Tipo de lesión:</label>
-            <div class="">
-               <input name="tipo_lesion" placeholder="" id="victima_lesion" class="form-control" type="text" value="{{old("tipo_lesion")}}">
-            </div>
-         </div>
-      </div>
+    <div class="" id="cualB15" style="display: none;">
+    <label class="">Tipo de lesión:</label>
+    <div class="">
+    <input name="tipo_lesion" placeholder="" id="victima_lesion" class="form-control" type="text" value="{{old("tipo_lesion")}}">
+    </div>
+    </div>
+    </div>
+
       <script>
          function selectOnChangeB15(sel) {
                   if (sel.value=="1"){
@@ -664,26 +658,27 @@ session_start();
 
       </script>
 
-      <div class="form-group"{{ $errors->has('enfermedadcronica') ? 'has-error' : ''}}>
+<!B16 Enfermedades crónicas>
 
-         <label class="">B 16. ¿Tiene enfermedades crónicas?</label>
-         <select class="form-control" id="enfermedadcronica" name="enfermedadcronica" onChange="selectOnChange16(this)">
+    <div class="form-group"{{ $errors->has('enfermedadcronica') ? 'has-error' : ''}}>
+    <label class="">B 16. ¿Tiene enfermedades crónicas?</label>
+    <select class="form-control" id="enfermedadcronica" name="enfermedadcronica" onChange="selectOnChange16(this)">
             <option value="">Posee enfermedades?</option>
             <option value="1" >Si</option>
             <option value="2" >No</option>
             <option value="3" >Se desconoce</option>
-         </select>
-          {!! $errors->first('enfermedadcronica', '<p class="help-block" style="color:red";>:message</p>') !!}
+    </select>
+    {!! $errors->first('enfermedadcronica', '<p class="help-block" style="color:red";>:message</p>') !!}
 
-         <div class="" id="victima_tipo_enfermedad_cronica" style="display: none;" {{ $errors->has('tipo_enfermedad_cronica') ? 'has-error' : ''}}>
-            <label class="">B 16I. Tipo de enfermedad crónica:</label>
-            <div class="">
-               <input name="tipo_enfermedad_cronica" placeholder="" id="victima_enfermedad_cronica" class="form-control" type="text" value="{{old("tipo_enfermedad_cronica")}}">
+    <div class="" id="victima_tipo_enfermedad_cronica" style="display: none;" {{ $errors->has('tipo_enfermedad_cronica') ? 'has-error' : ''}}>
+    <label class="">B 16I. Tipo de enfermedad crónica:</label>
+    <div class="">
+    <input name="tipo_enfermedad_cronica" placeholder="" id="victima_enfermedad_cronica" class="form-control" type="text" value="{{old("tipo_enfermedad_cronica")}}">
+    {!! $errors->first('tipo_enfermedad_cronica', '<p class="help-block" style="color:red";>:message</p>') !!}
+    </div>
+    </div>
+    </div>
 
-                {!! $errors->first('tipo_enfermedad_cronica', '<p class="help-block" style="color:red";>:message</p>') !!}
-            </div>
-         </div>
-      </div>
       <script>
          function selectOnChange16(sel) {
            if (sel.value=="1"){
@@ -702,35 +697,38 @@ session_start();
 
          }
       </script>
-      <div class="form-group" {{ $errors->has('limitacion[]') ? 'has-error' : ''}}>
-         <label>B 17. ¿Presenta algún tipo de limitación para comunicarse? </label><br>
-         <label class="" >En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
-         <div>
-           @foreach ($limitaciones as $limitacion)
-             <label class="form-check-inline form-check-label">
-               <input type="checkbox" value="{{ $limitacion->id }}" class="form-check-inline" name="limitaciones[]">
-               {{ $limitacion->nombre }}
-             </label><br>
-           @endforeach
 
-           {!! $errors->first('limitacion[]', '<p class="help-block" style="color:red";>:message</p>') !!}
+<!B15 Lesiones físicas>
 
-            <label for="" class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Otro</label>
-            <input type="checkbox" class="form-check-inline" id="checkeadoB17"  onclick="muestroCualB17()" name="" value="5">
-         </div>
+    <div class="form-group" {{ $errors->has('limitacion[]') ? 'has-error' : ''}}>
+    <label>B 17. ¿Presenta algún tipo de limitación para comunicarse? </label><br>
+    <label class="" >En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
+    <div>
+      @foreach ($limitaciones as $limitacion)
+        <label class="form-check-inline form-check-label">
+        <input type="checkbox" value="{{ $limitacion->id }}" class="form-check-inline" name="limitaciones[]">
+        {{ $limitacion->nombre }}
+        </label><br>
+      @endforeach
+    {!! $errors->first('limitacion[]', '<p class="help-block" style="color:red";>:message</p>') !!}
+    <label for="" class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Otro</label>
+    <input type="checkbox" class="form-check-inline" id="checkeadoB17"  onclick="muestroCualB17()" name="" value="5">
+    </div>
          <!-- si checkeo el checkbox otro tomo el id checkeado y uso la funcion muestroCual -->
          <!-- mostrando lo que contiene el id cual -->
-         <div id="cualB17" style="display:none">
-            <label for="">Cual?</label>
-            <input type="text" class="form-control" name="limitacion_otro"  id="victima_limitacion_otra" value="">
-         </div>
-      </div>
-      <div class="botones" style="overflow:hidden;width:100%;margin-left:40%">
-    <div class="btn-1" style="width:10%;float:left"> <button class="btn btn-primary col-xs" name="button" style="width:108%" >Agregar</button><br><br></div>
+    <div id="cualB17" style="display:none">
+    <label for="">Cual?</label>
+    <input type="text" class="form-control" name="limitacion_otro"  id="victima_limitacion_otra" value="">
+    </div>
+    </div>
 
-      </div>
+<!BOTONES>
+
+    <div class="botones" style="overflow:hidden;width:100%;margin-left:40%">
+    <div class="btn-1" style="width:10%;float:left"> <button class="btn btn-primary col-xs" name="button" style="width:108%" >Agregar</button><br><br></div>
+    </div>
     </form>
-<div class="btn-2" style="width:11%;float:left;margin-left:40%">   <button style="width:100%" class="btn btn-primary col-xs" name="button" onclick="window.open('agregarConvivienteC', 'width=800,height=600')"; >Siguiente</button><br><br></div>
+    <div class="btn-2" style="width:11%;float:left;margin-left:40%">   <button style="width:100%" class="btn btn-primary col-xs" name="button" onclick="window.open('agregarConvivienteC', 'width=800,height=600')" >Siguiente</button><br><br></div>
 
       <!-- VER ESTA MANERA TERMINA ACA -->
       <script>
