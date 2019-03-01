@@ -19,27 +19,18 @@ session_start();
       <style>
       </style>
    </head>
-        <ul class="nav nav-tabs">
-   <li class="nav-item"> <strong><a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="/detalleCaso/">Eje A: Datos institucionales</a> </li></strong>
-   <li class="nav-item"><strong> <a class="nav-link "  style="color:#4CAF50;font-size:1.1em" href="/detallevictima/" >Eje B: Caracterización de la victima y su contexto</a> </li></strong>
-   <li class="nav-item"><strong> <a class="nav-link " style="color:black;font-size:1.1em" href="#">Eje C: Grupo Conviviente</a> </li></strong>
-   <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em"  href="agregarDelitoD">Eje D: Caracterización de delito</a> </li></strong>
-   <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="/detalleimputado/">Eje E: Datos del imputado</a> </li></strong>
-   <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="/detalleOrganismo/">Eje F: Atención del caso</a> </li></strong>
-   <li class="nav-item"><strong> <a class="nav-link "style="color:#4CAF50;font-size:1.1em"  href="agregaDocumentacionG">Eje G: Documentación</a> </li></strong>
- </ul>
    <header>
-
+     <ul class="nav nav-tabs">
+       <li class="nav-item"><strong> <a class="nav-link "style="color:#3490dc;font-size:1.1em"  href="home">Inicio</a> </li></strong>
+       <li class="nav-item"><strong> <a class="nav-link "style="color:#3490dc;font-size:1.1em"  href="paneldecontrol">Panel de Control</a> </li></strong>
    </header>
    <body>
       <h1 class="text-center" style="padding: 15px;">Eje F: Atención del caso.</h1>
       <section class="container">
-         <form class="" action="/detalleOrganismo" method="post">
+         <form class="" action="/agregarOrganismo" method="post">
            {{ csrf_field() }}
-           <input type="hidden" name="idOrganismo" value="{{$institucion->id}}">
-             <input type="hidden" name="idCaso" value="{{$institucion->idCaso}}">
+           <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
 
-<br><br><br>
   <div class="form-group">
 
 
@@ -53,15 +44,12 @@ session_start();
 <div class="organismos_previos_si" id="organismos_previos_si" style="display:none">
   @foreach ($oprevios as $oprevio)
       <label class="form-check-inline form-check-label">
-      @if ($institucion->opreviosIds()->contains($oprevio->id))
-        <input type="checkbox" value="{{ $oprevio->id }}" class="form-check-inline" name="oprevios[]" checked>
-      @else
+
         <input type="checkbox" value="{{ $oprevio->id }}" class="form-check-inline" name="oprevios[]">
-      @endif
+
         {{ $oprevio->nombre }}
       </label><br>
   @endforeach
-
      <input type="checkbox" value="16" class="form-check-inline" name="organismos_previos[]"  id="checkeadoF1"  onclick="muestroCualF1()">
      <label for="otro" class="form-check-inline form-check-label" >otro</label><br>
 </div>
@@ -153,18 +141,15 @@ session_start();
             <div id="socioeco" style="display:none">
                <label>F 2I. Tipo de asistencia socioeconómica:</label>
                <label for="">En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
-
                @foreach ($socioeconomicos as $socioeconomico)
                    <label class="form-check-inline form-check-label">
-                   @if ($institucion->socioeconomicosIds()->contains($socioeconomico->id))
-                     <input type="checkbox" value="{{ $socioeconomico->id }}" class="form-check-inline" name="socioeconomicos[]" checked>
-                   @else
+
                      <input type="checkbox" value="{{ $socioeconomico->id }}" class="form-check-inline" name="socioeconomicos[]">
-                   @endif
+
                      {{ $socioeconomico->nombre }}
-                   </label><br>
                @endforeach
                <input type="checkbox" value="6" class="form-check-inline" name="tipo_asistencia_socioeconomica[]"  id="checkeadoF2I"  onclick="muestroCualF2I()">
+
                <label for="otro" class="form-check-inline form-check-label" >otro</label><br>
                <div id="cualF2I"style="display:none">
 
@@ -179,14 +164,13 @@ session_start();
                   <div class="Auno">
                     @foreach ($oarticulas as $oarticula)
                         <label class="form-check-inline form-check-label">
-                        @if ($institucion->oarticulasIds()->contains($oarticula->id))
-                          <input type="checkbox" value="{{ $oarticula->id }}" class="form-check-inline" name="oarticulas[]" checked>
-                        @else
+
                           <input type="checkbox" value="{{ $oarticula->id }}" class="form-check-inline" name="oarticulas[]">
-                        @endif
+
                           {{ $oarticula->nombre }}
                         </label><br>
                     @endforeach
+
 
                      <input type="checkbox" value="21" class="form-check-inline" name="organismos_actuales[]"  id="checkeadoF4"  onclick="muestroCualF4()">
                      <label for="otro" class="form-check-inline form-check-label" >otro</label><br>
@@ -335,13 +319,10 @@ session_start();
                        }
                }
             </script>
-        <div class="botones" style="overflow:hidden;width:100%;margin-left:40%">
-            <div class="btn-4" style="width:11%;float:left;margin-left:0.1%"><input type ='submit' style="width:100%;background-color:green" class="btn btn col-xs" value = 'Editar' ></button><br><br></div>
+            <div class="botones" style="overflow:hidden;width:100%;margin-left:40%">
+          <div class="btn-1" style="width:10%;float:left"> <button type="submit" class="btn btn-primary col-xs" name="button"  >Agregar/Enviar</button><br><br></div>
 
-              </div>
-            </form>
-
-
+            </div>
          </form>
       </section>
    </body>

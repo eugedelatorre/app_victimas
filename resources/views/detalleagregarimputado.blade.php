@@ -13,34 +13,44 @@
    </head>
    <header>
      <ul class="nav nav-tabs">
-        <li class="nav-item"> <strong><a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarCaso">Eje A: Datos institucionales</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link "  style="color:#4CAF50;font-size:1.1em" href="agregarVictimaB">Eje B: Caracterización de la victima y su contexto</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarConvivienteC">Eje C: Grupo Conviviente</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em"  href="agregarDelitoD">Eje D: Caracterización de delito</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:black;font-size:1.1em" href="#">Eje E: Datos del imputado</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarOrganismoF">Eje F: Atención del caso</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link "style="color:#4CAF50;font-size:1.1em"  href="agregaDocumentacionG">Eje G: Documentación</a> </li></strong>
+       <li class="nav-item"><strong> <a class="nav-link "style="color:#3490dc;font-size:1.1em"  href="home">Inicio</a> </li></strong>
+       <li class="nav-item"><strong> <a class="nav-link "style="color:#3490dc;font-size:1.1em"  href="paneldecontrol">Panel de Control</a> </li></strong>
      </ul>
    </header>
    <body>
+
       <h1 class="text-center" style="padding: 15px;">Eje E: Datos del imputado</h1>
-      
 
       </h1>
       <section class="container">
-         <form class="ejeC" action="/detalleimputado" method="post">
+        <ul>
+
+
+          @foreach($imputados as $imputado)
+
+
+
+                 <li>
+              <a href="detalleimputado/{{$imputado->id}}">
+                {{$imputado->nombre_y_apellido}}</a>
+
+                <strong>  <a style="color:red"href="detalleimputado/deleteimputado/{{$imputado->id}}">
+                ELIMINAR</a></strong>
+              </li>
+
+
+          @endforeach
+
+        </ul>
+         <form class="ejeC" action="/agregarimputado" method="post">
            {{ csrf_field() }}
-           <input type="hidden" name="idImputado" value="{{$imputado->id}}">
-           <input type="hidden" name="idCaso" value="{{$imputado->idCaso}}">
 
             <div class="form-group">
-            <div class="padre">
-               <div class="hijo">
+            <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
                   <h3>Datos del Imputado:</h3>
                   <div class="form-group ">
-
                      <label for="">E 1. Nombre y apellido:</label>
-      <input type="text" class="form-control" name="nombre_y_apellido" id="imputado_nombre_y_apellido" value="{{$imputado->nombre_y_apellido}}"><br>
+      <input type="text" class="form-control" name="imputado_nombre_y_apellido" id="imputado_nombre_y_apellido" value=""><br>
                      <label for="bloqueo1" class="form-check-label">Se desconoce</label>
       <input type="checkbox" id="bloqueo1" name="imputado_nombre_y_apellido" value="Se desconoce" onchange="checkE1(this)">
                   </div>
@@ -60,7 +70,7 @@
                   </script>
                   <div class="form-group " id="tipodoc">
                      <label for="">E 2. Tipo de documentación:</label>
-      <select class="form-control" id="tipodocumento_id" name="tipo_documento_id" onChange="selectOnChangeE2(this)">
+      <select class="form-control" id="tipodocumento_id" name="tipodocumento_id" onChange="selectOnChangeE2(this)">
                         <option value="">Seleccioná el tipo de documento</option>
                         <option value="1" >D.N.I.</option>
                         <option value="2" >Documento Extranjero</option>
@@ -75,7 +85,7 @@
                      <div id="cualE2" style="display: none">
                         <label for="">Cual?</label>
                         <div class="">
-      <input name="tipo_documento_otro"  id="imputado_tipo_documento_otro" class="form-control" type="text" >
+      <input name="imputado_tipo_documento_otro"  id="imputado_tipo_documento_otro" class="form-control" type="text" >
                         </div>
                      </div>
                   </div>
@@ -96,7 +106,7 @@
                   </script>
                   <div class="form-group" id="nrodoc">
                      <label for="">E 3. Nro Documento:</label>
-      <input type="text" class="form-control" name="documento_nro" placeholder="" id="imputado_documento" value="">
+      <input type="text" class="form-control" name="imputado_documento" placeholder="" id="imputado_documento" value="">
                   </div>
                   <label for="bloqueo3" class=" form-check-inline form-check-label"> </label>Se desconoce</label>
       <input type="checkbox" id="bloqueo3" class="form-check-inline" name="imputado_documento" value="Se desconoce" onchange="checkE3(this)">
@@ -175,12 +185,11 @@
                   </div>
                   <div class="form-group">
                      <label for="">E 6. Defensoría N°: </label>
-                     <input type="text" class="form-control" name="defensoria_nro" id="defensoria_numero" value="">
+                     <input type="text" class="form-control" name="defensoria_numero" id="defensoria_numero" value="">
                      <label for="bloqueo6" class="form-check-label">Se desconoce</label>
                      <input type="checkbox" id="bloqueo6" name="defensoria_numero" value="Se desconoce" onchange="checkE6(this)">
                   </div>
-               </div>
-            </div>
+
             <script>
                function checkE6(checkbox)
                {
@@ -195,15 +204,33 @@
                						}
                }
             </script>
-            <div class="botones" style="overflow:hidden;width:100%;margin-left:40%">
-            <div class="btn-4" style="width:11%;float:left;margin-left:0.1%"><input type ='submit' style="width:100%;background-color:green" class="btn btn col-xs" value = 'Editar' ></button><br><br></div>
+            <div class="btn-1" style="width:10%;float:left"> <button class="btn btn-primary col-xs" type="submit" style="width:108%" >Agregar</button><br><br></div>
 
               </div>
             </form>
-
-
+        <div class="btn-2" style="width:11%;float:left;margin-left:40%"><button style="width:100%" class="btn btn-primary col-xs"  onclick="window.open('agregarOrganismo', 'width=800,height=600')"; >Siguiente</button><br><br></div>
+  </section>
       </section>
+      <!-- este script lo que hace es agregar otro formulario de profesionales en el caso que intervenga mas de un profesional en el caso -->
+      <script>
+         var nueva_entrada = $('.padre').html();
 
+         $("#anadir").click(function(){
+             $(".padre").append(nueva_entrada);
+         });
+
+         $("#borra").click(function(){
+         $('.hijo').last().remove();
+         swal('Se borro un imputado');
+         });
+      </script>
+      <script>
+         var msg = '';
+         var exist = '';
+         if(exist){
+           swal(msg);
+         }
+      </script>
       <script src="js/formularioA.js" type="text/javascript" charset="utf-8" async defer></script>
       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    </body>

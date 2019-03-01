@@ -25,5 +25,19 @@ return $this->belongsToMany(Socioeconomico::class,"institucion_socioeconomico","
 }
 
 
+public function socioeconomicosIds() {
+  return $this->socioeconomicos->pluck("id");
+}
+public function oarticulasIds() {
+  return $this->oarticulas->pluck("id");
+}
+
+public function opreviosIds() {
+  return $this->oprevios->pluck("id");
+}
+
+
+
+
 }
 ?>

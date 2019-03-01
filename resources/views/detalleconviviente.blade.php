@@ -17,33 +17,41 @@ session_start();
    </head>
    <header>
      <ul class="nav nav-tabs">
-        <li class="nav-item"> <strong><a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarCaso">Eje A: Datos institucionales</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link "  style="color:#4CAF50;font-size:1.1em" href="agregarVictimaB">Eje B: Caracterización de la victima y su contexto</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="#">Eje C: Grupo Conviviente</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em"  href="agregarDelitoD">Eje D: Caracterización de delito</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarImputadoE">Eje E: Datos del imputado</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarOrganismoF">Eje F: Atención del caso</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link "style="color:#4CAF50;font-size:1.1em"  href="agregaDocumentacionG">Eje G: Documentación</a> </li></strong>
+       <li class="nav-item"> <strong><a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="/detalleCaso/{{$conviviente->id}}">Eje A: Datos institucionales</a> </li></strong>
+       <li class="nav-item"><strong> <a class="nav-link "  style="color:#4CAF50;font-size:1.1em" href="/detallevictima/{{$conviviente->id}}" >Eje B: Caracterización de la victima y su contexto</a> </li></strong>
+       <li class="nav-item"><strong> <a class="nav-link " style="color:black;font-size:1.1em" href="#">Eje C: Grupo Conviviente</a> </li></strong>
+       <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em"  href="agregarDelitoD">Eje D: Caracterización de delito</a> </li></strong>
+       <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="/detalleimputado/{{$conviviente->id}}">Eje E: Datos del imputado</a> </li></strong>
+       <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="/detalleOrganismo/{{$conviviente->id}}">Eje F: Atención del caso</a> </li></strong>
+       <li class="nav-item"><strong> <a class="nav-link "style="color:#4CAF50;font-size:1.1em"  href="agregaDocumentacionG">Eje G: Documentación</a> </li></strong>
      </ul>
    </header>
    <body>
+
       <h1 class="text-center" style="padding: 15px;">
-         Eje C: Grupo Conviviente
+
+
+
+
+
+
+         Eje C: Grupo Conviviente<br>
+
+{{session("idCaso")}}
          <h5></h5>
       </h1>
+      
       <section class="container">
          <form class="ejeC" action="/detalleconviviente" method="post">
            {{ csrf_field() }}
            <input type="hidden" name="idConviviente" value="{{$conviviente->id}}">
            <input type="hidden" name="idCaso" value="{{$conviviente->idCaso}}">
 
-
+<br><br><br>
             <div class="form-group">
 
-
-
-                  <h3>Datos del Conviviente:</h3>
                   <div class="form-group">
+                      <h3>Datos del Conviviente:</h3>
 
                      <label for="">C 1. Nombre y apellido:</label>
                      <input type="text" class="form-control" name="nombre_y_apellido" id="victima_nombre_y_apellido" value="{{$conviviente->nombre_y_apellido}}">
@@ -158,8 +166,7 @@ session_start();
                   </div>
                 </form>
 
-      <div class="btn-4" style="width:11%;float:left;margin-left:40%"><input type ='button' style="width:100%" class="btn btn-danger col-xs" name="button" value = 'Eliminar' onclick="window.open('deleteconviviente/{{$conviviente->id}}', 'width=800,height=600');"/></button><br><br></div>
-            </section>
+
       </section>
       <!-- este script lo que hace es agregar otro formulario de profesionales en el caso que intervenga mas de un profesional en el caso -->
 

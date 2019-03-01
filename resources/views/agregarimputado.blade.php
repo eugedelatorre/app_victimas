@@ -13,13 +13,14 @@
    </head>
    <header>
      <ul class="nav nav-tabs">
-        <li class="nav-item"> <strong><a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarCaso">Eje A: Datos institucionales</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link "  style="color:#4CAF50;font-size:1.1em" href="agregarVictimaB">Eje B: Caracterización de la victima y su contexto</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarConvivienteC">Eje C: Grupo Conviviente</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em"  href="agregarDelitoD">Eje D: Caracterización de delito</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:black;font-size:1.1em" href="#">Eje E: Datos del imputado</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarOrganismoF">Eje F: Atención del caso</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link "style="color:#4CAF50;font-size:1.1em"  href="agregaDocumentacionG">Eje G: Documentación</a> </li></strong>
+        <li class="nav-item"> <strong><a class="nav-link " style="color:black;font-size:1.1em" href="agregarCaso">Eje A: Datos institucionales</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link "  style="color:#4CAF50;font-size:1.1em" href="agregarVictima">Eje B: Caracterización de la victima y su contexto</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarconviviente">Eje C: Grupo Conviviente</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em"  href="agregarDelito">Eje D: Caracterización de delito</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="#">Eje E: Datos del imputado</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarOrganismo">Eje F: Atención del caso</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link "style="color:#4CAF50;font-size:1.1em"  href="agregaDocumentacion">Eje G: Documentación</a> </li></strong>
+<li class="nav-item"><strong> <a class="nav-link "style="color:#3490dc;font-size:1.1em"  href="home">Inicio</a> </li></strong>
      </ul>
    </header>
    <body>
@@ -37,9 +38,10 @@
 
                  <li>
               <a href="detalleimputado/{{$imputado->id}}">
-                {{$imputado->nombre_y_apellido}}
+                {{$imputado->nombre_y_apellido}}</a>
 
-              </a>
+                <strong>  <a style="color:red"href="detalleimputado/deleteimputado/{{$imputado->id}}">
+                ELIMINAR</a></strong>
               </li>
 
 
@@ -208,13 +210,12 @@
                						}
                }
             </script>
-            <div class="botones" style="overflow:hidden;width:100%;margin-left:40%">
-          <div class="btn-1" style="width:10%;float:left"> <button type="submit" class="btn btn-primary col-xs" name="button" >Agregar/Enviar</button><br><br></div>
+            <div class="btn-1" style="width:10%;float:left"> <button class="btn btn-primary col-xs" type="submit" style="width:108%" >Agregar</button><br><br></div>
 
-            </div>
-         </form>
-         <div class="btn-4" style="width:11%;float:left;margin-left:40%">   <button style="width:100%" class="btn btn-primary col-xs" name="button" onclick="window.open('agregarOrganismoF', 'width=800,height=600')";>Siguiente</button><br><br></div>
-
+              </div>
+            </form>
+        <div class="btn-2" style="width:11%;float:left;margin-left:40%"><button style="width:100%" class="btn btn-primary col-xs"  onclick="window.open('agregarOrganismo', 'width=800,height=600')"; >Siguiente</button><br><br></div>
+  </section>
       </section>
       <!-- este script lo que hace es agregar otro formulario de profesionales en el caso que intervenga mas de un profesional en el caso -->
       <script>

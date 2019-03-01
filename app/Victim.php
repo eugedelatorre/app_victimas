@@ -28,5 +28,21 @@ public $table="victims";
       return $this->belongsToMany(Limitacion::class,"victima_limitacion","victima_id","limitacion_id");
     }
 
+    public function necesidadesIds() {
+      return $this->necesidades->pluck("id");
+    }
+
+    public function programasIds() {
+      return $this->programas->pluck("id");
+    }
+    public function discapacidadesIds() {
+      return $this->discapacidades->pluck("id");
+    }
+
+    public function limitacionesIds() {
+      return $this->limitaciones->pluck("id");
+    }
+
+
 }
 ?>

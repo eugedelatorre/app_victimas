@@ -3,6 +3,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Institucion;
+use App\Socioeconomico;
+use App\Oprevio;
+use App\Oarticula;
 class InstitucionController extends Controller
 {
  public function agregar(Request $form){
@@ -47,45 +50,43 @@ $institucion->abogado_particular= $form ["abogado_particular"];
 $institucion->idCaso= session("idCaso");
 
 $institucion->save();
-if($form["organismos_previos"]==1){
-foreach ($form["organismos_previos"] as $oprevio) {
 
- $institucion->oprevios()->attach($oprevio);}}
+foreach ($form["oprevios"] as $oprevio) {
 
- foreach ($form["organismos_actuales"] as $oarticula) {
+ $institucion->oprevios()->attach($oprevio);}
+
+ foreach ($form["oarticulas"] as $oarticula) {
 
   $institucion->oarticulas()->attach($oarticula);}
 
 
-if($form["asistencia_socioeconomica"]==3){
-  foreach ($form["tipo_asistencia_socioeconomica"] as $socioeconomico) {
+  foreach ($form["socioeconomicos"] as $socioeconomico) {
 
-   $institucion->socioeconomicos()->attach($socioeconomico);}}
+   $institucion->socioeconomicos()->attach($socioeconomico);}
 
 
 return redirect ("agregarOrganismo");
 
 }
 public function detalle($id) {
-
-    $institucion = Institucion::find($id);
-
-
-    $vac = compact("institucion");
-
-    return view("detalleOrganismo", $vac);
+  $socioeconomicos = Socioeconomico::all();
+  $oprevios = Oprevio::all();
+  $oarticulas = Oarticula::all();
+  $institucion = Institucion::find($id);
+  $vac = compact("institucion","socioeconomicos","oprevios","oarticulas");
+  return view("detalleOrganismo", $vac);
   }
 
   public function eliminar($id) {
     $institucion = Institucion::find($id);
     $institucion->delete();
-      return redirect("agregarOrganismo");
+      return redirect("paneldecontrol");
 
   }
 
   public function editar(Request $form) {
 
-      $institucion = Institucion::find($form["idInstitucion"]);
+      $institucion = Institucion::find($form["idOrganismo"]);
       $institucion->organismos_intervinieron= $form ["organismos_intervinieron"];
       $institucion->asistencia_juridica= $form ["asistencia_juridica"];
       $institucion->asistencia_psicologica= $form ["asistencia_psicologica"];

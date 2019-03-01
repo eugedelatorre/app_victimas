@@ -25,15 +25,7 @@ session_start();
       </style>
    </head>
    <header>
-      <ul class="nav nav-tabs">
-         <li class="nav-item"> <strong><a class="nav-link " style="color:black;font-size:1.1em" href="#">Eje A: Datos institucionales</a> </li></strong>
-         <li class="nav-item"><strong> <a class="nav-link "  style="color:#4CAF50;font-size:1.1em" href="agregarVictimaB">Eje B: Caracterización de la victima y su contexto</a> </li></strong>
-         <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarConvivienteC">Eje C: Grupo Conviviente</a> </li></strong>
-         <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em"  href="agregarDelitoD">Eje D: Caracterización de delito</a> </li></strong>
-         <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarImputadoE">Eje E: Datos del imputado</a> </li></strong>
-         <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarOrganismoF">Eje F: Atención del caso</a> </li></strong>
-         <li class="nav-item"><strong> <a class="nav-link "style="color:#4CAF50;font-size:1.1em"  href="agregaDocumentacionG">Eje G: Documentación</a> </li></strong>
-      </ul>
+
    </header>
    <body>
       <h1 class="text-center" style="padding: 15px;">Eje A: Datos institucionales</h1>
@@ -49,21 +41,20 @@ session_start();
 
          <form class="" action="/detalleCaso" method="post">
                 {{csrf_field()}}
-
                    <input type="hidden" name="idCaso" value="{{$caso->id}}">
-
 
                       <label class="form-check-inline form-check-label">Usuario:</label><br><br>
                         <select class="form-control" name="usuarios" >
                           <option value="">Selecciona un usuario</option>
-                        
+
                         @foreach ($usuarios as $usuario)
                           <option value="{{ $usuario->id }}">{{ $usuario->nombre_y_apellido}}</option>
                           @endforeach
                       </select><br><br>
-
+            {{session("idCaso")}}
 
             <div class="form-group {{ $errors->has('nombre_referencia') ? 'has-error' : ''}}">
+
                <label for="datos_nombre_referencia">A 1. Nombre de referencia:</label>
 
                <input type="text" class="form-control" name="nombre_referencia" id="datos_nombre_referencia" value="{{$caso->nombre_referencia}}">
@@ -280,7 +271,7 @@ session_start();
              </div>
 <br>
 
-            <<div class="btn-2" style="width:11%;float:left;margin-left:40%">   <button style="width:100%" class="btn btn-primary col-xs" name="button">Editar</button><br><br></div>
+            <div class="btn-2" style="width:11%;float:left;margin-left:40%">   <button style="width:100%; background-color:#97c93f;color:black;border: solid black 1px"class="btn btn-primary col-xs" name="button">Editar</button><br><br></div>
          </form>
       </section>
       <script>

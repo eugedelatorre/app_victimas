@@ -1,4 +1,4 @@
-F<?php
+<?php
 
 session_start();
 ?>
@@ -17,34 +17,30 @@ session_start();
    </head>
    <header>
      <ul class="nav nav-tabs">
-        <li class="nav-item"> <strong><a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarCaso">Eje A: Datos institucionales</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link "  style="color:black;font-size:1.1em" href="#">Eje B: Caracterización de la victima y su contexto</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarconviviente">Eje C: Grupo Conviviente</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em"  href="agregarDelitoD">Eje D: Caracterización de delito</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarImputadoE">Eje E: Datos del imputado</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarOrganismoF">Eje F: Atención del caso</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link "style="color:#4CAF50;font-size:1.1em"  href="agregaDocumentacionG">Eje G: Documentación</a> </li></strong>
-     </ul>
+       <li class="nav-item"> <strong><a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="/detalleCaso/">Eje A: Datos institucionales</a> </li></strong>
+       <li class="nav-item"><strong> <a class="nav-link "  style="color:#4CAF50;font-size:1.1em" href="/detallevictima/" >Eje B: Caracterización de la victima y su contexto</a> </li></strong>
+       <li class="nav-item"><strong> <a class="nav-link " style="color:black;font-size:1.1em" href="#">Eje C: Grupo Conviviente</a> </li></strong>
+       <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em"  href="agregarDelitoD">Eje D: Caracterización de delito</a> </li></strong>
+       <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="/detalleimputado/">Eje E: Datos del imputado</a> </li></strong>
+       <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="/detalleOrganismo/">Eje F: Atención del caso</a> </li></strong>
+       <li class="nav-item"><strong> <a class="nav-link "style="color:#4CAF50;font-size:1.1em"  href="agregaDocumentacionG">Eje G: Documentación</a> </li></strong>
+</ul>
    </header>
    <body>
       <h1 class="text-center" style="padding: 15px;">Eje B: Caracterización de la victima y su contexto</h1>
+
+
+<br><br>
+      </section>
       <section class="container">
-      <form class="" action="/agregarVictima" method="post">
+      <form class="" action="/detallevictima" method="post">
         <ul>
-
-
-          @foreach($victims as $victim)
-               @if($victim->idCaso==$ultimoid)
-
-
-            @endif
-
-          @endforeach
-
         </ul>
         {{csrf_field()}}
-        <input type="hidden" name="idProfesional" value="{{$victim->id}}">
-        <input type="hidden" name="idCaso" value="{{$victim->idCaso}}">
+        <input type="hidden" name="idVictima" value="{{$victima->id}}">
+        <input type="hidden" name="idCaso" value="{{$victima->idCaso}}">
+
+
 
 
       <div class="form-group ">
@@ -314,16 +310,17 @@ session_start();
          <label>B 11 I. Necesidades socioeconómicas insatisfechas: </label><br>
 <label class="" >En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
 
+@foreach ($necesidades as $necesidad)
+    <label class="form-check-inline form-check-label">
+    @if ($victima->necesidadesIds()->contains($necesidad->id))
+      <input type="checkbox" value="{{ $necesidad->id }}" class="form-check-inline" name="necesidades[]" checked>
+    @else
+      <input type="checkbox" value="{{ $necesidad->id }}" class="form-check-inline" name="necesidades[]">
+    @endif
+      {{ $necesidad->nombre }}
+    </label><br>
+@endforeach
 
-             @foreach ($necesidades as $necesidad)
-               <label class="form-check-inline form-check-label">
-                 <input type="checkbox" value="{{ $necesidad->id }}" class="form-check-inline" name="necesidades[]">
-
-                 {{ $necesidad->nombre }}
-
-
-               </label><br>
-             @endforeach
 
 
 <input type="checkbox" class="form-check-inline" id="checkeadoB11"  onclick="muestroCualB11()" name="" value="8">
@@ -399,16 +396,16 @@ session_start();
          <label class="" >En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
 
 
-
-               @foreach ($programas as $programa)
-                 <label class="form-check-inline form-check-label">
-                   <input type="checkbox" value="{{ $programa->id }}" class="form-check-inline" name="programa[]">
-
-                   {{ $programa->nombre }}
-
-
-                 </label><br>
-               @endforeach
+         @foreach ($programas as $programa)
+             <label class="form-check-inline form-check-label">
+             @if ($victima->programasIds()->contains($programa->id))
+               <input type="checkbox" value="{{ $programa->id }}" class="form-check-inline" name="programas[]" checked>
+             @else
+               <input type="checkbox" value="{{ $programa->id }}" class="form-check-inline" name="programas[]">
+             @endif
+               {{ $programa->nombre }}
+             </label><br>
+         @endforeach
 
             <label for="" class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Otro</label>
             <input type="checkbox" class="form-check-inline" id="checkeadoB12"  onclick="muestroCualB12()" name="" value="5">
@@ -471,16 +468,16 @@ session_start();
       <div class="form-group ">
          <label for="">B 14. ¿Presenta algún tipo de discapacidad?</label><br>
          <label for="">En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
-
-           @foreach ($discapacidades as $discapacidad)
+         @foreach ($discapacidades as $discapacidad)
              <label class="form-check-inline form-check-label">
-               <input type="checkbox" value="{{ $discapacidad->id }}" class="form-check-inline" name="discapacidad[]">
+             @if ($victima->discapacidadesIds()->contains($discapacidad->id))
+               <input type="checkbox" value="{{ $discapacidad->id }}" class="form-check-inline" name="discapacidades[]" checked>
+             @else
+               <input type="checkbox" value="{{ $discapacidad->id }}" class="form-check-inline" name="discapacidades[]">
+             @endif
                {{ $discapacidad->nombre }}
              </label><br>
-           @endforeach
-
-            <input type="checkbox" value="6" class="form-check-inline" name="discapacidad[]" id="Se desconoce" onchange="checkB14bis(this)">
-
+         @endforeach
       </div>
       <script>
          function checkB14(checkbox)
@@ -593,10 +590,14 @@ session_start();
          <label class="" >En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
          <div>
            @foreach ($limitaciones as $limitacion)
-             <label class="form-check-inline form-check-label">
-               <input type="checkbox" value="{{ $limitacion->id }}" class="form-check-inline" name="limitacion[]">
-               {{ $limitacion->nombre }}
-             </label><br>
+               <label class="form-check-inline form-check-label">
+               @if ($victima->limitacionesIds()->contains($limitacion->id))
+                 <input type="checkbox" value="{{ $limitacion->id }}" class="form-check-inline" name="limitaciones[]" checked>
+               @else
+                 <input type="checkbox" value="{{ $limitacion->id }}" class="form-check-inline" name="limitaciones[]">
+               @endif
+                 {{ $limitacion->nombre }}
+               </label><br>
            @endforeach
             <label for="" class="form-check-label" style="margin-left: 15px; padding-right: 0px; ">Otro</label>
             <input type="checkbox" class="form-check-inline" id="checkeadoB17"  onclick="muestroCualB17()" name="" value="5">
@@ -609,13 +610,13 @@ session_start();
          </div>
       </div>
       <div class="botones" style="overflow:hidden;width:100%;margin-left:40%">
-    <div class="btn-4" style="width:11%;float:left;margin-left:0.1%"><input type ='submit' style="width:100%;background-color:green" class="btn btn col-xs" value = 'Editar' ></button><br><br></div>
+    <div class="btn-4" style="width:11%;float:left;margin-left:0.1%">
+      <input type ='submit' style="width:100%;background-color:green" class="btn btn col-xs" value = 'Editar' ></button><br><br></div>
 
       </div>
     </form>
 
-<div class="btn-4" style="width:11%;float:left;margin-left:40%"><input type ='button' style="width:100%" class="btn btn-danger col-xs" name="button" value = 'Eliminar' onclick="window.open('deletevictima/{{$victim->id}}', 'width=800,height=600');"/></button><br><br></div>
-</section>
+
       <script>
          function muestroCualB17() {
              var checkBox = document.getElementById("checkeadoB17");

@@ -12,7 +12,7 @@ class ProfesionalController extends Controller
 {
 public function agregar(Request $form){
 
-  $reglas = [
+  /*$reglas = [
     "nombre_profesional_interviniente"=>"required|string",
     "desde_profesional_interviniente"=>"required",
     "actual_profesional_interviniente"=>"required"
@@ -29,7 +29,7 @@ public function agregar(Request $form){
                   ->withErrors($validator)
                   ->withInput();
   }
-
+*/
   $profesional= new Profesional( );
 
   $profesional->nombre_profesional_interviniente= $form [ "nombre_profesional_interviniente"];
@@ -56,7 +56,8 @@ public function detalle($id) {
   public function eliminar($id) {
     $profesional = Profesional::find($id);
     $profesional->delete();
-      return redirect("agregarProfesional");
+      $idCaso = session("idCaso");
+      return redirect("/paneldecontrol/$idCaso");
 
   }
   public function editar(Request $form) {
@@ -68,7 +69,8 @@ public function detalle($id) {
       $profesional->idCaso= $form ["idCaso"];
 
            $profesional->save();
-            return redirect("home");}
+           return redirect("paneldecontrol/{$profesional->idCaso}");
+          }
 
 
 

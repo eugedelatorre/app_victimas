@@ -27,19 +27,16 @@ class ImputadoController extends Controller
     return redirect("agregarimputado");
 }
 public function detalle($id) {
-
+    $imputados=Imputado::all();
     $imputado = Imputado::find($id);
-
-
-    $vac = compact("imputado");
-
+    $vac = compact("imputado","imputados");
     return view("detalleimputado", $vac);
   }
 
   public function eliminar($id) {
     $imputado = Imputado::find($id);
     $imputado->delete();
-      return redirect("agregarimputado");
+      return redirect("paneldecontrol");
 
   }
 
@@ -55,7 +52,7 @@ public function detalle($id) {
       $imputado->defensoria_nro= $form["defensoria_nro"];
       $imputado->idCaso= $form ["idCaso"];
       $imputado->save();
-       return redirect("home");
+       return redirect("casoconviviente");
 
 
 }

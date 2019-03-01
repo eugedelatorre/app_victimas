@@ -9,6 +9,7 @@ use App\Necesidad;
 use App\Programa;
 use App\Limitacion;
 use App\Discapacidad;
+use App\Victima_necesidad;
 use Validator;
 
 class VictimController extends Controller
@@ -25,34 +26,83 @@ class VictimController extends Controller
     "victima_edad"=>"required",
     "franjaetaria"=>"required|integer",
     "tienedoc"=>"required|integer",
-    "tipodocumento"=>"required|integer",
-    "tipo_documento_otro"=>"required|string",
-    "victima_numero_documento"=>"required|integer",
-    "victima_tipo_documento_otro"=>"required|string",
+
     "niveleducativo"=>"required|integer",
     "condiciones_de_trabajo"=>"required|integer",
-    "necesidades_socioeconomicas_insatisfechas"=>"required|integer",
-    "necesidades_socioeconomicas_insatisfechas_otro"=>"required|string",
+    "necesidades_socioeconomicas_insatisfechas"=>"required",
     "programa_subsidio"=>"required|integer",
-    "programa_subsidio_otro"=>"required|string",
+
     "embarazorelevamiento"=>"required|integer",
+    "tiene_discapacidad"=>"required",
     "tienelesion"=>"required|integer",
-    "tipo_lesion"=>"required|string",
     "enfermedadcronica"=>"required|integer",
-    "tipo_enfermedad_cronica"=>"required|string",
-    "limitacion_otro"=>"required|string"];
+    "tiene_limitacion"=>"required"
+  ];
 
 
-    $validator = Validator::make($form->all(), $reglas);
+  $validator = Validator::make($form->all(), $reglas);
 
-    $validator->sometimes('residenciaprecaria', 'required', function ($input) {
-      return $input->tipodocumento == 6;
+  $validator->sometimes('tipodocumento', 'required', function ($input) {
+    return $input->tipodocumento == 1;
+   });
+
+   $validator->sometimes('victima_numero_documento', 'required', function ($input) {
+     return $input->tipodocumento == 1;
     });
 
-    if ($validator->fails()) {
+   $validator->sometimes('tipodocumento', 'required', function ($input) {
+     return $input->tipodocumento == 3;
+    });
+
+    $validator->sometimes('victima_numero_documento', 'required', function ($input) {
+      return $input->tipodocumento == 3;
+     });
+
+     $validator->sometimes('tipo_documento_otro', 'required', function ($input) {
+       return $input->tipodocumento == 9;
+      });
+
+   $validator->sometimes('residenciaprecaria', 'required', function ($input) {
+     return $input->tipodocumento == 6;
+    });
+   $validator->sometimes('necesidades', 'required', function ($input) {
+     return $input->necesidades_socioeconomicas_insatisfechas == 1;
+   });
+  $validator->sometimes('programas', 'required', function ($input) {
+      return $input->programa_subsidio == 1;
+   });
+
+   $validator->sometimes('discapacidades', 'required', function ($input) {
+       return $input->tiene_discapacidad == 1;
+    });
+
+    $validator->sometimes('tipo_lesion', 'required|string', function ($input) {
+     return $input->tienelesion == 1;
+   });
+    $validator->sometimes('tipo_enfermedad_cronica', 'required|string', function ($input) {
+     return $input->enfermedadcronica == 1;
+    });
+
+    $validator->sometimes('limitaciones', 'required', function ($input) {
+     return $input->tiene_limitacion == 1;
+    });
+
+    $validator->sometimes('necesidades_socioeconomicas_insatisfechas_otro', 'required', function ($input) {
+    return is_array($input->necesidades) && in_array(8,$input->necesidades);
+    });
+
+    $validator->sometimes('programa_subsidio_otro', 'required', function ($input) {
+    return is_array($input->programas) && in_array(5,$input->programas);
+    });
+
+    $validator->sometimes('limitacion_otro', 'required', function ($input) {
+    return is_array($input->limitaciones) && in_array(4,$input->limitaciones);
+    });
+
+   if ($validator->fails()) {
         return back()
                     ->withErrors($validator)
-                    ->withInput();
+                   ->withInput();
     }
 
     $victim= new Victim( );
@@ -67,7 +117,6 @@ class VictimController extends Controller
     $victim->tipo_documento_otro= $form ["victima_tipo_documento_otro"];
     $victim->residenciaprecaria= $form ["residenciaprecaria"];
     $victim->victima_numero_documento= $form ["victima_numero_documento"];
-    $victim->victima_tipo_documento_otro= $form ["victima_tipo_documento_otro"];
     $victim->niveleducativo= $form ["niveleducativo"];
     $victim->condiciones_de_trabajo= $form ["condiciones_de_trabajo"];
     $victim->necesidades_socioeconomicas_insatisfechas= $form ["necesidades_socioeconomicas_insatisfechas"];
@@ -75,16 +124,17 @@ class VictimController extends Controller
     $victim->programa_subsidio= $form ["programa_subsidio"];
     $victim->programa_subsidio_otro= $form ["programa_subsidio_otro"];
     $victim->embarazorelevamiento= $form ["embarazorelevamiento"];
+    $victim->tiene_discapacidad= $form ["tiene_discapacidad"];
     $victim->tienelesion= $form ["tienelesion"];
     $victim->tipo_lesion= $form ["tipo_lesion"];
     $victim->enfermedadcronica= $form ["enfermedadcronica"];
     $victim->tipo_enfermedad_cronica= $form ["tipo_enfermedad_cronica"];
+    $victim->tiene_limitacion= $form ["tiene_limitacion"];
     $victim->limitacion_otro= $form ["limitacion_otro"];
     $victim->idCaso= session("idCaso");
 
 
     $victim->save();
-
 
 
   /*foreach ($form["necesidades"] as $necesidad) {
@@ -122,22 +172,26 @@ class VictimController extends Controller
   return redirect ("agregarVictima");
 
     }
-
     public function detalle($id) {
+      $necesidades = Necesidad::all();
+      $programas = Programa::all();
+      $discapacidades = Discapacidad::all();
+      $limitaciones = Limitacion::all();
+      $victima = Victim::find($id);
+      $victimas = Victim::All();
 
-        $victima = Victim::find($id);
 
+        $vac = compact("victimas","victima","necesidades","programas","discapacidades","limitaciones");
 
-        $vac = compact("victima");
-
-        return view("detalleVictima", $vac);
+        return view("detallevictima", $vac);
       }
-
       public function eliminar($id) {
         $victima = Victim::find($id);
-        $victima->delete();
-          return redirect("agregarVictima");
 
+        $victima->delete();
+        $idCaso = session("idCaso");
+
+return redirect("/paneldecontrol/$idCaso");
       }
 
 
@@ -170,8 +224,11 @@ class VictimController extends Controller
         $victim->limitacion_otro= $form ["limitacion_otro"];
 
         $victim->idCaso= $form ["idCaso"];
+        $victim->save();
+        return redirect("paneldecontrol/{$victim->idCaso}");
 
-             $victim->save();
+
+             /*$victim->save();
              foreach ($form["necesidades"] as $necesidad) {
              $victim->necesidades()->attach($necesidad);}
 
@@ -183,23 +240,7 @@ class VictimController extends Controller
 
              foreach ($form["limitaciones"] as $limitacion) {
              $victim->limitaciones()->attach($limitacion);}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              return redirect("home");}
-
-
+           return redirect("casovictima");*/}
 
 
 

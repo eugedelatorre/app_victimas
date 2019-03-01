@@ -18,14 +18,9 @@
    </head>
    <header>
      <ul class="nav nav-tabs">
-        <li class="nav-item"> <strong><a class="nav-link " style="color:black;font-size:1.1em" href="#">Eje A: Datos institucionales</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link "  style="color:#4CAF50;font-size:1.1em" href="agregarVictima">Eje B: Caracterización de la victima y su contexto</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarconviviente">Eje C: Grupo Conviviente</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em"  href="agregarDelito">Eje D: Caracterización de delito</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarimputado">Eje E: Datos del imputado</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarOrganismo">Eje F: Atención del caso</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link "style="color:#4CAF50;font-size:1.1em"  href="agregaDocumentacion">Eje G: Documentación</a> </li></strong>
-<li class="nav-item"><strong> <a class="nav-link "style="color:#3490dc;font-size:1.1em"  href="home">Inicio</a> </li></strong>
+       <li class="nav-item"><strong> <a class="nav-link "style="color:#3490dc;font-size:1.1em"  href="home">Inicio</a> </li></strong>
+       <li class="nav-item"><strong> <a class="nav-link "style="color:#3490dc;font-size:1.1em"  href="paneldecontrol">Panel de Control</a> </li></strong>
+     </ul>
      </ul>
    </header>
    <body>

@@ -34,8 +34,9 @@ Route::post("/agregarCaso","CasoController@agregar");
 
 //---------Rutas FORMULARIO A (EDITAR CASOS AGREGADOS)-------------//
 Route::get("/detalleCaso/{id}", "CasoController@detalle");
+Route::post("/detalleCaso/{id}", "CasoController@detalle");
 Route::post("/detalleCaso", "CasoController@editar");
-Route::get("/detalleCaso/deleteCaso/{id}", "CasoController@eliminar");
+//Route::get("/detalleCaso/deleteCaso/{id}", "CasoController@eliminar");
 
 //---------Rutas FORMULARIO A (AGREGAR  PROFESIONAL)-------------//
 
@@ -93,6 +94,161 @@ Route::get("/detalleconviviente/deleteconviviente/{id}", "ConvivienteController@
 
 
 
+Route::get("/detalleagregarconviviente",function(){
+    $convivientes = App\Conviviente::all();
+
+  return view("detalleagregarconviviente",compact("convivientes"));
+});
+
+Route::get("/detalleagregarCaso",function(){
+  $delitos = App\Delito::all();
+  //dd($delitos);
+  $cavajs = App\Cavaj::all();
+   $usuarios = App\Usuario::all();
+  $organismos = App\Organismo::all();
+  $departamentos = App\Departamento::all();
+  return view("detalleagregarCaso", compact("delitos", "cavajs","usuarios","organismos","departamentos"));
+
+
+});
+
+Route::post("/detalleagregarCaso","CasoController@agregar");
+//---------Rutas FORMULARIO A (EDITAR CONVIVIENTES AGREGADOS )-------------//
+Route::post("/agregarconviviente","ConvivienteController@agregar");
+
+Route::get("/detalleagregarPersona",function(){
+    $personas = App\Persona::all();
+
+  return view("detalleagregarPersona",compact("personas"));
+});
+//---------Rutas FORMULARIO A (EDITAR CONVIVIENTES AGREGADOS )-------------//
+Route::post("/agregarPersona","PersonaController@agregar");
+
+Route::get("/detalleagregarDocumento",function(){
+    $documentos = App\Documento::all();
+
+  return view("detalleagregarDocumento",compact("documentos"));
+});
+//---------Rutas FORMULARIO A (EDITAR CONVIVIENTES AGREGADOS )-------------//
+Route::post("/agregarDocumento","DocumentoController@agregar");
+
+Route::get("/index",function(){
+
+
+  return view("index");
+});
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get("/detalleagregarProfesional",function(){
+    $profesionales = App\Profesional::all();
+      $usuarios = App\Usuario::all();
+
+  return view("detalleagregarProfesional",compact("profesionales","usuarios"));
+});
+//---------Rutas FORMULARIO A (EDITAR CONVIVIENTES AGREGADOS )-------------//
+Route::post("/detalleagregarProfesional","ProfesionalController@agregar");
+
+
+
+
+
+
+
+
+
+
+Route::get("/detalleagregarimputado",function(){
+    $imputados = App\Imputado::all();
+
+  return view("agregarimputado",compact("imputados"));
+});
+//---------Rutas FORMULARIO A (EDITAR CONVIVIENTES AGREGADOS )-------------//
+Route::post("/detalleagregarimputado","ImputadoController@agregar");
+
+Route::get("/detalleagregarVictima",function(){
+    $victimas = App\Victim::all();
+    $victims = App\Victim::all();
+    $necesidades = App\Necesidad::all();
+    $programas = App\Programa::all();
+    $discapacidades = App\Discapacidad::all();
+    $limitaciones = App\Limitacion::all();
+
+
+  return view("detalleagregarVictima",compact("victimas","victims","necesidades", "programas","discapacidades","limitaciones"));
+});
+//---------Rutas FORMULARIO A (EDITAR CONVIVIENTES AGREGADOS )-------------//
+Route::post("/agregarVictima","VictimController@agregar");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get("/casoconviviente",function(){
+$convivientes = App\Conviviente::all();
+
+  return view("casoconviviente",compact("convivientes"));
+});
+
+Route::get("/casovictima",function(){
+$victimas = App\Victim::all();
+
+  return view("casovictima",compact("victimas"));
+});
+
+Route::get("/casopersona",function(){
+$personas = App\Persona::all();
+
+  return view("casopersona",compact("personas"));
+});
+
+Route::get("/casoprofesional",function(){
+$profesionales = App\Profesional::all();
+
+  return view("casoprofesional",compact("profesionales"));
+});
+
+
+
+
+Route::get("/paneldecontrol/{id}",function($id){
+  $delitos = App\Delito::all();
+  $cavajs = App\Cavaj::all();
+  $usuarios = App\Usuario::all();
+  $caso = App\Caso::find($id);
+  session(["idCaso" => $id]);
+  //$vac = compact("caso","delitos","cavajs","usuarios");
+
+$imputados = App\Imputado::all();
+$convivientes = App\Conviviente::all();
+$victimas=App\Victim::all();
+$personas=App\Persona::all();
+$profesionales=App\Profesional::all();
+
+  return view("paneldecontrol",compact("imputados","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios"));
+});
+
 //---------FIN FORMULARIO A (AGREGAR CASOS)-------------//
 
 
@@ -115,30 +271,18 @@ Route::get("/agregarVictima",function(){
 //---------Rutas FORMULARIO B (EDITAR VICTIMAS AGREGADAS)-------------//
 Route::post("/agregarVictima","VictimController@agregar");
 Route::get("/detallevictima/{id}", "VictimController@detalle");
-Route::post("/detallevictima", "VictimController@editar");
+Route::post("/detallevictima/{id}", "VictimController@editar");
 Route::get("/detallevictima/deletevictima/{id}", "VictimController@eliminar");
 
-Route::get("/detallevictima/{id}",function(){
-  $necesidades = App\Necesidad::all();
-  $programas = App\Programa::all();
-  $discapacidades = App\Discapacidad::all();
-  $limitaciones = App\Limitacion::all();
-  $victims= App\Victim::all();
-  $ultimoid=App\Caso::where("usuarios","=","2")->max('id');
-  // al Model Caso le pido de la columna usuarios todas las filas que coinciden con el usuario autenticado y cuyo id sea el máxima (o sea el último),
-  //cuando va por Get a agregarConviviente le pasa a la vista ese valor $ultimoid
-  //2=AUTH, USUARIO AUTENTICADO
 
-  return view("detallevictima", compact("necesidades","programas","discapacidades","limitaciones","victims","ultimoid"));
-});
 
 
 //---------HOME VISTA DEL BUSCADOR)-------------//
-Route::get("/home",function(){
+Route::get("/inicio",function(){
 
     $casos = App\Caso::all();
 
-    return view("home",compact("casos"));
+    return view("inicio",compact("casos"));
 });
 
 Route::get("/search", "CasoController@search");
@@ -166,15 +310,15 @@ Route::get("/detalleimputado/deleteimputado/{id}", "ImputadoController@eliminar"
 
 
 //---------Rutas FORMULARIO F (AGREGAR ORGANISMOS)-------------//
-
 Route::get("/agregarOrganismo",function(){
+  $oprevios = App\Oprevio::all();
+  $oarticulas = App\Oarticula::all();
+  $socioeconomicos = App\Socioeconomico::all();
+
+  $victimas= App\Victim::all();
 
 
-  $ultimoid=App\Caso::where("usuarios","=","2")->max('id');
-  // al Model Caso le pido de la columna usuarios todas las filas que coinciden con el usuario autenticado y cuyo id sea el máxima (o sea el último),
-  //cuando va por Get a agregarPersona le pasa a la vista ese valor $ultimoid
-  //2=AUTH, USUARIO AUTENTICADO
-  return view("agregarOrganismo",compact("ultimoid"));
+  return view("agregarOrganismo", compact("oprevios","oarticulas","socioeconomicos","victimas"));
 });
 //---------Rutas FORMULARIO F (EDITAR ORGANISMO AGREGADO)-------------//
 Route::post("/agregarOrganismo","InstitucionController@agregar");
@@ -183,6 +327,18 @@ Route::post("/detalleOrganismo", "InstitucionController@editar");
 Route::get("/detalleOrganismo/deleteOrganismo/{id}", "InstitucionController@eliminar");
 
 //---------FIN FORMULARIO F-------------//
+
+
+Route::get("/detalleagregarOrganismo",function(){
+  $oprevios = App\Oprevio::all();
+  $oarticulas = App\Oarticula::all();
+  $socioeconomicos = App\Socioeconomico::all();
+
+  $victimas= App\Victim::all();
+
+
+  return view("detalleagregarOrganismo", compact("oprevios","oarticulas","socioeconomicos","victimas"));
+});
 //-----AGREGAR DELITO D----------------//
 Route::get("/agregarDelito",function(){
 
@@ -193,6 +349,15 @@ Route::get("/agregarDelito",function(){
   //2=AUTH, USUARIO AUTENTICADO
   return view("agregarDelito",compact("imputados","ultimoid"));
 });
+Route::get("/agregarDocumento",function(){
+    $documentos = App\Documento::all();
+
+
+  return view("agregarDocumento",compact("documentos"));
+});
+//---------Rutas FORMULARIO E (EDITAR IMPUTADOS AGREGADOS)-------------//
+Route::post("/agregarDocumento","DocumentoController@agregar");
+Route::get("/detalleDocumento/deleteDocumento/{id}", "DocumentoController@eliminar");
 
 
 
@@ -200,6 +365,8 @@ Route::get("/agregarDelito",function(){
 
 
 
+
+Auth::routes();
 
 //------------FIN DELITO D----------------//
 
@@ -213,9 +380,8 @@ Route::get("/agregarDelito",function(){
 
 Route::post("/agregarOrganismoF","OrganismoController@agregar");
 
-Route::get("/apitest", function () {
-  $apiCall = curl_init("https://mapa2.electoral.gov.ar/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&authkey=588d0f7e0e7b2096542b6458c557dacb&typeName=descargas:circuito_05&maxFeatures=2000&outputFormat=application%2Fjson");
-	curl_setopt($apiCall, CURLOPT_RETURNTRANSFER, 1);
+/*Route::get("/apitest", function () {
+agreg	curl_setopt($apiCall, CURLOPT_RETURNTRANSFER, 1);
 	$apiOutput = curl_exec($apiCall);
 	curl_close($apiCall);
   $result = json_decode($apiOutput, true);
@@ -231,4 +397,8 @@ Route::get("/apitest", function () {
   }
 
   return view("testApi", compact("arrayParaLaVista"));
-});
+});*/
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

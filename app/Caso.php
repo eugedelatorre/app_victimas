@@ -26,7 +26,9 @@ class Caso extends Model
   public function cavajsIds() {
     return $this->cavajs->pluck("id");
   }
-
+  public function convivientes() {
+    return $this->hasMany(Conviviente::class,"IdCaso");
+  }
 
 
 }

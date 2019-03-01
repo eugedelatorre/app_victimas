@@ -32,19 +32,18 @@ class ConvivienteController extends Controller
   }
 
   public function detalle($id) {
-
+      $convivientes=Conviviente::all();
       $conviviente = Conviviente::find($id);
-
-
-      $vac = compact("conviviente");
-
+      $vac = compact("conviviente","convivientes");
       return view("detalleconviviente", $vac);
     }
 
     public function eliminar($id) {
+
       $conviviente = Conviviente::find($id);
       $conviviente->delete();
-        return redirect("agregarconviviente");
+      $idCaso = session("idCaso");
+      return redirect("/paneldecontrol/$idCaso");
 
     }
     public function editar(Request $form) {
@@ -60,7 +59,7 @@ class ConvivienteController extends Controller
         $conviviente->idCaso= $form ["idCaso"];
 
              $conviviente->save();
-              return redirect("home");}
+             return redirect("paneldecontrol/{$conviviente->idCaso}");}
 
 
 

@@ -21,13 +21,14 @@ session_start();
    </head>
    <header>
      <ul class="nav nav-tabs">
-        <li class="nav-item"> <strong><a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarCaso">Eje A: Datos institucionales</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link "  style="color:#4CAF50;font-size:1.1em" href="agregarVictimaB">Eje B: Caracterización de la victima y su contexto</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarConvivienteC">Eje C: Grupo Conviviente</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em"  href="agregarDelitoD">Eje D: Caracterización de delito</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarImputadoE">Eje E: Datos del imputado</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link " style="color:black;font-size:1.1em" href="#">Eje F: Atención del caso</a> </li></strong>
-        <li class="nav-item"><strong> <a class="nav-link "style="color:#4CAF50;font-size:1.1em"  href="agregaDocumentacionG">Eje G: Documentación</a> </li></strong>
+        <li class="nav-item"> <strong><a class="nav-link " style="color:black;font-size:1.1em" href="agregarCaso">Eje A: Datos institucionales</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link "  style="color:#4CAF50;font-size:1.1em" href="agregarVictima">Eje B: Caracterización de la victima y su contexto</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarconviviente">Eje C: Grupo Conviviente</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em"  href="agregarDelito">Eje D: Caracterización de delito</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="agregarimputado">Eje E: Datos del imputado</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link " style="color:#4CAF50;font-size:1.1em" href="#">Eje F: Atención del caso</a> </li></strong>
+        <li class="nav-item"><strong> <a class="nav-link "style="color:#4CAF50;font-size:1.1em"  href="agregarDocumento">Eje G: Documentación</a> </li></strong>
+<li class="nav-item"><strong> <a class="nav-link "style="color:#3490dc;font-size:1.1em"  href="home">Inicio</a> </li></strong>
      </ul>
    </header>
    <body>
@@ -38,7 +39,7 @@ session_start();
            <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
 
   <div class="form-group">
-  {{ $errors->has('organismos_intervinieron') ? 'has-error' : ''}}
+
 
      <label for="modalidad_ingreso">F 1.¿intervinieron otros organismos previamente?</label>
      <select class="form-control" name="organismos_intervinieron" id="organismos_intervinieron" onChange="selectOnChangeF1(this)" >
@@ -47,59 +48,15 @@ session_start();
         <option value="2" >NO.Intervino solo el organismo que derivó </option>
      </select><br>
 
-
-
-     {!! $errors->first('organismos_intervinieron', '<p class="help-block" style="color:red";>:message</p>') !!}
 <div class="organismos_previos_si" id="organismos_previos_si" style="display:none">
-     <input type="checkbox" value="5" class="form-check-inline" name="organismos_previos[]" id="1">
-     <label for="ANSES" class="form-check-inline form-check-label">ANSES</label><br>
+  @foreach ($oprevios as $oprevio)
+      <label class="form-check-inline form-check-label">
 
+        <input type="checkbox" value="{{ $oprevio->id }}" class="form-check-inline" name="oprevios[]">
 
-     <input type="checkbox"  value="1" class="form-check-inline" name="organismos_previos[]" id="2">
-     <label for="Fiscalía" class="form-check-inline form-check-label">Fiscalía</label><br>
-
-     <input type="checkbox" value="2" class="form-check-inline" name="organismos_previos[]" id="3">
-     <label for="juzgado" class="form-check-inline form-check-label">juzgado</label> <br>
-
-     <input type="checkbox"  value="3" class="form-check-inline" name="organismos_previos[]" id="4">
-     <label for="Estado en tu barrio" class="form-check-inline form-check-label">Estado en tu barrio</label><br>
-
-     <input type="checkbox" value="4" class="form-check-inline" name="organismos_previos[]" id="5">
-     <label for="Centro de Acceso a Justicia (CAJ)" class="form-check-inline form-check-label">Centro de Acceso a Justicia (CAJ)</label><br>
-
-
-
-     <input type="checkbox" value="6" class="form-check-inline" name="organismos_previos[]" id="6">
-     <label for="Otro CAVAJ" class="form-check-inline form-check-label">Otro CAVAJ</label><br>
-
-
-     <input type="checkbox" value="7"  class="form-check-inline" name="organismos_previos[]" id="7">
-     <label for="Organismo Provincial de Niñez y Adolescencia" class="form-check-inline form-check-label">Organismo Provincial de Niñez y Adolescencia</label><br>
-
-     <input type="checkbox"  value="8"  class="form-check-inline" name="organismos_previos[]" id="8">
-     <label for="cPrograma Provincial Cerca de Noche" class="form-check-inline form-check-label">Programa Provincial Cerca de Noche</label><br>
-
-     <input type="checkbox" value="9" class="form-check-inline" name="organismos_previos[]" id="9">
-     <label for="Dirección Provincial de Equidad de Género y Diversidad Sexual" class="form-check-inline form-check-label">Dirección Provincial de Equidad de Género y Diversidad Sexual</label><br>
-
-     <input type="checkbox" value="10"  class="form-check-inline" name="organismos_previos[]" id="10">
-     <label for="Registro Provincial de Información de Personas Menores de Edad Extraviadas (REPIPME)" class="form-check-inline form-check-label">Registro Provincial de Información de Personas Menores de Edad Extraviadas (REPIPME)</label><br>
-
-     <input type="checkbox" value="11" class="form-check-inline" name="organismos_previos[]" id="11">
-     <label for="Dirección Provincial de Salud Mental y Adicciones" class="form-check-inline form-check-label">Dirección Provincial de Salud Mental y Adicciones</label><br>
-
-     <input type="checkbox" value="12" class="form-check-inline" name="organismos_previos[]" id="12">
-     <label for="Policía Federal" class="form-check-inline form-check-label">Policía Federal</label><br>
-
-     <input type="checkbox" value="13" class="form-check-inline" name="organismos_previos[]" id="13">
-     <label for="Policía Bonaerense" class="form-check-inline form-check-label">Policía Bonaerense</label><br>
-
-     <input type="checkbox" value="14" class="form-check-inline" name="organismos_previos[]" id="14">
-     <label for="Policía Local" class="form-check-inline form-check-label">Policía Local</label><br>
-
-     <input type="checkbox" value="15" class="form-check-inline" name="organismos_previos[]" id="15">
-     <label for="Policía Metropolitana" class="form-check-inline form-check-label">Policía Metropolitana</label><br>
-
+        {{ $oprevio->nombre }}
+      </label><br>
+  @endforeach
      <input type="checkbox" value="16" class="form-check-inline" name="organismos_previos[]"  id="checkeadoF1"  onclick="muestroCualF1()">
      <label for="otro" class="form-check-inline form-check-label" >otro</label><br>
 </div>
@@ -191,21 +148,13 @@ session_start();
             <div id="socioeco" style="display:none">
                <label>F 2I. Tipo de asistencia socioeconómica:</label>
                <label for="">En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
-               <input type="checkbox" value="1" class="form-check-inline" name="tipo_asistencia_socioeconomica[]" id="Salud">
+               @foreach ($socioeconomicos as $socioeconomico)
+                   <label class="form-check-inline form-check-label">
 
-               <label for="Salud" class="form-check-inline form-check-label">Salud</label><br>
-               <input type="checkbox" value="2" class="form-check-inline" name="tipo_asistencia_socioeconomica[]" id="Educacion">
+                     <input type="checkbox" value="{{ $socioeconomico->id }}" class="form-check-inline" name="socioeconomicos[]">
 
-               <label for="Educacion" class="form-check-inline form-check-label">Educación</label> <br>
-               <input type="checkbox" value="3" class="form-check-inline" name="tipo_asistencia_socioeconomica[]" id="Trabajo">
-
-               <label for="trabajo" class="form-check-inline form-check-label">Trabajo</label><br>
-               <input type="checkbox" value="4" class="form-check-inline" name="tipo_asistencia_socioeconomica[]" id="Vivienda">
-
-               <label for="vivienda" class="form-check-inline form-check-label">Vivienda</label><br>
-               <input type="checkbox" value="5" class="form-check-inline" name="tipo_asistencia_socioeconomica[]" id="Vincular">
-
-               <label for="vincular" class="form-check-inline form-check-label">Vincular</label><br>
+                     {{ $socioeconomico->nombre }}
+               @endforeach
                <input type="checkbox" value="6" class="form-check-inline" name="tipo_asistencia_socioeconomica[]"  id="checkeadoF2I"  onclick="muestroCualF2I()">
 
                <label for="otro" class="form-check-inline form-check-label" >otro</label><br>
@@ -220,65 +169,15 @@ session_start();
                   <label>F 4. Organismos con los que se articula actualmente:</label>
                   <label for="">En caso de requerir, tildar todas las opciones que considere correspondientes.</label><br>
                   <div class="Auno">
-                     <input type="checkbox" value="1" class="form-check-inline" name="organismos_actuales[]" id="Colegio_de_Abogados">
-                     <label for="Colegio_de_Abogados" class="form-check-inline form-check-label">Colegio de Abogados</label><br>
+                    @foreach ($oarticulas as $oarticula)
+                        <label class="form-check-inline form-check-label">
 
-                     <input type="checkbox" value="2" class="form-check-inline" name="organismos_actuales[]" id="Abogado_particular">
-                     <label for="Abogado_particular" class="form-check-inline form-check-label">Abogado Particular</label> <br>
+                          <input type="checkbox" value="{{ $oarticula->id }}" class="form-check-inline" name="oarticulas[]">
 
-                     <input type="checkbox" value="3" class="form-check-inline" name="organismos_actuales[]" id="Fiscalia">
-                     <label for="Fiscalia" class="form-check-inline form-check-label">Fiscalía</label><br>
+                          {{ $oarticula->nombre }}
+                        </label><br>
+                    @endforeach
 
-                     <input type="checkbox" value="4" class="form-check-inline" name="organismos_actuales[]" id="Juzgado_de_paz">
-                     <label for="Juzgado_de_paz" class="form-check-inline form-check-label">Juzgado de Paz</label><br>
-
-                     <input type="checkbox" value="5" class="form-check-inline" name="organismos_actuales[]" id="Juzgado_de_familia">
-                     <label for="Juzgado_de_familia" class="form-check-inline form-check-label">Juzgado de Familia</label><br>
-
-                     <input type="checkbox" value="6" class="form-check-inline" name="organismos_actuales[]" id="casa_de_justicia(ministerio_publico)">
-                     <label for="Casa_de_justicia(ministerio_publico)" class="form-check-inline form-check-label">Casa de Justicia(Ministerio Público)</label><br>
-
-                     <input type="checkbox" value="7" class="form-check-inline" name="organismos_actuales[]" id="consultorio_juridico_gratuito">
-                     <label for="consultorio_juridico_gratuito" class="form-check-inline form-check-label">Consultorio Jurídico Gratuito</label><br>
-
-                     <input type="checkbox" value="8" class="form-check-inline" name="organismos_actuales[]" id="Estado en tu barrio">
-                     <label for="Estado en tu barrio" class="form-check-inline form-check-label">Estado en tu barrio</label><br>
-
-                     <input type="checkbox" value="9" class="form-check-inline" name="organismos_actuales[]" id="Centro de Acceso a Justicia (CAJ)">
-                     <label for="Centro de Acceso a Justicia (CAJ)" class="form-check-inline form-check-label">Centro de Acceso a Justicia (CAJ)</label><br>
-
-                     <input type="checkbox" value="10" class="form-check-inline" name="organismos_actuales[]" id="ANSES">
-                     <label for="ANSES" class="form-check-inline form-check-label">ANSES</label><br>
-
-                     <input type="checkbox" value="11" class="form-check-inline" name="organismos_actuales[]" id="Otro CAVAJ">
-                     <label for="Otro CAVAJ" class="form-check-inline form-check-label">Otro CAVAJ</label><br>
-
-                     <input type="checkbox" value="12" class="form-check-inline" name="organismos_actuales[]" id="Organismo Provincial de Niñez y Adolescencia">
-                     <label for="Organismo Provincial de Niñez y Adolescencia" class="form-check-inline form-check-label">Organismo Provincial de Niñez y Adolescencia</label><br>
-
-                     <input type="checkbox" value="13" class="form-check-inline" name="organismos_actuales[]" id="Programa Provincial Cerca de Noche">
-                     <label for="cPrograma Provincial Cerca de Noche" class="form-check-inline form-check-label">Programa Provincial Cerca de Noche</label><br>
-
-                     <input type="checkbox" value="14" class="form-check-inline" name="organismos_actuales[]" id="Dirección Provincial de Equidad de Género y Diversidad Sexual">
-                     <label for="Dirección Provincial de Equidad de Género y Diversidad Sexual" class="form-check-inline form-check-label">Dirección Provincial de Equidad de Género y Diversidad Sexual</label><br>
-
-                     <input type="checkbox" value="15" class="form-check-inline" name="organismos_actuales[]" id="Registro Provincial de Información de Personas Menores de Edad Extraviadas (REPIPME)">
-                     <label for="Registro Provincial de Información de Personas Menores de Edad Extraviadas (REPIPME)" class="form-check-inline form-check-label">Registro Provincial de Información de Personas Menores de Edad Extraviadas (REPIPME)</label><br>
-
-                     <input type="checkbox" value="16" class="form-check-inline" name="organismos_actuales[]" id="Dirección Provincial de Salud Mental y Adicciones">
-                     <label for="Dirección Provincial de Salud Mental y Adicciones" class="form-check-inline form-check-label">Dirección Provincial de Salud Mental y Adicciones</label><br>
-
-                     <input type="checkbox" value="17" class="form-check-inline" name="organismos_actuales[]" id="Policía Federal">
-                     <label for="Policía Federal" class="form-check-inline form-check-label">Policía Federal</label><br>
-
-                     <input type="checkbox" value="18" class="form-check-inline" name="organismos_actuales[]" id="Policía Bonaerense">
-                     <label for="Policía Bonaerense" class="form-check-inline form-check-label">Policía Bonaerense</label><br>
-
-                     <input type="checkbox" value="19" class="form-check-inline" name="organismos_actuales[]" id="Policía Local">
-                     <label for="Policía Local" class="form-check-inline form-check-label">Policía Local</label><br>
-
-                     <input type="checkbox" value="20" class="form-check-inline" name="organismos_actuales[]" id="Policía Metropolitana">
-                     <label for="Policía Metropolitana" class="form-check-inline form-check-label">Policía Metropolitana</label><br>
 
                      <input type="checkbox" value="21" class="form-check-inline" name="organismos_actuales[]"  id="checkeadoF4"  onclick="muestroCualF4()">
                      <label for="otro" class="form-check-inline form-check-label" >otro</label><br>

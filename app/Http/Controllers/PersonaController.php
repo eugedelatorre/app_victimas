@@ -11,7 +11,7 @@ class PersonaController extends Controller
 public function agregar(Request $form){
 
 
-$reglas = [
+/*$reglas = [
   "nombre_persona_asistida"=>"required|string",
   "vinculo_persona_asistida"=>"required",
   "telefono_persona_asistida"=>"required|integer",
@@ -19,7 +19,7 @@ $reglas = [
   "localidad_persona_asistida"=>"required|string"];
 
 $this->validate($form,$reglas);
-
+*/
 $persona= new Persona();
 
 $persona->nombre_persona_asistida= $form ["nombre_persona_asistida"];
@@ -38,19 +38,17 @@ return redirect ("agregarPersona");
 
 
 public function detalle($id) {
-
     $persona = Persona::find($id);
-
-
-    $vac = compact("persona");
-
+    $personas = Persona::all();
+    $vac = compact("persona","personas");
     return view("detallePersona", $vac);
   }
 
   public function eliminar($id) {
     $persona = Persona::find($id);
     $persona->delete();
-      return redirect("agregarPersona");
+    $idCaso = session("idCaso");
+    return redirect("/paneldecontrol/$idCaso");
 
   }
 
@@ -67,7 +65,8 @@ public function detalle($id) {
 
 
      $persona->save();
-      return redirect("home");}
+     return redirect("paneldecontrol/{$persona->idCaso}");
+}
 
 
 }

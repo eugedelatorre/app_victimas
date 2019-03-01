@@ -48,6 +48,7 @@
               </ul>
           </div>
         @endif
+        <br>
 
          <form class="" action="/detalleProfesional" method="post">
                 {{csrf_field()}}
@@ -56,7 +57,7 @@
 
 
 
-
+<br><br>
                   <div class="form-group"{{ $errors->has('nombre_profesional_interviniente') ? 'has-error' : ''}}>
                     <h3>A 15. Profesional Interviniente:</h3>
                     <div class="form-group ">
@@ -132,7 +133,7 @@
             </div>
           </form>
 
-<div class="btn-4" style="width:11%;float:left;margin-left:40%"><input type ='button' style="width:100%" class="btn btn-danger col-xs" name="button" value = 'Eliminar' onclick="window.open('deleteProfesional/{{$profesional->id}}', 'width=800,height=600');"/></button><br><br></div>
+
 
       <script>
 

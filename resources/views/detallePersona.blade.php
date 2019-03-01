@@ -48,7 +48,7 @@
           </div>
         @endif
 
-         <form class="" action="/detallePersona" method="post">
+
                 {{csrf_field()}}
 
 
@@ -118,12 +118,13 @@
 
 
             <div class="botones" style="overflow:hidden;width:100%;margin-left:40%">
-          <div class="btn-4" style="width:11%;float:left;margin-left:0.1%"><input type ='submit' style="width:100%;background-color:green" class="btn btn col-xs" value = 'Editar' ></button><br><br></div>
+          <div class="btn-4" style="width:11%;float:left;margin-left:0.1%"><input type ='submit'style="width:100%;background-color:green" class="btn btn col-xs" value = 'Editar' >
+          </button><br><br></div>
 
             </div>
           </form>
 
-<div class="btn-4" style="width:11%;float:left;margin-left:40%"><input type ='button' style="width:100%" class="btn btn-danger col-xs" name="button" value = 'Eliminar' onclick="window.open('deletePersona/{{$persona->id}}', 'width=800,height=600');"/></button><br><br></div>
+
       </section>
 
       <script>
